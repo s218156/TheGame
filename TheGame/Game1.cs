@@ -69,5 +69,13 @@ namespace TheGame
             base.Draw(gameTime);
         }
 
+        public void ChangeResolution(bool isFullScreen, int height, int width)
+        {
+            _graphics.PreferredBackBufferWidth = width;
+            _graphics.PreferredBackBufferHeight = height;
+            _graphics.IsFullScreen=isFullScreen;
+            _graphics.ApplyChanges();
+        }
+
     }
 }

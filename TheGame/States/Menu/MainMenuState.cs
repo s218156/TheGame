@@ -35,6 +35,8 @@ namespace TheGame.States.Menu
 
 
             settingsButton.Click += SettingsButtonClick;
+            exitButton.Click += ExitButtonClick;
+            aboutButton.Click += AboutButtonClick;
             _components = new List<Component>()
             {
                 newGameButton,
@@ -68,7 +70,10 @@ namespace TheGame.States.Menu
             spriteBatch.End();
         }
 
-
+        private void AboutButtonClick(object sender, EventArgs e)
+        {
+            game.ChangeState(new AboutMenuState(game, graphics, content));
+        }
 
         private void ExitButtonClick(object sender, EventArgs e)
         {
@@ -77,7 +82,7 @@ namespace TheGame.States.Menu
 
         private void SettingsButtonClick(object sender, EventArgs e)
         {
-            game.ChangeState(new SettingsMenu(game, graphics, content));
+            game.ChangeState(new SettingsMenuState(game, graphics, content));
         }
     }
 }

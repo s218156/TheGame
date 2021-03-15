@@ -84,7 +84,6 @@ namespace TheGame.Mics
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                 {
                     Click?.Invoke(this, new EventArgs());
-                    Console.WriteLine("test");
                 }
             }
         }
