@@ -12,6 +12,7 @@ namespace TheGame.States
         protected ContentManager content;
         protected GraphicsDevice graphics;
         protected Game1 game;
+        public abstract void Initialize();
 
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
