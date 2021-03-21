@@ -13,6 +13,7 @@ namespace TheGame.Sprites
         private GraphicsDevice graphics;
         private bool moveToLeft, moveToRight;
         private List<Rectangle> _steps;
+        public List<Vector2> velocitieSteps;
         public GhostSprite(int type, GraphicsDevice graphics) : base(null, new Microsoft.Xna.Framework.Vector2(graphics.Viewport.Width / 2, graphics.Viewport.Height / 2))
         {
             this.type = type;
@@ -28,9 +29,11 @@ namespace TheGame.Sprites
         {
             this.type = 0;
             _steps = new List<Rectangle>();
+            velocitieSteps = new List<Vector2>();
             for(int i = 0; i < 5; i++)
             {
                 _steps.Add(player.rectangle);
+                velocitieSteps.Add(player.velocity);
             }
         }
 
@@ -63,6 +66,10 @@ namespace TheGame.Sprites
                 rectangle = _steps[0];
                 _steps.RemoveAt(0);
                 _steps.Add(player.rectangle);
+
+                velocity = velocitieSteps[0];
+                velocitieSteps.RemoveAt(0);
+                velocitieSteps.Add(player.velocity);
                 
 
             }
