@@ -9,16 +9,20 @@ using TheGame.Mics;
 
 namespace TheGame.Sprites
 {
-    class Player:Sprite
+    public class Player:Sprite
     {
+        public int points;
         private bool crouch;
+        
         public Player(Texture2D texture, Vector2 position) : base(texture, position)
         {
             crouch = false;
+            isOnLadder = false;
         }
 
         public override void Update(GameTime gameTime, Sprite player, TileMap map)
         {
+            IsOnLadder(map);
             GetMovementFormKeyboard();
             CrouchingInfluence();
             base.Update(gameTime, player,map);
@@ -31,10 +35,25 @@ namespace TheGame.Sprites
                 velocity.X = velocity.X - (int)velocity.X / 2;                
             }
         }
+
+        private void IsOnLadder(TileMap map)
+        {
+            isOnLadder = false;
+            foreach(Rectangle tmp in map.GetLadders())
+            {
+                if (rectangle.Intersects(tmp))
+                {
+                    isOnLadder = true;
+                }
+            }
+        }
         private void GetMovementFormKeyboard()
         {
             var keyState = Keyboard.GetState();
-
+            if ((keyState.IsKeyDown(Keys.W)) & isOnLadder)
+            {
+                velocity.Y--;
+            }
             if (keyState.IsKeyDown(Keys.D))
             {
                 velocity.X++;

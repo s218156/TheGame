@@ -5,6 +5,7 @@ using MonoGame.Extended.Tiled;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TheGame.Items;
 using TheGame.Mics;
 using TheGame.Sprites;
 
@@ -18,6 +19,7 @@ namespace TheGame.States
         private Camera _camera;
         private GhostSprite ghostSprite;
         private List<Paralax> _paralaxes;
+        private List<Item> _items;
         public Level1(Game1 game, GraphicsDevice graphics, ContentManager content):base(game,graphics,content)
         {
             Initialize();
@@ -34,8 +36,22 @@ namespace TheGame.States
             _sprites.Add(ghostSprite);
 
             _paralaxes = new List<Paralax>();
-            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level1/mountain"), graphics, Vector2.Zero, new Vector2((float)0.5,(float) 0.1));
+            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level1/mountain"), graphics, Vector2.Zero, new Vector2((float)0.5,(float) 0.9));
             _paralaxes.Add(p1);
+
+            _items = new List<Item>();
+            foreach(var tmp in map.GetCoins())
+            {
+                _items.Add(new Coin(content.Load<Texture2D>("Items/coin1"), new Rectangle((int)tmp.X,(int)tmp.Y,50,50), 1));
+            }
+            foreach (var tmp in map.GetLadders())
+            {
+                _items.Add(new Ladder(content.Load<Texture2D>("Items/ladder"), tmp));
+            }
+
+
+
+
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -45,9 +61,15 @@ namespace TheGame.States
             {
                 paralax.Draw(gameTime, spriteBatch);
             }
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, transformMatrix: _camera.Transform);
             foreach (Sprite sprite in _sprites)
             {
                 sprite.Draw(gameTime,spriteBatch);
+            }
+            foreach(Item item in _items)
+            {
+                item.Draw(gameTime, spriteBatch);
             }
             spriteBatch.End();
             map.Draw(_camera.Transform);
@@ -65,6 +87,10 @@ namespace TheGame.States
             foreach(var paralax in _paralaxes)
             {
                 paralax.Update(ghostSprite, graphics);
+            }
+            foreach(Item item in _items)
+            {
+                item.Update(gameTime, player);
             }
 
         }

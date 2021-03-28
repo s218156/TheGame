@@ -7,8 +7,9 @@ using TheGame.Mics;
 
 namespace TheGame.Sprites
 {
-    class Sprite
+    public abstract class Sprite
     {
+        protected bool isOnLadder;
         protected bool floorColision;
         protected bool jump;
         public Rectangle rectangle;
@@ -46,8 +47,10 @@ namespace TheGame.Sprites
 
         public void GravitySimulation()
         {
+            if (!isOnLadder)
+            {
                 velocity.Y++;
-
+            }
         }
         public void CheckEnviromentColision(TileMap map)
         {

@@ -16,8 +16,8 @@ namespace TheGame.Mics
             Vector2 size = new Vector2(graphics.Viewport.Width*(float)1.5, graphics.Viewport.Height*(float)2);
             this.selfSpeed = selfSpeed;
             this.relativeSpeed = relativeSpeed;
-            b[0] = new Background(texture, new Vector2( graphics.Viewport.Width*(float)(-0.25), graphics.Viewport.Height * (float)(-0.5)),size, false);
-            b[1] = new Background(texture, new Vector2(graphics.Viewport.Width*(float)1.25, graphics.Viewport.Height * (float)(-0.5)), size, true);
+            b[0] = new Background(texture, new Vector2( graphics.Viewport.Width*(float)(-0.25), graphics.Viewport.Height * (float)(-0.75)),size, false);
+            b[1] = new Background(texture, new Vector2(graphics.Viewport.Width*(float)1.25, graphics.Viewport.Height * (float)(-0.75)), size, true);
         }
 
         public void Update(Sprite player, GraphicsDevice graphics)
