@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Text;
 using TheGame.Items;
 using TheGame.Mics;
+using TheGame.Mics.GUI_components;
 using TheGame.Sprites;
+using TheGame.States.Menu;
 
 namespace TheGame.States
 {
@@ -20,7 +22,8 @@ namespace TheGame.States
         private GhostSprite ghostSprite;
         private List<Paralax> _paralaxes;
         private List<Item> _items;
-        public Level1(Game1 game, GraphicsDevice graphics, ContentManager content):base(game,graphics,content)
+        private GameUI gameUI;
+        public Level1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
         {
             Initialize();
         }
@@ -28,7 +31,7 @@ namespace TheGame.States
         public override void Initialize()
         {
             map = new TileMap(content.Load<TiledMap>("TileMaps//level1/testLevel1"), graphics);
-            player = new Player(content.Load<Texture2D>("Sprites/test-character"), Vector2.Zero);
+            player = new Player(content.Load<Texture2D>("Sprites/test-character"), map.spawnPosition,session.GetPlayerLives());
             _camera = new Camera();
             _sprites = new List<Sprite>();
             _sprites.Add(player);
@@ -49,6 +52,7 @@ namespace TheGame.States
                 _items.Add(new Ladder(content.Load<Texture2D>("Items/ladder"), tmp));
             }
 
+            gameUI = new GameUI(content);
 
 
 
@@ -71,8 +75,32 @@ namespace TheGame.States
             {
                 item.Draw(gameTime, spriteBatch);
             }
+            
             spriteBatch.End();
             map.Draw(_camera.Transform);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack);
+            gameUI.Draw(gameTime, spriteBatch, session);
+            spriteBatch.End();
+        }
+
+        public void UpdateSessionData()
+        {
+            session.UpdatePlayerPoints(player.points);
+            player.points = 0;
+
+            if (session.GetPlayerLives() > player.lifes)
+            {
+                session.SetPlayerLives(player.lifes);
+                if (player.lifes <= 0)
+                {
+                    game.ChangeState(new MainMenuState(game, graphics, content, null));
+                }
+                else
+                {
+                    Initialize();
+
+                }
+            }
         }
 
 
@@ -92,6 +120,10 @@ namespace TheGame.States
             {
                 item.Update(gameTime, player);
             }
+            UpdateSessionData();
+
+            gameUI.Update(gameTime);
+            
 
         }
     }

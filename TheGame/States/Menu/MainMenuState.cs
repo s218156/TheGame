@@ -15,7 +15,7 @@ namespace TheGame.States.Menu
 
         private List<Component> _components;
 
-        public MainMenuState(Game1 game, GraphicsDevice graphics, ContentManager content) : base(game, graphics, content)
+        public MainMenuState(Game1 game, GraphicsDevice graphics, ContentManager content,SessionData session) : base(game, graphics, content,session)
         {
             Initialize();
         }
@@ -84,7 +84,7 @@ namespace TheGame.States.Menu
 
         private void AboutButtonClick(object sender, EventArgs e)
         {
-            game.ChangeState(new AboutMenuState(game, graphics, content));
+            game.ChangeState(new AboutMenuState(game, graphics, content,null));
         }
 
         private void ExitButtonClick(object sender, EventArgs e)
@@ -94,12 +94,13 @@ namespace TheGame.States.Menu
 
         private void SettingsButtonClick(object sender, EventArgs e)
         {
-            game.ChangeState(new SettingsMenuState(game, graphics, content));
+            game.ChangeState(new SettingsMenuState(game, graphics, content,null));
         }
 
         private void NewGameButtonClick(object sender, EventArgs e)
         {
-            game.ChangeState(new Level1(game, graphics, content));
+            SessionData session = new SessionData();
+            game.ChangeState(new Level1(game, graphics, content,session));
         }
 
         

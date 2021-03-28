@@ -18,7 +18,7 @@ namespace TheGame.States.Menu
         private int[,] resolutionTable;
         private bool isFullScreen;
         
-        public SettingsMenuState(Game1 game, GraphicsDevice graphics, ContentManager content) : base(game, graphics, content)
+        public SettingsMenuState(Game1 game, GraphicsDevice graphics, ContentManager content,SessionData session) : base(game, graphics, content,session)
         {
             resolutionTable = new int[,] { { 640, 360 }, { 800, 450 }, { 1280, 720 }, { 1600, 900 }, { 1920, 1080 } };
             _components = new List<Component>();
@@ -64,13 +64,13 @@ namespace TheGame.States.Menu
         }
         private void backButtonClick(object sender, EventArgs e)
         {
-            game.ChangeState(new MainMenuState(game, graphics, content));
+            game.ChangeState(new MainMenuState(game, graphics, content,null));
         }
 
         private void ApplyButtonClick(object sender, EventArgs e)
         {
             game.ChangeResolution(isFullScreen, height, width);
-            game.ChangeState(new MainMenuState(game, graphics, content));
+            game.ChangeState(new MainMenuState(game, graphics, content,null));
         }
 
         private void ToogleFullScreenButtonClicked(object sender, EventArgs e)

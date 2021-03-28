@@ -13,16 +13,19 @@ namespace TheGame.Sprites
     {
         public int points;
         private bool crouch;
+        public int lifes;
         
-        public Player(Texture2D texture, Vector2 position) : base(texture, position)
+        public Player(Texture2D texture, Vector2 position,int lifes) : base(texture, position)
         {
             crouch = false;
             isOnLadder = false;
+            this.lifes = lifes;
         }
 
         public override void Update(GameTime gameTime, Sprite player, TileMap map)
         {
             IsOnLadder(map);
+            IsOnObstracles(map);
             GetMovementFormKeyboard();
             CrouchingInfluence();
             base.Update(gameTime, player,map);
@@ -44,6 +47,17 @@ namespace TheGame.Sprites
                 if (rectangle.Intersects(tmp))
                 {
                     isOnLadder = true;
+                }
+            }
+        }
+
+        private void IsOnObstracles(TileMap map)
+        {
+            foreach(var tmp in map.GetObstracles())
+            {
+                if (rectangle.Intersects(tmp))
+                {
+                    lifes--;
                 }
             }
         }

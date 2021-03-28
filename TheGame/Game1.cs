@@ -57,7 +57,7 @@ namespace TheGame
             _graphics.PreferredBackBufferHeight = screen.height;
             _graphics.IsFullScreen = screen.isFullScreen;
             _graphics.ApplyChanges();
-            _currentState = new MainMenuState(this, GraphicsDevice, Content);
+            _currentState = new MainMenuState(this, GraphicsDevice, Content,null);
             _camera = new Camera();
 
         }
@@ -71,7 +71,7 @@ namespace TheGame
             {
                 Thread.Sleep(200);
                 _gameState = _currentState;
-                _currentState = new PauseMenuState(this,GraphicsDevice,Content,_gameState);
+                _currentState = new PauseMenuState(this,GraphicsDevice,Content,_gameState,null);
             }
 
             screenHeight = _graphics.PreferredBackBufferHeight;

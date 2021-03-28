@@ -18,8 +18,9 @@ namespace TheGame.Mics
         public List<Rectangle> mapObjects;
         public List<Vector2> coins;
         public List<Rectangle> ladders;
-        Rectangle[] obstracles;
+        public List<Rectangle> obstracles;
         Rectangle[] Enemies;
+        public Vector2 spawnPosition;
         public TileMap(TiledMap map, GraphicsDevice graphics)
         {
             tMap = map;
@@ -60,6 +61,13 @@ namespace TheGame.Mics
                 ladders.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
             }
 
+            spawnPosition = new Vector2(tMap.GetLayer<TiledMapObjectLayer>("Spawn").Objects[0].Position.X, tMap.GetLayer<TiledMapObjectLayer>("Spawn").Objects[0].Position.Y);
+            objTmp = tMap.GetLayer<TiledMapObjectLayer>("Obstracles").Objects;
+            obstracles = new List<Rectangle>();
+            foreach (var tmp in objTmp)
+            {
+                obstracles.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+            }
         }
 
         public List<Rectangle> GetMapObjectList()
@@ -74,6 +82,10 @@ namespace TheGame.Mics
         public List<Rectangle> GetLadders()
         {
             return ladders;
+        }
+        public List<Rectangle> GetObstracles()
+        {
+            return obstracles;
         }
         
     }

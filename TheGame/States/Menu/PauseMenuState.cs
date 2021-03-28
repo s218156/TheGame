@@ -12,7 +12,7 @@ namespace TheGame.States.Menu
     {
         private State _previousState;
         private List<Component> _components;
-        public PauseMenuState(Game1 game, GraphicsDevice graphics, ContentManager content,State previousState):base(game,graphics,content)
+        public PauseMenuState(Game1 game, GraphicsDevice graphics, ContentManager content,State previousState,SessionData session):base(game,graphics,content,session)
         {
             this._previousState = previousState;
             Initialize();
@@ -83,7 +83,7 @@ namespace TheGame.States.Menu
 
         public void MainMenuButtonClicked(object sender, EventArgs e)
         {
-            game.ChangeState(new MainMenuState(game, graphics, content));
+            game.ChangeState(new MainMenuState(game, graphics, content,null));
         }
 
        

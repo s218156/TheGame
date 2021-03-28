@@ -4,12 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TheGame.Mics;
 
 namespace TheGame.States.Menu
 {
     class AboutMenuState : State
     {
-        public AboutMenuState(Game1 game, GraphicsDevice graphics, ContentManager content) : base(game, graphics, content)
+        public AboutMenuState(Game1 game, GraphicsDevice graphics, ContentManager content,SessionData session) : base(game, graphics, content,session)
         {
 
         }
