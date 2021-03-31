@@ -51,6 +51,11 @@ namespace TheGame.States
             {
                 _items.Add(new Ladder(content.Load<Texture2D>("Items/ladder"), tmp));
             }
+            foreach (var tmp in map.GetEnemies())
+            {
+                _sprites.Add(new Enemy(content.Load<Texture2D>("Sprites/test-character"), tmp));
+            }
+
 
             gameUI = new GameUI(content);
 

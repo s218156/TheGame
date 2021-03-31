@@ -15,6 +15,10 @@ namespace TheGame.Sprites
         public Rectangle rectangle;
         public Texture2D texture;
         public Vector2 velocity;
+        protected int lifePoints;
+        protected bool isAlive;
+        public int attacking;
+        public int hitPoints;
         public Sprite(Texture2D texture, Vector2 position)
         {
             this.texture = texture;
@@ -22,21 +26,62 @@ namespace TheGame.Sprites
             velocity = Vector2.Zero;
             floorColision = false;
             jump = false;
+            lifePoints = 100;
+            isAlive = true;
+            attacking = 0;
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rectangle, Color.White);
+            if (isAlive)
+            {
+                spriteBatch.Draw(texture, rectangle, Color.White);
+            }
+            
         }
         public virtual void Update(GameTime gameTime,Sprite player, TileMap map)
         {
-            FrictionCount();
-            GravitySimulation();
-            CheckEnviromentColision(map);
-            rectangle.X +=(int) velocity.X;
-            rectangle.Y += (int)velocity.Y;
-            
+            if (isAlive)
+            {
+                FrictionCount();
+                GravitySimulation();
+                IsOnObstracles(map);
+                CheckEnviromentColision(map);
+                rectangle.X += (int)velocity.X;
+                rectangle.Y += (int)velocity.Y;
 
+                if (attacking > 0)
+                {
+                    attacking--;
+                }
+
+                if (lifePoints <= 0)
+                {
+                    isAlive = false;
+                }
+            }        
+        }
+
+        public void IsUnderAttack(Sprite enemy)
+        {
+            if (rectangle.Intersects(enemy.rectangle))
+            {
+                if (enemy.attacking == 5)
+                {
+                    lifePoints -= enemy.hitPoints;
+                }
+            }
+        }
+
+        private void IsOnObstracles(TileMap map)
+        {
+            foreach (var tmp in map.GetObstracles())
+            {
+                if (rectangle.Intersects(tmp))
+                {
+                    lifePoints -= 100;
+                }
+            }
         }
 
         public void FrictionCount()

@@ -20,15 +20,23 @@ namespace TheGame.Sprites
             crouch = false;
             isOnLadder = false;
             this.lifes = lifes;
+            this.hitPoints = 100;
         }
 
         public override void Update(GameTime gameTime, Sprite player, TileMap map)
         {
-            IsOnLadder(map);
-            IsOnObstracles(map);
-            GetMovementFormKeyboard();
-            CrouchingInfluence();
-            base.Update(gameTime, player,map);
+            if (isAlive)
+            {
+                IsOnLadder(map);
+                GetMovementFormKeyboard(map);
+                CrouchingInfluence();
+                
+            }
+            else
+            {
+                lifes--;
+            }
+            base.Update(gameTime, player, map);
         }
 
         private void CrouchingInfluence()
@@ -51,19 +59,16 @@ namespace TheGame.Sprites
             }
         }
 
-        private void IsOnObstracles(TileMap map)
-        {
-            foreach(var tmp in map.GetObstracles())
-            {
-                if (rectangle.Intersects(tmp))
-                {
-                    lifes--;
-                }
-            }
-        }
-        private void GetMovementFormKeyboard()
+        
+
+        private void GetMovementFormKeyboard(TileMap map)
         {
             var keyState = Keyboard.GetState();
+            if (keyState.IsKeyDown(Keys.LeftControl))
+            {
+                attacking = 10;
+            }
+
             if ((keyState.IsKeyDown(Keys.W)) & isOnLadder)
             {
                 velocity.Y--;
@@ -93,13 +98,27 @@ namespace TheGame.Sprites
                 {
                     velocity.Y++;
                 }
-
             }
+
             if (keyState.IsKeyUp(Keys.S)&crouch)
             {
-                crouch = false;
-                rectangle.Y = rectangle.Y - 25;
-                rectangle.Height = rectangle.Height + 25;
+                Rectangle newRectangle = rectangle;
+                newRectangle.Height = rectangle.Height + 25;
+                newRectangle.Y-=27;
+
+                bool isColiding = false;
+                foreach(var obj in map.GetMapObjectList())
+                {
+                    if (newRectangle.Intersects(obj)){
+                        isColiding = true;
+                    }
+                }
+                if (!isColiding)
+                {
+                    crouch = false;
+                    rectangle.Y = rectangle.Y - 25;
+                    rectangle.Height = rectangle.Height + 25;
+                } 
             }
         }
     }
