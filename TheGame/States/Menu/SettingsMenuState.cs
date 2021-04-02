@@ -89,22 +89,23 @@ namespace TheGame.States.Menu
 
         public override void Initialize()
         {
+            Texture2D buttonTexture = content.Load<Texture2D>("gameUI/button");
             //Dodawanie przycisków powrotu i zastosowania zmian
             int x = (graphics.Viewport.Width / 10) * 8;
 
-            Button applyButton = new Button(content.Load<Texture2D>("Textures/Misc/Button"), content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(x, (graphics.Viewport.Height / 10) * 9 - (graphics.Viewport.Height / 20), (graphics.Viewport.Width / 11), (graphics.Viewport.Height / 10)), new string("Apply"));
+            Button applyButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(x, (graphics.Viewport.Height / 10) * 9 - (graphics.Viewport.Height / 20), (graphics.Viewport.Width / 11), (graphics.Viewport.Height / 10)), new string("Apply"));
             x += graphics.Viewport.Width / 10 + graphics.Viewport.Height / 11;
 
-            Button backButton = new Button(content.Load<Texture2D>("Textures/Misc/Button"), content.Load<SpriteFont>("Fonts/Basic"), new Rectangle((graphics.Viewport.Width / 10) * 9, (graphics.Viewport.Height / 10) * 9 - (graphics.Viewport.Height / 20), (graphics.Viewport.Width / 11), (graphics.Viewport.Height / 10)), new string("Back"));
+            Button backButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle((graphics.Viewport.Width / 10) * 9, (graphics.Viewport.Height / 10) * 9 - (graphics.Viewport.Height / 20), (graphics.Viewport.Width / 11), (graphics.Viewport.Height / 10)), new string("Back"));
 
             //Dodawanie przycisków ustawień
             int y;
             y = (graphics.Viewport.Height / 10) * 2;
 
-            resolutionButton = new Button(content.Load<Texture2D>("Textures/Misc/Button"), content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 4 * 2, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Resolution: " + width + " X " + height));
+            resolutionButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 4 * 2, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Resolution: " + width + " X " + height));
             y += graphics.Viewport.Height / 30 + graphics.Viewport.Height / 10;
 
-            toogleFullScreenButton = new Button(content.Load<Texture2D>("Textures/Misc/Button"), content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 4 * 2, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), null);
+            toogleFullScreenButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 4 * 2, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), null);
             if (isFullScreen)
             {
                 toogleFullScreenButton.caption = "Full Screen is ON";

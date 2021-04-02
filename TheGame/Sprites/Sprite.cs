@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TheGame.Animations;
 using TheGame.Mics;
 
 namespace TheGame.Sprites
@@ -18,8 +19,9 @@ namespace TheGame.Sprites
         protected int lifePoints;
         protected bool isAlive;
         public int attacking;
-        public int hitPoints;
-        public Sprite(Texture2D texture, Vector2 position)
+        public int hitPoints , deathTime;
+        private ItemAnimation deathAnimation;
+        public Sprite(Texture2D texture, Vector2 position,Texture2D deathTexture)
         {
             this.texture = texture;
             rectangle = new Rectangle((int)position.X, (int)position.Y, 100, 100);
@@ -29,6 +31,9 @@ namespace TheGame.Sprites
             lifePoints = 100;
             isAlive = true;
             attacking = 0;
+            deathTime = 0;
+            deathAnimation = new ItemAnimation(deathTexture, rectangle, 4, 2);
+            
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -37,11 +42,18 @@ namespace TheGame.Sprites
             {
                 spriteBatch.Draw(texture, rectangle, Color.White);
             }
+            else
+            {
+                if (deathTime < 80)
+                {
+                    deathAnimation.Draw(gameTime, spriteBatch);
+                }
+            }
             
         }
         public virtual void Update(GameTime gameTime,Sprite player, TileMap map)
         {
-            if (isAlive)
+            if ((isAlive)&(deathTime<=80))
             {
                 FrictionCount();
                 GravitySimulation();
@@ -58,8 +70,15 @@ namespace TheGame.Sprites
                 if (lifePoints <= 0)
                 {
                     isAlive = false;
+                    deathAnimation.UpdateRectangle(rectangle);
+                    velocity = Vector2.Zero;
                 }
-            }        
+            }
+            else
+            {
+                deathTime++;
+                deathAnimation.Update(gameTime);
+            }      
         }
 
         public void IsUnderAttack(Sprite enemy)
@@ -106,11 +125,11 @@ namespace TheGame.Sprites
             {
 
                 //kolizje po X
-                if (!(velocity.X == 0))
-                {
-                    if (velocity.X > 0)
+                //if (!(velocity.X == 0))
+                //{
+                    if (velocity.X >= 0)
                     {
-                        for (i = 1; i <= (int)velocity.X; i++)
+                        for (i = 0; i <= (int)velocity.X; i++)
                         {
                             if ((new Rectangle(rectangle.X + i, rectangle.Y , rectangle.Width, rectangle.Height).Intersects(obj)))
                             {
@@ -130,20 +149,21 @@ namespace TheGame.Sprites
                             }
                         }
                     }
-                }
+                //}
 
 
 
                 //kolizje po Y
-                if (!(velocity.Y == 0))
-                {
-                    if (velocity.Y > 0)
+                //if (!(velocity.Y == 0))
+                //{
+                    if (velocity.Y >= 0)
                     {
-                        for (i = 1; i <= (int)velocity.Y; i++)
+                        for (i = 0; i <= (int)velocity.Y; i++)
                         {
                             if ((new Rectangle(rectangle.X, rectangle.Y + i, rectangle.Width , rectangle.Height).Intersects(obj)))
                             {
                                 floorColision = true;
+                                jump = false;
                                 velocity.Y = i - 1;
 
                             }
@@ -163,7 +183,7 @@ namespace TheGame.Sprites
                         
                         
                     }
-                }
+                //}
                     
                 
                 

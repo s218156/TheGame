@@ -10,7 +10,7 @@ namespace TheGame.Sprites
 {
     class Enemy:Sprite
     {
-        public Enemy(Texture2D texture, Vector2 position) : base(texture, position)
+        public Enemy(Texture2D texture, Vector2 position,Texture2D deathTexture) : base(texture, position,deathTexture)
         {
             hitPoints = 10;
         }

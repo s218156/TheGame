@@ -15,12 +15,12 @@ namespace TheGame.Sprites
         private bool crouch;
         public int lifes;
         
-        public Player(Texture2D texture, Vector2 position,int lifes) : base(texture, position)
+        public Player(Texture2D texture, Vector2 position,Texture2D deathTexture, int lifes) : base(texture, position, deathTexture)
         {
             crouch = false;
             isOnLadder = false;
             this.lifes = lifes;
-            this.hitPoints = 100;
+            this.hitPoints = 20;
         }
 
         public override void Update(GameTime gameTime, Sprite player, TileMap map)
@@ -34,7 +34,11 @@ namespace TheGame.Sprites
             }
             else
             {
-                lifes--;
+                if (deathTime >= 80)
+                {
+                    lifes--;
+                }
+                
             }
             base.Update(gameTime, player, map);
         }
@@ -91,8 +95,8 @@ namespace TheGame.Sprites
                 if (floorColision&!crouch)
                 {
                     crouch = true;
-                    rectangle.Y = rectangle.Y + 25;
-                    rectangle.Height = rectangle.Height - 25;
+                    rectangle.Y = rectangle.Y + 35;
+                    rectangle.Height = rectangle.Height - 35;
                 }
                 else
                 {
@@ -103,8 +107,8 @@ namespace TheGame.Sprites
             if (keyState.IsKeyUp(Keys.S)&crouch)
             {
                 Rectangle newRectangle = rectangle;
-                newRectangle.Height = rectangle.Height + 25;
-                newRectangle.Y-=27;
+                newRectangle.Height = rectangle.Height + 35;
+                newRectangle.Y-=35;
 
                 bool isColiding = false;
                 foreach(var obj in map.GetMapObjectList())
@@ -116,8 +120,8 @@ namespace TheGame.Sprites
                 if (!isColiding)
                 {
                     crouch = false;
-                    rectangle.Y = rectangle.Y - 25;
-                    rectangle.Height = rectangle.Height + 25;
+                    rectangle.Y = rectangle.Y - 35;
+                    rectangle.Height = rectangle.Height + 35;
                 } 
             }
         }

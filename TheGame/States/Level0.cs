@@ -13,7 +13,7 @@ using TheGame.States.Menu;
 
 namespace TheGame.States
 {
-    class Level1 : State
+    class Level0 : State
     {
         private TileMap map;
         private Player player;
@@ -23,15 +23,15 @@ namespace TheGame.States
         private List<Paralax> _paralaxes;
         private List<Item> _items;
         private GameUI gameUI;
-        public Level1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
+        public Level0(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
         {
             Initialize();
         }
 
         public override void Initialize()
         {
-            map = new TileMap(content.Load<TiledMap>("TileMaps//level1/testLevel1"), graphics);
-            player = new Player(content.Load<Texture2D>("Sprites/test-character"), map.spawnPosition,session.GetPlayerLives());
+            map = new TileMap(content.Load<TiledMap>("TileMaps//level0/Level0-map"), graphics);
+            player = new Player(content.Load<Texture2D>("Sprites/player"), map.spawnPosition,content.Load<Texture2D>("textureEffects/whiteFogAnimation"),session.GetPlayerLives());
             _camera = new Camera();
             _sprites = new List<Sprite>();
             _sprites.Add(player);
@@ -39,13 +39,13 @@ namespace TheGame.States
             _sprites.Add(ghostSprite);
 
             _paralaxes = new List<Paralax>();
-            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level1/mountain"), graphics, Vector2.Zero, new Vector2((float)0.5,(float) 0.9));
+            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/background"), graphics, Vector2.Zero, new Vector2((float)0.5,(float) 0.9));
             _paralaxes.Add(p1);
 
             _items = new List<Item>();
             foreach(var tmp in map.GetCoins())
             {
-                _items.Add(new Coin(content.Load<Texture2D>("Items/coin1"), new Rectangle((int)tmp.X,(int)tmp.Y,50,50), 1));
+                _items.Add(new Coin(content.Load<Texture2D>("Items/coinAnimation"), new Rectangle((int)tmp.X,(int)tmp.Y,50,50), 1));
             }
             foreach (var tmp in map.GetLadders())
             {
@@ -53,7 +53,7 @@ namespace TheGame.States
             }
             foreach (var tmp in map.GetEnemies())
             {
-                _sprites.Add(new Enemy(content.Load<Texture2D>("Sprites/test-character"), tmp));
+                _sprites.Add(new Enemy(content.Load<Texture2D>("Sprites/test-character"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation")));
             }
 
 

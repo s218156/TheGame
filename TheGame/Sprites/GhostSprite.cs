@@ -14,7 +14,7 @@ namespace TheGame.Sprites
         private bool moveToLeft, moveToRight;
         private List<Rectangle> _steps;
         public List<Vector2> velocitieSteps;
-        public GhostSprite(int type, GraphicsDevice graphics) : base(null, new Microsoft.Xna.Framework.Vector2(graphics.Viewport.Width / 2, graphics.Viewport.Height / 2))
+        public GhostSprite(int type, GraphicsDevice graphics) : base(null, new Microsoft.Xna.Framework.Vector2(graphics.Viewport.Width / 2, graphics.Viewport.Height / 2),null)
         {
             this.type = type;
             this.graphics = graphics;
@@ -25,7 +25,7 @@ namespace TheGame.Sprites
                 moveToRight = true;
             }
         }
-        public GhostSprite(Sprite player):base(null,new Vector2(player.rectangle.X,player.rectangle.Y))
+        public GhostSprite(Sprite player):base(null,new Vector2(player.rectangle.X,player.rectangle.Y),null)
         {
             this.type = 0;
             _steps = new List<Rectangle>();
@@ -39,28 +39,6 @@ namespace TheGame.Sprites
 
         public override void Update(GameTime gameTime, Sprite player, TileMap map)
         {
-            if (type == 1)
-            {
-                if(rectangle.X==graphics.Viewport.Width/4 *2 )
-                {
-                    moveToRight = false;
-                    moveToLeft = true;
-                }
-                if (rectangle.X == graphics.Viewport.Width / 4)
-                {
-                    moveToRight = true;
-                    moveToLeft = false;
-                }
-                if (moveToRight)
-                {
-                    rectangle.X++;
-                }
-                if (moveToLeft)
-                {
-                    rectangle.X--;
-                }
-
-            }
             if (type == 0)
             {
                 rectangle = _steps[0];

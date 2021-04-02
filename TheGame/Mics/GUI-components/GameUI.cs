@@ -22,7 +22,7 @@ namespace TheGame.Mics.GUI_components
         public GameUI(ContentManager content)
         {
             lifeTexture = content.Load<Texture2D>("gameUI/heart");
-            coinTexture = content.Load<Texture2D>("Items/coin1");
+            coinTexture = content.Load<Texture2D>("gameUI/coin");
             boxTexture = content.Load<Texture2D>("gameUI/frame");
             boxRectangle = new Rectangle(0, 0, 300, 100);
             this.font = content.Load<SpriteFont>("Fonts/Basic");
@@ -31,7 +31,7 @@ namespace TheGame.Mics.GUI_components
         {
             spriteBatch.Draw(boxTexture, boxRectangle, Color.White);
             spriteBatch.Draw(coinTexture,new Rectangle(boxRectangle.X+25, boxRectangle.Y+25, 25, 25),Color.White);
-            spriteBatch.DrawString(font, session.GetPlayerPoints().ToString(), new Vector2(boxRectangle.X + 50, boxRectangle.Y + 25),Color.Yellow);
+            spriteBatch.DrawString(font, session.GetPlayerPoints().ToString(), new Vector2(boxRectangle.X + 60, boxRectangle.Y + 25),Color.Goldenrod);
 
             for(int i = 0; i < session.GetPlayerLives(); i++)
             {
