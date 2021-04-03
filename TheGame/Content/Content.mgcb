@@ -14,6 +14,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Backgrounds/Level0/background.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Level0/background.png
+
 #begin Backgrounds/Level1/mountain.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -32,6 +44,30 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Basic.spritefont
+
+#begin gameUI/button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:gameUI/button.png
+
+#begin gameUI/coin.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:gameUI/coin.png
 
 #begin gameUI/frame.png
 /importer:TextureImporter
@@ -57,7 +93,7 @@
 /processorParam:TextureFormat=Color
 /build:gameUI/heart.png
 
-#begin Items/coin1.png
+#begin Items/coinAnimation.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -67,7 +103,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Items/coin1.png
+/build:Items/coinAnimation.png
 
 #begin Items/ladder.png
 /importer:TextureImporter
@@ -81,6 +117,42 @@
 /processorParam:TextureFormat=Color
 /build:Items/ladder.png
 
+#begin Sprites/player.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/player.png
+
+#begin Sprites/playerAnimation.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/playerAnimation.png
+
+#begin Sprites/snailAnimation.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/snailAnimation.png
+
 #begin Sprites/test-character.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -93,7 +165,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/test-character.png
 
-#begin Textures/Misc/Button.png
+#begin textureEffects/whiteFogAnimation.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -103,7 +175,24 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures/Misc/Button.png
+/build:textureEffects/whiteFogAnimation.png
+
+#begin TileMaps/Level0/level0-map.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:TileMaps/Level0/level0-map.tmx
+
+#begin TileMaps/Level0/textures/grass-tiles.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TileMaps/Level0/textures/grass-tiles.png
 
 #begin TileMaps/Level1/big_spikes1.png
 /importer:TextureImporter
@@ -181,4 +270,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TileMaps/Level1/trees.png
+
+#begin TileMaps/textures/mapTextures.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TileMaps/textures/mapTextures.png
 

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 
 using System.Text;
+using TheGame.Animations;
 using TheGame.Mics;
 
 namespace TheGame.Sprites
@@ -15,20 +16,33 @@ namespace TheGame.Sprites
         private bool crouch;
         public int lifes;
         
-        public Player(Texture2D texture, Vector2 position,int lifes) : base(texture, position)
+        public Player(Texture2D texture, Vector2 position,Texture2D deathTexture, int lifes) : base(position, deathTexture)
         {
+            this.texture = new BasicSpriteAnimation(texture, rectangle);
             crouch = false;
             isOnLadder = false;
             this.lifes = lifes;
+            this.hitPoints = 20;
         }
 
-        public override void Update(GameTime gameTime, Sprite player, TileMap map)
+        public override void Update(GameTime gameTime, Player player, TileMap map)
         {
-            IsOnLadder(map);
-            IsOnObstracles(map);
-            GetMovementFormKeyboard();
-            CrouchingInfluence();
-            base.Update(gameTime, player,map);
+            if (isAlive)
+            {
+                IsOnLadder(map);
+                GetMovementFormKeyboard(map);
+                CrouchingInfluence();
+                
+            }
+            else
+            {
+                if (deathTime >= 80)
+                {
+                    lifes--;
+                }
+                
+            }
+            base.Update(gameTime, player, map);
         }
 
         private void CrouchingInfluence()
@@ -51,19 +65,32 @@ namespace TheGame.Sprites
             }
         }
 
-        private void IsOnObstracles(TileMap map)
+        public void ColisionWithMovingBug(MovingBug bug, Vector2 bugVelocity, int bugHitPoints)
         {
-            foreach(var tmp in map.GetObstracles())
+
+            if (isAlive)
             {
-                if (rectangle.Intersects(tmp))
+                if (velocity.Y > 0)
                 {
-                    lifes--;
+                    bug.AttackedByPlayer();
+                }
+                else
+                {
+                    lifePoints -= bugHitPoints;
+                    velocity.X = bugVelocity.X * 5;
+                    velocity.Y = -25;
                 }
             }
         }
-        private void GetMovementFormKeyboard()
+
+        private void GetMovementFormKeyboard(TileMap map)
         {
             var keyState = Keyboard.GetState();
+            if (keyState.IsKeyDown(Keys.LeftControl))
+            {
+                attacking = 10;
+            }
+
             if ((keyState.IsKeyDown(Keys.W)) & isOnLadder)
             {
                 velocity.Y--;
@@ -86,20 +113,34 @@ namespace TheGame.Sprites
                 if (floorColision&!crouch)
                 {
                     crouch = true;
-                    rectangle.Y = rectangle.Y + 25;
-                    rectangle.Height = rectangle.Height - 25;
+                    rectangle.Y = rectangle.Y + 35;
+                    rectangle.Height = rectangle.Height - 35;
                 }
                 else
                 {
                     velocity.Y++;
                 }
-
             }
+
             if (keyState.IsKeyUp(Keys.S)&crouch)
             {
-                crouch = false;
-                rectangle.Y = rectangle.Y - 25;
-                rectangle.Height = rectangle.Height + 25;
+                Rectangle newRectangle = rectangle;
+                newRectangle.Height = rectangle.Height + 35;
+                newRectangle.Y-=35;
+
+                bool isColiding = false;
+                foreach(var obj in map.GetMapObjectList())
+                {
+                    if (newRectangle.Intersects(obj)){
+                        isColiding = true;
+                    }
+                }
+                if (!isColiding)
+                {
+                    crouch = false;
+                    rectangle.Y = rectangle.Y - 35;
+                    rectangle.Height = rectangle.Height + 35;
+                } 
             }
         }
     }

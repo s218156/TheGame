@@ -38,23 +38,24 @@ namespace TheGame.States.Menu
 
         public override void Initialize()
         {
+            Texture2D buttonTexture = content.Load<Texture2D>("gameUI/button");
             int y;
             y = (graphics.Viewport.Height / 10) * 2;
 
 
-            Button newGameButton = new Button(content.Load<Texture2D>("Textures/Misc/Button"), content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("New Game"));
+            Button newGameButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("New Game"));
             y += graphics.Viewport.Height / 30 + graphics.Viewport.Height / 10;
 
-            Button loadGameButton = new Button(content.Load<Texture2D>("Textures/Misc/Button"), content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Load Game"));
+            Button loadGameButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Load Game"));
             y += graphics.Viewport.Height / 30 + graphics.Viewport.Height / 10;
 
-            Button settingsButton = new Button(content.Load<Texture2D>("Textures/Misc/Button"), content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Settings"));
+            Button settingsButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Settings"));
             y += graphics.Viewport.Height / 30 + graphics.Viewport.Height / 10;
 
-            Button aboutButton = new Button(content.Load<Texture2D>("Textures/Misc/Button"), content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("About"));
+            Button aboutButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("About"));
 
             y += graphics.Viewport.Height / 30 + graphics.Viewport.Height / 10;
-            Button exitButton = new Button(content.Load<Texture2D>("Textures/Misc/Button"), content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Quit Game"));
+            Button exitButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Quit Game"));
 
             newGameButton.Click += NewGameButtonClick;
             settingsButton.Click += SettingsButtonClick;
@@ -100,7 +101,7 @@ namespace TheGame.States.Menu
         private void NewGameButtonClick(object sender, EventArgs e)
         {
             SessionData session = new SessionData();
-            game.ChangeState(new Level1(game, graphics, content,session));
+            game.ChangeState(new Level0(game, graphics, content,session));
         }
 
         
