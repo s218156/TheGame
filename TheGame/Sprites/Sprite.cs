@@ -14,16 +14,15 @@ namespace TheGame.Sprites
         protected bool floorColision;
         protected bool jump;
         public Rectangle rectangle;
-        public Texture2D texture;
+        public BasicSpriteAnimation texture;
         public Vector2 velocity;
         protected int lifePoints;
         protected bool isAlive;
         public int attacking;
         public int hitPoints , deathTime;
         private ItemAnimation deathAnimation;
-        public Sprite(Texture2D texture, Vector2 position,Texture2D deathTexture)
+        public Sprite(Vector2 position,Texture2D deathTexture)
         {
-            this.texture = texture;
             rectangle = new Rectangle((int)position.X, (int)position.Y, 100, 100);
             velocity = Vector2.Zero;
             floorColision = false;
@@ -38,11 +37,8 @@ namespace TheGame.Sprites
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (isAlive)
-            {
-                spriteBatch.Draw(texture, rectangle, Color.White);
-            }
-            else
+            texture.Draw(gameTime, spriteBatch);
+            if(!(isAlive))
             {
                 if (deathTime < 80)
                 {
@@ -51,7 +47,7 @@ namespace TheGame.Sprites
             }
             
         }
-        public virtual void Update(GameTime gameTime,Sprite player, TileMap map)
+        public virtual void Update(GameTime gameTime,Player player, TileMap map)
         {
             if ((isAlive)&(deathTime<=80))
             {
@@ -78,7 +74,8 @@ namespace TheGame.Sprites
             {
                 deathTime++;
                 deathAnimation.Update(gameTime);
-            }      
+            }
+            texture.Update(gameTime, isAlive, velocity, rectangle);
         }
 
         public void IsUnderAttack(Sprite enemy)

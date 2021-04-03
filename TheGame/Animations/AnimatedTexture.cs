@@ -9,7 +9,7 @@ namespace TheGame.Animations
 
     public abstract class AnimatedTexture
     {
-        private int timer, columns, rows, currentFrame, totalFrames;
+        protected int timer, columns, rows, currentFrame, totalFrames;
         protected Texture2D texture;
         protected Rectangle rectangle;
         

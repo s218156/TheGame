@@ -8,7 +8,7 @@ using TheGame.Mics;
 
 namespace TheGame.Sprites
 {
-    class Enemy:Sprite
+    /*class Enemy:Sprite
     {
         public Enemy(Texture2D texture, Vector2 position,Texture2D deathTexture) : base(texture, position,deathTexture)
         {
@@ -55,4 +55,5 @@ namespace TheGame.Sprites
             }
         }
     }
+    */
 }

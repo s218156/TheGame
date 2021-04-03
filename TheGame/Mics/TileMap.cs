@@ -24,7 +24,7 @@ namespace TheGame.Mics
         public TileMap(TiledMap map, GraphicsDevice graphics)
         {
             tMap = map;
-            mapRenderer = new TiledMapRenderer(graphics, tMap);
+            mapRenderer = new TiledMapRenderer(graphics,tMap);
             getObjectsFromMap();
         }
         public void Update(GameTime time)

@@ -31,7 +31,7 @@ namespace TheGame.States
         public override void Initialize()
         {
             map = new TileMap(content.Load<TiledMap>("TileMaps//level0/Level0-map"), graphics);
-            player = new Player(content.Load<Texture2D>("Sprites/player"), map.spawnPosition,content.Load<Texture2D>("textureEffects/whiteFogAnimation"),session.GetPlayerLives());
+            player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"), map.spawnPosition,content.Load<Texture2D>("textureEffects/whiteFogAnimation"),session.GetPlayerLives());
             _camera = new Camera();
             _sprites = new List<Sprite>();
             _sprites.Add(player);
@@ -49,12 +49,13 @@ namespace TheGame.States
             }
             foreach (var tmp in map.GetLadders())
             {
-                _items.Add(new Ladder(content.Load<Texture2D>("Items/ladder"), tmp));
+                _items.Add(new Ladder(tmp));
             }
             foreach (var tmp in map.GetEnemies())
             {
-                _sprites.Add(new Enemy(content.Load<Texture2D>("Sprites/test-character"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation")));
+                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/snailAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"),250));
             }
+
 
 
             gameUI = new GameUI(content);

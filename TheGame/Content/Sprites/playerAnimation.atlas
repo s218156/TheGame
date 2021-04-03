@@ -1,0 +1,27 @@
+
+playerAnimation.png
+size: 240,110
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+player_slide
+  rotate: false
+  xy: 0, 0
+  size: 80, 110
+  orig: 80, 110
+  offset: 0, 0
+  index: -1
+player_walk1
+  rotate: false
+  xy: 80, 0
+  size: 80, 110
+  orig: 80, 110
+  offset: 0, 0
+  index: -1
+player_walk2
+  rotate: false
+  xy: 160, 0
+  size: 80, 110
+  orig: 80, 110
+  offset: 0, 0
+  index: -1

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 
 using System.Text;
+using TheGame.Animations;
 using TheGame.Mics;
 
 namespace TheGame.Sprites
@@ -15,15 +16,16 @@ namespace TheGame.Sprites
         private bool crouch;
         public int lifes;
         
-        public Player(Texture2D texture, Vector2 position,Texture2D deathTexture, int lifes) : base(texture, position, deathTexture)
+        public Player(Texture2D texture, Vector2 position,Texture2D deathTexture, int lifes) : base(position, deathTexture)
         {
+            this.texture = new BasicSpriteAnimation(texture, rectangle);
             crouch = false;
             isOnLadder = false;
             this.lifes = lifes;
             this.hitPoints = 20;
         }
 
-        public override void Update(GameTime gameTime, Sprite player, TileMap map)
+        public override void Update(GameTime gameTime, Player player, TileMap map)
         {
             if (isAlive)
             {
@@ -63,7 +65,23 @@ namespace TheGame.Sprites
             }
         }
 
-        
+        public void ColisionWithMovingBug(MovingBug bug, Vector2 bugVelocity, int bugHitPoints)
+        {
+
+            if (isAlive)
+            {
+                if (velocity.Y > 0)
+                {
+                    bug.AttackedByPlayer();
+                }
+                else
+                {
+                    lifePoints -= bugHitPoints;
+                    velocity.X = bugVelocity.X * 5;
+                    velocity.Y = -25;
+                }
+            }
+        }
 
         private void GetMovementFormKeyboard(TileMap map)
         {

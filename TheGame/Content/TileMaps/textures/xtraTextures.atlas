@@ -1,12 +1,26 @@
 
 xtraTextures.png
-size: 256,64
+size: 512,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-sign
+chain
+  rotate: false
+  xy: 256, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+ladderMid
   rotate: false
   xy: 192, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+sign
+  rotate: false
+  xy: 320, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
