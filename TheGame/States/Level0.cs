@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Tiled;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.Text;
 using TheGame.Items;
 using TheGame.Mics;
 using TheGame.Mics.GUI_components;
+using TheGame.SoundControllers;
 using TheGame.Sprites;
 using TheGame.States.Menu;
 
@@ -23,6 +26,7 @@ namespace TheGame.States
         private List<Paralax> _paralaxes;
         private List<Item> _items;
         private GameUI gameUI;
+        private Vector2 EndPoint;
         public Level0(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
         {
             Initialize();
@@ -30,6 +34,8 @@ namespace TheGame.States
 
         public override void Initialize()
         {
+            CoinSoundController coinSound = new CoinSoundController(content.Load<Song>("Audio/handleCoins")); 
+
             map = new TileMap(content.Load<TiledMap>("TileMaps//level0/Level0-map"), graphics);
             player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"), map.spawnPosition,content.Load<Texture2D>("textureEffects/whiteFogAnimation"),session.GetPlayerLives());
             _camera = new Camera();
@@ -45,17 +51,27 @@ namespace TheGame.States
             _items = new List<Item>();
             foreach(var tmp in map.GetCoins())
             {
-                _items.Add(new Coin(content.Load<Texture2D>("Items/coinAnimation"), new Rectangle((int)tmp.X,(int)tmp.Y,50,50), 1));
+                _items.Add(new Coin(content.Load<Texture2D>("Items/coinAnimation"), new Rectangle((int)tmp.X,(int)tmp.Y,50,50), 1,coinSound));
             }
             foreach (var tmp in map.GetLadders())
             {
                 _items.Add(new Ladder(tmp));
             }
-            foreach (var tmp in map.GetEnemies())
+            foreach (var tmp in map.snails)
             {
-                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/snailAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"),250));
+                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/snailAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"),100));
             }
 
+            foreach (var tmp in map.mouse)
+            {
+                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/mouseAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 300));
+            }
+
+            foreach (var tmp in map.worms)
+            {
+                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/greenWormAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"),150));
+            }
+            EndPoint = map.endPosition;
 
 
             gameUI = new GameUI(content);
@@ -129,8 +145,15 @@ namespace TheGame.States
             UpdateSessionData();
 
             gameUI.Update(gameTime);
-            
+            CheckEndLevel();           
 
+        }
+        public void CheckEndLevel()
+        {
+            if(player.rectangle.Intersects(new Rectangle((int)EndPoint.X, (int)EndPoint.Y, 100, 100)))
+            {
+                game.ChangeState(new MainMenuState(game, graphics, content, session));
+            }
         }
     }
 }

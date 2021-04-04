@@ -19,8 +19,13 @@ namespace TheGame.Mics
         public List<Vector2> coins;
         public List<Rectangle> ladders;
         public List<Rectangle> obstracles;
+        public List<Vector2> snails;
+        public List<Vector2> worms;
+        public List<Vector2> mouse;
         public List<Vector2> enemies;
         public Vector2 spawnPosition;
+        public Vector2 endPosition;
+        private string[] objectLayers = { "Mouse", "Snails", "Worms", "Enemies", "End", "Spawn" };
         public TileMap(TiledMap map, GraphicsDevice graphics)
         {
             tMap = map;
@@ -70,11 +75,29 @@ namespace TheGame.Mics
                 obstracles.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
             }
 
-            objTmp = tMap.GetLayer<TiledMapObjectLayer>("Enemies").Objects;
+            mouse = new List<Vector2>();
+            worms = new List<Vector2>();
+            snails = new List<Vector2>();
             enemies = new List<Vector2>();
-            foreach (var tmp in objTmp)
+            foreach(string layer in objectLayers)
             {
-                enemies.Add(new Vector2((int)tmp.Position.X, (int)tmp.Position.Y));
+                objTmp = tMap.GetLayer<TiledMapObjectLayer>(layer).Objects;
+                foreach (var tmp in objTmp)
+                {
+                    if(layer=="Mouse")
+                        mouse.Add(new Vector2((int)tmp.Position.X, (int)tmp.Position.Y));
+                    if (layer=="Worms")
+                        worms.Add(new Vector2((int)tmp.Position.X, (int)tmp.Position.Y));
+                    if(layer=="Snails")
+                        snails.Add(new Vector2((int)tmp.Position.X, (int)tmp.Position.Y));
+                    if(layer=="Enemies")
+                        enemies.Add(new Vector2((int)tmp.Position.X, (int)tmp.Position.Y));
+                    if(layer=="End")
+                        endPosition=new Vector2((int)tmp.Position.X,(int)tmp.Position.Y);
+                    if(layer=="Spawn")
+                        spawnPosition = new Vector2((int)tmp.Position.X, (int)tmp.Position.Y);
+
+                }
             }
         }
 
@@ -96,10 +119,6 @@ namespace TheGame.Mics
             return obstracles;
         }
 
-        public List<Vector2> GetEnemies()
-        {
-            return enemies;
-        }
         
     }
 }

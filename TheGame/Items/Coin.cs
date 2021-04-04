@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TheGame.Animations;
+using TheGame.SoundControllers;
 using TheGame.Sprites;
 
 namespace TheGame.Items
@@ -13,12 +14,13 @@ namespace TheGame.Items
         int value;
         bool isActive;
         private ItemAnimation animation;
-        public Coin(Texture2D texture, Rectangle rectangle, int value) : base(texture, rectangle)
+        CoinSoundController sound;
+        public Coin(Texture2D texture, Rectangle rectangle, int value,CoinSoundController sound) : base(texture, rectangle)
         {
             this.value = value;
             this.isActive = true;
             this.animation = new ItemAnimation(texture, rectangle,4,1);
-
+            this.sound = sound;
         }
 
         public override void Draw(GameTime gameTIme, SpriteBatch spriteBatch)
@@ -34,6 +36,7 @@ namespace TheGame.Items
             animation.Update(gameTime);
             if ((rectangle.Intersects(player.rectangle))&(isActive))
             {
+                sound.PlaySound();
                 isActive = false;
                 player.points += value;
             }
