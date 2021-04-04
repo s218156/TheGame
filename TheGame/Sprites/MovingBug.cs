@@ -16,7 +16,7 @@ namespace TheGame.Sprites
         public MovingBug(Texture2D texture,Vector2 position,Texture2D deathTexture, int range) : base(position, deathTexture)
         {
             lifePoints = 5;
-            hitPoints = 2;
+            hitPoints = 10;
             startPosition = position;
             this.rectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
             this.texture = new BasicSpriteAnimation(texture, rectangle);
