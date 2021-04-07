@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 using System.Text;
 using TheGame.Animations;
+using TheGame.Items;
 using TheGame.Mics;
 
 namespace TheGame.Sprites
@@ -25,7 +26,7 @@ namespace TheGame.Sprites
             this.hitPoints = 20;
         }
 
-        public override void Update(GameTime gameTime, Player player, TileMap map)
+        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem>movableList)
         {
             if (isAlive)
             {
@@ -42,7 +43,7 @@ namespace TheGame.Sprites
                 }
                 
             }
-            base.Update(gameTime, player, map);
+            base.Update(gameTime, player, map,movableList);
         }
 
         private void CrouchingInfluence()
@@ -82,6 +83,7 @@ namespace TheGame.Sprites
                 }
             }
         }
+
 
         private void GetMovementFormKeyboard(TileMap map)
         {

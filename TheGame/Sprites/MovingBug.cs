@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TheGame.Animations;
+using TheGame.Items;
 using TheGame.Mics;
 
 namespace TheGame.Sprites
@@ -23,7 +24,7 @@ namespace TheGame.Sprites
             direction = true;
             this.range = range;
         }
-        public override void Update(GameTime gameTime, Player player, TileMap map)
+        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem>movableList)
         {
             if (isAlive)
             {
@@ -45,7 +46,7 @@ namespace TheGame.Sprites
                 }
                 CheckColisionWithPlayer(player);
             }
-            base.Update(gameTime, player, map);
+            base.Update(gameTime, player, map,movableList);
 
         }
         private void CheckColisionWithPlayer(Player player)

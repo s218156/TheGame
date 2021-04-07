@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TheGame.Items;
 using TheGame.Mics;
 
 namespace TheGame.Sprites
@@ -37,7 +38,7 @@ namespace TheGame.Sprites
             }
         }
 
-        public override void Update(GameTime gameTime, Player player, TileMap map)
+        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem>movableList)
         {
             if (type == 0)
             {

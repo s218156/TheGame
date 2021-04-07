@@ -20,13 +20,14 @@ namespace TheGame.States
     {
         private TileMap map;
         private Player player;
-        private List<Sprite> _sprites;
+        private List<Sprites.Sprite> _sprites;
         private Camera _camera;
         private GhostSprite ghostSprite;
         private List<Paralax> _paralaxes;
         private List<Item> _items;
         private GameUI gameUI;
         private Vector2 EndPoint;
+        private List<MovableItem> movableItems;
         public Level0(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
         {
             Initialize();
@@ -39,7 +40,7 @@ namespace TheGame.States
             map = new TileMap(content.Load<TiledMap>("TileMaps//level0/Level0-map"), graphics);
             player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"), map.spawnPosition,content.Load<Texture2D>("textureEffects/whiteFogAnimation"),session.GetPlayerLives());
             _camera = new Camera();
-            _sprites = new List<Sprite>();
+            _sprites = new List<Sprites.Sprite>();
             _sprites.Add(player);
             ghostSprite = new GhostSprite(player);
             _sprites.Add(ghostSprite);
@@ -49,7 +50,17 @@ namespace TheGame.States
             _paralaxes.Add(p1);
 
             _items = new List<Item>();
-            foreach(var tmp in map.GetCoins())
+            movableItems = new List<MovableItem>();
+
+            foreach(Rectangle obj in map.movableObjects)
+            {
+                movableItems.Add(new MovableItem(content.Load<Texture2D>("Items/chest"), obj));
+            }
+            
+
+
+
+            foreach (var tmp in map.GetCoins())
             {
                 _items.Add(new Coin(content.Load<Texture2D>("Items/coinAnimation"), new Rectangle((int)tmp.X,(int)tmp.Y,50,50), 1,coinSound));
             }
@@ -89,15 +100,19 @@ namespace TheGame.States
             }
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.FrontToBack, transformMatrix: _camera.Transform);
-            foreach (Sprite sprite in _sprites)
+            foreach (Sprites.Sprite sprite in _sprites)
             {
-                sprite.Draw(gameTime,spriteBatch);
+                sprite.Draw(gameTime, spriteBatch);
             }
             foreach(Item item in _items)
             {
                 item.Draw(gameTime, spriteBatch);
             }
-            
+            foreach (Item item in movableItems)
+            {
+                item.Draw(gameTime, spriteBatch);
+            }
+
             spriteBatch.End();
             map.Draw(_camera.Transform);
             spriteBatch.Begin(SpriteSortMode.FrontToBack);
@@ -130,7 +145,7 @@ namespace TheGame.States
         {
             foreach(Sprite sprite in _sprites)
             {
-                sprite.Update(gameTime, player, map);
+                sprite.Update(gameTime, player, map,movableItems);
             }
             map.Update(gameTime);
             _camera.Follow(ghostSprite);
@@ -141,6 +156,10 @@ namespace TheGame.States
             foreach(Item item in _items)
             {
                 item.Update(gameTime, player);
+            }
+            foreach(MovableItem item in movableItems)
+            {
+                item.Update(gameTime, player, map);
             }
             UpdateSessionData();
 

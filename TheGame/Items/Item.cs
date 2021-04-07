@@ -19,7 +19,10 @@ namespace TheGame.Items
         }
 
         public abstract void Draw(GameTime gameTIme, SpriteBatch spriteBatch);
-        public abstract void Update(GameTime gameTime, Player player);
+        public virtual void Update(GameTime gameTime, Player player)
+        {
+
+        }
 
     }
 }
