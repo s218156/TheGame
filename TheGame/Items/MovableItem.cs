@@ -21,11 +21,12 @@ namespace TheGame.Items
             spriteBatch.Draw(texture, rectangle, Color.White);
         }
 
-        public void Update(GameTime gameTime, Player player,TileMap map)
+        public void Update(GameTime gameTime, Player player,TileMap map, List<MovableItem> movableItems)
         {
             FrictionCount();
             GravitySimulation();
             CheckEnviromentColision(map);
+            CheckColisionWithOtherObjects(movableItems);
             rectangle.X += (int)velocity.X;
             rectangle.Y += (int)velocity.Y;
         }

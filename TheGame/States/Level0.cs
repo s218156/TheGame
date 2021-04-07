@@ -159,7 +159,7 @@ namespace TheGame.States
             }
             foreach(MovableItem item in movableItems)
             {
-                item.Update(gameTime, player, map);
+                item.Update(gameTime, player, map,movableItems);
             }
             UpdateSessionData();
 
