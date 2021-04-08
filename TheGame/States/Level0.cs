@@ -108,7 +108,7 @@ namespace TheGame.States
             {
                 item.Draw(gameTime, spriteBatch);
             }
-            foreach (Item item in movableItems)
+            foreach (MovableItem item in movableItems)
             {
                 item.Draw(gameTime, spriteBatch);
             }
