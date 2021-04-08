@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TheGame.Sprites;
 
 namespace TheGame.Animations
 {
@@ -37,7 +39,8 @@ namespace TheGame.Animations
             spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White);
         }
 
-        public virtual void Update(GameTime gameTime)
+
+        public virtual void Update(GameTime gameTime,Sprite sprite)
         {
             timer++;
             if (timer == 10)

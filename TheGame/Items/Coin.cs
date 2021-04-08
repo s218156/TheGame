@@ -33,7 +33,7 @@ namespace TheGame.Items
 
         public override void Update(GameTime gameTime, Player player)
         {
-            animation.Update(gameTime);
+            animation.Update(gameTime,null);
             if ((rectangle.Intersects(player.rectangle))&(isActive))
             {
                 sound.PlaySound();

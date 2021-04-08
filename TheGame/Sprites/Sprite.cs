@@ -11,12 +11,13 @@ namespace TheGame.Sprites
 {
     public abstract class Sprite:PhysicalObject
     {
-        protected bool isOnLadder;
-        protected bool jump;
-        public BasicSpriteAnimation texture;
+        public bool isOnLadder;
+        public bool jump;
+        public AnimatedTexture texture;
         protected int lifePoints;
         protected bool isAlive;
         public int attacking;
+        public bool crouch;
         public int hitPoints , deathTime;
         private ItemAnimation deathAnimation;
         public Sprite(Vector2 position,Texture2D deathTexture):base(null,position)
@@ -72,9 +73,9 @@ namespace TheGame.Sprites
             else
             {
                 deathTime++;
-                deathAnimation.Update(gameTime);
+                deathAnimation.Update(gameTime,null);
             }
-            texture.Update(gameTime, isAlive, velocity, rectangle);
+            texture.Update(gameTime,this);
         }
 
         public void IsUnderAttack(Sprite enemy)

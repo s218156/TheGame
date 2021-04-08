@@ -1,27 +1,51 @@
-
 playerAnimation.png
-size: 240,110
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-player_slide
-  rotate: false
-  xy: 0, 0
-  size: 80, 110
-  orig: 80, 110
-  offset: 0, 0
-  index: -1
-player_walk1
-  rotate: false
-  xy: 80, 0
-  size: 80, 110
-  orig: 80, 110
-  offset: 0, 0
-  index: -1
-player_walk2
-  rotate: false
-  xy: 160, 0
-  size: 80, 110
-  orig: 80, 110
-  offset: 0, 0
-  index: -1
+size:320,660
+repeat:none
+01
+bounds:0,0,80,110
+02
+bounds:80,0,80,110
+03
+bounds:160,0,80,110
+04
+bounds:240,0,80,110
+11
+bounds:0,110,80,110
+12
+bounds:80,110,80,110
+13
+bounds:160,110,80,110
+14
+bounds:240,110,80,110
+21
+bounds:0,220,80,110
+22
+bounds:80,220,80,110
+23
+bounds:160,220,80,110
+24
+bounds:240,220,80,110
+31
+bounds:0,330,80,110
+32
+bounds:80,330,80,110
+33
+bounds:160,330,80,110
+34
+bounds:240,330,80,110
+41
+bounds:0,440,80,110
+42
+bounds:80,440,80,110
+43
+bounds:160,440,80,110
+44
+bounds:240,440,80,110
+51
+bounds:0,550,80,110
+52
+bounds:80,550,80,110
+53
+bounds:160,550,80,110
+54
+bounds:240,550,80,110

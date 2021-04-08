@@ -14,12 +14,11 @@ namespace TheGame.Sprites
     public class Player:Sprite
     {
         public int points;
-        private bool crouch;
         public int lifes;
         
         public Player(Texture2D texture, Vector2 position,Texture2D deathTexture, int lifes) : base(position, deathTexture)
         {
-            this.texture = new BasicSpriteAnimation(texture, rectangle);
+            this.texture = new CharacterAnimation(texture, rectangle);
             crouch = false;
             isOnLadder = false;
             this.lifes = lifes;
