@@ -10,7 +10,6 @@ namespace TheGame.Animations
     public class CharacterAnimation:AnimatedTexture
     {
         private int currentRow;
-        private bool direction;
         public CharacterAnimation(Texture2D texture,Rectangle rectangle) : base(texture, rectangle, 4, 6)
         {
             totalFrames = 4;
@@ -20,17 +19,7 @@ namespace TheGame.Animations
 
         public override void Update(GameTime gameTime, Sprite sprite)
         {
-            if (sprite.velocity.X > 0)
-            {
-                direction = false;
-            }
-            else
-            {
-                if (sprite.velocity.X < 0)
-                {
-                    direction = true;
-                }
-            }
+            ObtainDirection(sprite.velocity);
             this.rectangle = sprite.rectangle;
             if (sprite.isOnLadder )
             {
@@ -57,7 +46,7 @@ namespace TheGame.Animations
                         }
                         else
                         {
-                            if (sprite.velocity.X != 0)
+                            if (Math.Abs(sprite.velocity.X )>1)
                             {
                                 currentRow = 1;
                             }
@@ -83,6 +72,8 @@ namespace TheGame.Animations
                 }
             }
         }
+
+        
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {

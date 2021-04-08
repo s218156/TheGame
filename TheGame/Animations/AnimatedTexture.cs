@@ -14,7 +14,8 @@ namespace TheGame.Animations
         protected int timer, columns, rows, currentFrame, totalFrames;
         protected Texture2D texture;
         protected Rectangle rectangle;
-        
+        protected bool direction;           //false-to the right, true-to the left
+
 
         public AnimatedTexture(Texture2D texture, Rectangle rectangle,int columns, int rows)
         {
@@ -50,6 +51,21 @@ namespace TheGame.Animations
                 if (currentFrame == totalFrames)
                 {
                     currentFrame = 0;
+                }
+            }
+        }
+
+        public void ObtainDirection(Vector2 velocity)
+        {
+            if (velocity.X != 0)
+            {
+                if (velocity.X > 0)
+                {
+                    direction = false;
+                }
+                else
+                {
+                    direction = true;
                 }
             }
         }

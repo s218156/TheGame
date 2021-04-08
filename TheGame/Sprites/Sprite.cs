@@ -15,7 +15,7 @@ namespace TheGame.Sprites
         public bool jump;
         public AnimatedTexture texture;
         protected int lifePoints;
-        protected bool isAlive;
+        public bool isAlive;
         public int attacking;
         public bool crouch;
         public int hitPoints , deathTime;
