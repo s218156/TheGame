@@ -20,7 +20,7 @@ namespace TheGame.Sprites
             hitPoints = 10;
             startPosition = position;
             this.rectangle = new Rectangle((int)position.X, (int)position.Y, 64, 64);
-            this.texture = new BasicSpriteAnimation(texture, rectangle);
+            this.animatedTexture = new BasicSpriteAnimation(texture, rectangle);
             direction = true;
             this.range = range;
         }

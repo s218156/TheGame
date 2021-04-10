@@ -13,7 +13,7 @@ namespace TheGame.Sprites
     {
         public bool isOnLadder;
         public bool jump;
-        public AnimatedTexture texture;
+        public AnimatedTexture animatedTexture;
         protected int lifePoints;
         public bool isAlive;
         public int attacking;
@@ -35,7 +35,7 @@ namespace TheGame.Sprites
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            texture.Draw(gameTime, spriteBatch);
+            animatedTexture.Draw(gameTime, spriteBatch);
             if(!(isAlive))
             {
                 if (deathTime < 25)
@@ -75,7 +75,7 @@ namespace TheGame.Sprites
                 deathTime++;
                 deathAnimation.Update(gameTime,null);
             }
-            texture.Update(gameTime,this);
+            animatedTexture.Update(gameTime,this);
         }
 
         public void IsUnderAttack(Sprite enemy)
