@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 using System.Text;
 using TheGame.Animations;
+using TheGame.Inventory;
+using TheGame.Items;
 using TheGame.Mics;
 
 namespace TheGame.Sprites
@@ -13,26 +15,28 @@ namespace TheGame.Sprites
     public class Player:Sprite
     {
         public int points;
-        private bool crouch;
         public int lifes;
+        public int jumpHeight;
+        private List<InventoryItem> inventory;
         
         public Player(Texture2D texture, Vector2 position,Texture2D deathTexture, int lifes) : base(position, deathTexture)
         {
-            this.texture = new BasicSpriteAnimation(texture, rectangle);
+            inventory = new List<InventoryItem>();
+            this.animatedTexture = new CharacterAnimation(texture, rectangle);
             crouch = false;
             isOnLadder = false;
             this.lifes = lifes;
-            this.hitPoints = 20;
+            hitPoints = 20;
+            jumpHeight = 30;
         }
 
-        public override void Update(GameTime gameTime, Player player, TileMap map)
+        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem>movableList)
         {
             if (isAlive)
             {
                 IsOnLadder(map);
                 GetMovementFormKeyboard(map);
                 CrouchingInfluence();
-                
             }
             else
             {
@@ -40,16 +44,19 @@ namespace TheGame.Sprites
                 {
                     lifes--;
                 }
-                
             }
-            base.Update(gameTime, player, map);
+            base.Update(gameTime, player, map,movableList);
+            foreach (InventoryItem item in inventory)
+            {
+                item.Update(gameTime, this);
+            }
         }
 
         private void CrouchingInfluence()
         {
             if (crouch&floorColision)
             {
-                velocity.X = velocity.X - (int)velocity.X / 2;                
+                velocity.X = velocity.X - (int)velocity.X / 4;                
             }
         }
 
@@ -67,7 +74,6 @@ namespace TheGame.Sprites
 
         public void ColisionWithMovingBug(MovingBug bug, Vector2 bugVelocity, int bugHitPoints)
         {
-
             if (isAlive)
             {
                 if (velocity.Y > 0)
@@ -77,11 +83,50 @@ namespace TheGame.Sprites
                 else
                 {
                     lifePoints -= bugHitPoints;
-                    velocity.X = bugVelocity.X * 5;
+                    velocity.X = bugVelocity.X * 2;
                     velocity.Y = -25;
                 }
             }
         }
+
+
+        public void UpdateInventoryList(InventoryItem item)
+        {
+            inventory.Add(item);
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            if (isOnLadder)
+            {
+                foreach (InventoryItem item in inventory)
+                {
+                    if (item.drawableOnTop)
+                        item.Draw(gameTime, spriteBatch);
+                }
+                base.Draw(gameTime, spriteBatch);
+                foreach (InventoryItem item in inventory)
+                {
+                    if(!item.drawableOnTop)
+                        item.Draw(gameTime, spriteBatch);
+                }
+            }
+            else
+            {
+                foreach (InventoryItem item in inventory)
+                {
+                    if(!item.drawableOnTop)
+                        item.Draw(gameTime, spriteBatch);
+                }
+                base.Draw(gameTime, spriteBatch);
+                foreach (InventoryItem item in inventory)
+                {
+                    if (item.drawableOnTop)
+                        item.Draw(gameTime, spriteBatch);
+                }
+            } 
+        }
+
 
         private void GetMovementFormKeyboard(TileMap map)
         {
@@ -90,7 +135,6 @@ namespace TheGame.Sprites
             {
                 attacking = 10;
             }
-
             if ((keyState.IsKeyDown(Keys.W)) & isOnLadder)
             {
                 velocity.Y--;
@@ -105,7 +149,7 @@ namespace TheGame.Sprites
             }
             if ((keyState.IsKeyDown(Keys.Space)) & (floorColision))
             {
-                velocity.Y = -30;
+                velocity.Y = -1*jumpHeight;
                 jump = true;
             }
             if (keyState.IsKeyDown(Keys.S))
@@ -121,13 +165,11 @@ namespace TheGame.Sprites
                     velocity.Y++;
                 }
             }
-
             if (keyState.IsKeyUp(Keys.S)&crouch)
             {
                 Rectangle newRectangle = rectangle;
                 newRectangle.Height = rectangle.Height + 35;
                 newRectangle.Y-=35;
-
                 bool isColiding = false;
                 foreach(var obj in map.GetMapObjectList())
                 {
@@ -143,5 +185,6 @@ namespace TheGame.Sprites
                 } 
             }
         }
+
     }
 }

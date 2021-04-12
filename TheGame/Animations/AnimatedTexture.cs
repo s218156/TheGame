@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TheGame.Sprites;
 
 namespace TheGame.Animations
 {
@@ -12,7 +14,8 @@ namespace TheGame.Animations
         protected int timer, columns, rows, currentFrame, totalFrames;
         protected Texture2D texture;
         protected Rectangle rectangle;
-        
+        protected bool direction;           //false-to the right, true-to the left
+
 
         public AnimatedTexture(Texture2D texture, Rectangle rectangle,int columns, int rows)
         {
@@ -37,7 +40,8 @@ namespace TheGame.Animations
             spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White);
         }
 
-        public virtual void Update(GameTime gameTime)
+
+        public virtual void Update(GameTime gameTime,Sprite sprite)
         {
             timer++;
             if (timer == 10)
@@ -47,6 +51,21 @@ namespace TheGame.Animations
                 if (currentFrame == totalFrames)
                 {
                     currentFrame = 0;
+                }
+            }
+        }
+
+        public void ObtainDirection(Vector2 velocity)
+        {
+            if (velocity.X != 0)
+            {
+                if (velocity.X > 0)
+                {
+                    direction = false;
+                }
+                else
+                {
+                    direction = true;
                 }
             }
         }

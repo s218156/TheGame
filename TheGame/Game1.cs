@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Threading;
 using TheGame.Mics;
 using TheGame.States;
 using TheGame.States.Menu;
-
 namespace TheGame
 {
     public class Game1 : Game
@@ -64,6 +64,7 @@ namespace TheGame
 
         protected override void Update(GameTime gameTime)
         {
+            
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
 

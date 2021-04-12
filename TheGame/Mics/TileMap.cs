@@ -25,6 +25,8 @@ namespace TheGame.Mics
         public List<Vector2> enemies;
         public Vector2 spawnPosition;
         public Vector2 endPosition;
+        public List<Rectangle> movableObjects;
+        public List<Rectangle> powerups;
         private string[] objectLayers = { "Mouse", "Snails", "Worms", "Enemies", "End", "Spawn" };
         public TileMap(TiledMap map, GraphicsDevice graphics)
         {
@@ -66,6 +68,14 @@ namespace TheGame.Mics
                 ladders.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
             }
 
+            objTmp = tMap.GetLayer<TiledMapObjectLayer>("PowerUps").Objects;
+            powerups = new List<Rectangle>();
+            foreach (var tmp in objTmp)
+            {
+                powerups.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+            }
+
+
             spawnPosition = new Vector2(tMap.GetLayer<TiledMapObjectLayer>("Spawn").Objects[0].Position.X, tMap.GetLayer<TiledMapObjectLayer>("Spawn").Objects[0].Position.Y);
            
             objTmp = tMap.GetLayer<TiledMapObjectLayer>("Obstracles").Objects;
@@ -73,6 +83,13 @@ namespace TheGame.Mics
             foreach (var tmp in objTmp)
             {
                 obstracles.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+            }
+
+            objTmp = tMap.GetLayer<TiledMapObjectLayer>("Movable Boxes").Objects;
+            movableObjects = new List<Rectangle>();
+            foreach (var tmp in objTmp)
+            {
+                movableObjects.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
             }
 
             mouse = new List<Vector2>();

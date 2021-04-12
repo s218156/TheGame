@@ -18,6 +18,11 @@ namespace TheGame.Mics
         {
             playerPoints += value;
         }
+        public void SetPlayerPoints(int value)
+        {
+            playerPoints = value;
+        }
+
         public int GetPlayerPoints()
         {
             return playerPoints;
