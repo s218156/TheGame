@@ -10,7 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference:..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Content.Pipeline.dll
+/reference:C:\Users\Studio\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -51,6 +51,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Basic.spritefont
 
+#begin Fonts/smallFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/smallFont.spritefont
+
 #begin gameUI/button.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -62,6 +69,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:gameUI/button.png
+
+#begin gameUI/chatBox.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:gameUI/chatBox.png
 
 #begin gameUI/coin.png
 /importer:TextureImporter
@@ -146,6 +165,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:jetpack.png
+
+#begin Sprites/GameMaster.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/GameMaster.png
 
 #begin Sprites/greenWormAnimation.png
 /importer:TextureImporter

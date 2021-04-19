@@ -30,6 +30,8 @@ namespace TheGame.States
         private Vector2 EndPoint;
         private List<MovableItem> movableItems;
         private int pointAtTheBegining;
+        private GameMaster gameMaster;
+        private List<string>messageList;
         public Level0(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
         {
             Initialize();
@@ -37,9 +39,15 @@ namespace TheGame.States
 
         public override void Initialize()
         {
+            messageList = new List<string>(){
+                "Hi Player! Welcome to the game! to move press 'A' or 'D'!" ,
+                "Great! On Your right, there is a BOX. To jump on it press 'SPACE'",
+                "AWESOME! If you see any spikes remember to ommit them. In this issue try to jump over the gap.",
+                "Remember that You can crouch. When on the ground press 'S'!"
+            };
             session.SetPlayerPoints(pointAtTheBegining);
             _camera = new Camera();
-            _sprites = new List<Sprites.Sprite>();
+            _sprites = new List<Sprite>();
             _paralaxes = new List<Paralax>();
             _items = new List<Item>();
             movableItems = new List<MovableItem>();
@@ -91,6 +99,7 @@ namespace TheGame.States
                     _items.Add(new PickableItem(content.Load<Texture2D>("jetpack"), new Rectangle(tmp.X, tmp.Y, tmp.Width, tmp.Width), tmpItem));
                 }
             }
+            gameMaster = new GameMaster(content, new Rectangle(4*(graphics.Viewport.Width/5), (graphics.Viewport.Height/4), 100, 100), map.gameMasterSpawn,messageList);
         }
 
 
@@ -119,8 +128,9 @@ namespace TheGame.States
 
             spriteBatch.End();
             
-            spriteBatch.Begin(SpriteSortMode.FrontToBack);
+            spriteBatch.Begin();
             gameUI.Draw(gameTime, spriteBatch, session);
+            gameMaster.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
 
@@ -147,29 +157,33 @@ namespace TheGame.States
 
         public override void Update(GameTime gameTime)
         {
-            foreach(Sprite sprite in _sprites)
-            {
-                sprite.Update(gameTime, player, map,movableItems);
-            }
-            map.Update(gameTime);
-            _camera.Follow(ghostSprite);
-            foreach(var paralax in _paralaxes)
-            {
-                paralax.Update(ghostSprite, graphics);
-            }
-            foreach(Item item in _items)
-            {
-                item.Update(gameTime, player);
-            }
-            foreach(MovableItem item in movableItems)
-            {
-                item.Update(gameTime, player, map,movableItems);
-            }
-            UpdateSessionData();
+            gameMaster.Update(gameTime,player);
 
-            gameUI.Update(gameTime);
-            CheckEndLevel();           
+            if (!gameMaster.isActive)
+            {
+                foreach (Sprite sprite in _sprites)
+                {
+                    sprite.Update(gameTime, player, map, movableItems);
+                }
+                map.Update(gameTime);
+                _camera.Follow(ghostSprite);
+                foreach (var paralax in _paralaxes)
+                {
+                    paralax.Update(ghostSprite, graphics);
+                }
+                foreach (Item item in _items)
+                {
+                    item.Update(gameTime, player);
+                }
+                foreach (MovableItem item in movableItems)
+                {
+                    item.Update(gameTime, player, map, movableItems);
+                }
+                UpdateSessionData();
 
+                gameUI.Update(gameTime);
+                CheckEndLevel();
+            }
         }
         public void CheckEndLevel()
         {
