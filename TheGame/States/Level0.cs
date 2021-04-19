@@ -99,7 +99,7 @@ namespace TheGame.States
                     _items.Add(new PickableItem(content.Load<Texture2D>("jetpack"), new Rectangle(tmp.X, tmp.Y, tmp.Width, tmp.Width), tmpItem));
                 }
             }
-            gameMaster = new GameMaster(content, new Rectangle(4*(graphics.Viewport.Width/5), (graphics.Viewport.Height/4), 100, 100), map.gameMasterSpawn,messageList);
+            gameMaster = new GameMaster(content, new Vector2(graphics.Viewport.Width,graphics.Viewport.Height), map.gameMasterSpawn,messageList);
         }
 
 

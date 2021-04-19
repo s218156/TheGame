@@ -19,16 +19,23 @@ namespace TheGame.Items
         private bool wasAccepted;
         List<Rectangle> triggers;
         List<string> captions;
-        public GameMaster(ContentManager content, Rectangle rectangle,List<Rectangle> triggers, List<string> captions) : base(null, rectangle)
+        Vector2 screenData;
+        public GameMaster(ContentManager content, Vector2 screenData,List<Rectangle> triggers, List<string> captions) : base(null, new Rectangle((int)(4 * (screenData.X / 5)), (int)(4 * (screenData.Y / 5)), (int)screenData.X,(int)screenData.Y))
         {
-
-            this.animatedTexture = new ItemAnimation(content.Load<Texture2D>("Sprites/GameMaster"), rectangle, 3, 1);
+            this.screenData = screenData;
+            
             isActive = false;
             this.triggers = triggers;
             wasAccepted = false;
             this.captions = captions;
 
-            chatBox = new ChatBox(content.Load<Texture2D>("GameUI/chatBox"), new Rectangle((((rectangle.X / 4) * 5) / 4)+100, (rectangle.Y * 4) / 10, ((rectangle.X / 4) * 5) /2, rectangle.Y), content.Load<SpriteFont>("Fonts/smallFont"));
+            chatBox = new ChatBox(content.Load<Texture2D>("GameUI/chatBox"), rectangle, content.Load<SpriteFont>("Fonts/smallFont"));
+
+            rectangle.X = 4 * (rectangle.Width / 5);
+            rectangle.Y = 4 * (rectangle.Height / 5);
+            rectangle.Width = 100;
+            rectangle.Height = 100;
+            this.animatedTexture = new ItemAnimation(content.Load<Texture2D>("Sprites/GameMaster"), rectangle, 3, 1);
         }
 
 
@@ -45,6 +52,7 @@ namespace TheGame.Items
 
         public override void Update(GameTime gameTime, Player player)
         {
+            
             if (wasAccepted & Keyboard.GetState().IsKeyUp(Keys.Space))
             {
                 isActive = false;
