@@ -18,7 +18,7 @@ namespace TheGame.Items
             this.rectangle = rectangle;
         }
 
-        public abstract void Draw(GameTime gameTIme, SpriteBatch spriteBatch);
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public virtual void Update(GameTime gameTime, Player player) 
         {
 

@@ -7,6 +7,7 @@ using MonoGame.Extended.Tiled;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TheGame.Content.Items;
 using TheGame.Inventory;
 using TheGame.Items;
 using TheGame.Mics;
@@ -23,9 +24,11 @@ namespace TheGame.States
         private Player player;
         private List<Sprite> _sprites;
         private Camera _camera;
+        private List<CheckPoint> _checkpoints;
         private GhostSprite ghostSprite;
         private List<Paralax> _paralaxes;
         private List<Item> _items;
+        private Vector2 spawnPoint;
         private GameUI gameUI;
         private Vector2 EndPoint;
         private List<MovableItem> movableItems;
@@ -43,13 +46,24 @@ namespace TheGame.States
                 "Hi Player! Welcome to the game! to move press 'A' or 'D'!" ,
                 "Great! On Your right, there is a BOX. To jump on it press 'SPACE'",
                 "AWESOME! If you see any spikes remember to ommit them. In this issue try to jump over the gap.",
-                "Remember that You can crouch. When on the ground press 'S'!"
+                "Remember that You can crouch. When on the ground press 'S'!",
+                "Now let's see if You can pass this!",
+                "WOW! Remember to keep focused...",
+                "OK. Now this is the ladder. When You are on it, you can climp by pressing 'W' or 's'",
+                "Chains works same as ladders, but horizontaly...",
+                "Some of the BOXES are movable. Try to reach upper platform.",
+                "Now time for enemies. These are bugs. You can kill them by jumping on them",
+                "But remember... they can hurt you as well...",
+                "This is CheckPoint. If you die, You will respawn at this point!",
+                "Now follow the arrows and DONT get killed!"
+
             };
             session.SetPlayerPoints(pointAtTheBegining);
             _camera = new Camera();
             _sprites = new List<Sprite>();
             _paralaxes = new List<Paralax>();
             _items = new List<Item>();
+            _checkpoints = new List<CheckPoint>();
             movableItems = new List<MovableItem>();
             gameUI = new GameUI(content);
             GenerateObjects();
@@ -59,8 +73,11 @@ namespace TheGame.States
         {
             CoinSoundController coinSound = new CoinSoundController(content.Load<Song>("Audio/handleCoins"));
 
+            
+
             map = new TileMap(content.Load<TiledMap>("TileMaps//level0/Level0-map"), graphics);
-            player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"), map.spawnPosition, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), session.GetPlayerLives());
+            spawnPoint = map.spawnPosition;
+            player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"), spawnPoint, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), session.GetPlayerLives());
             Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/background"), graphics, Vector2.Zero, new Vector2((float)0.5, (float)0.9));
             _paralaxes.Add(p1);
             ghostSprite = new GhostSprite(player);
@@ -70,6 +87,13 @@ namespace TheGame.States
             {
                 movableItems.Add(new MovableItem(content.Load<Texture2D>("Items/chest"), obj));
             }
+            foreach (var tmp in map.checkPoints)
+            {
+                var newItem = new CheckPoint(tmp, content.Load<Texture2D>("Items/checkpoint"), content.Load<Texture2D>("Items/checkpointanim"));
+                _checkpoints.Add(newItem);
+                _items.Add(newItem);
+            }
+                
             foreach (var tmp in map.GetCoins())
             {
                 _items.Add(new Coin(content.Load<Texture2D>("Items/coinAnimation"), new Rectangle((int)tmp.X, (int)tmp.Y, 50, 50), 1, coinSound));
@@ -80,15 +104,15 @@ namespace TheGame.States
             }
             foreach (var tmp in map.snails)
             {
-                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/snailAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 100));
+                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/snailAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 100, 1));
             }
             foreach (var tmp in map.mouse)
             {
-                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/mouseAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 300));
+                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/mouseAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 300,3));
             }
             foreach (var tmp in map.worms)
             {
-                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/greenWormAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 150));
+                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/greenWormAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 150,2));
             }
             EndPoint = map.endPosition;
             foreach (var tmp in map.powerups)
@@ -148,8 +172,12 @@ namespace TheGame.States
                 }
                 else
                 {
-                    Initialize();
-
+                    _sprites.Remove(player);
+                    _sprites.Remove(ghostSprite);
+                    player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"),spawnPoint, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), session.GetPlayerLives());
+                    ghostSprite = new GhostSprite(player);
+                    _sprites.Insert(0,player);
+                    _sprites.Add(ghostSprite);
                 }
             }
         }
@@ -158,7 +186,7 @@ namespace TheGame.States
         public override void Update(GameTime gameTime)
         {
             gameMaster.Update(gameTime,player);
-
+            UpdateSessionData();
             if (!gameMaster.isActive)
             {
                 foreach (Sprite sprite in _sprites)
@@ -179,7 +207,14 @@ namespace TheGame.States
                 {
                     item.Update(gameTime, player, map, movableItems);
                 }
-                UpdateSessionData();
+                foreach (CheckPoint checkPoint in _checkpoints)
+                {
+                    if ((checkPoint.isChecked) & (!checkPoint.wasChecked))
+                    {
+                        spawnPoint = new Vector2(checkPoint.rectangle.X, checkPoint.rectangle.Y - 50);
+                    }
+                }
+
 
                 gameUI.Update(gameTime);
                 CheckEndLevel();
