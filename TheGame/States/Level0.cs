@@ -35,6 +35,7 @@ namespace TheGame.States
         private List<MovableItem> movableItems;
         private int pointAtTheBegining;
         private GameMaster gameMaster;
+        private List<PhysicalObject> physicalObjects;
         private List<string>messageList;
         public Level0(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
         {
@@ -66,6 +67,7 @@ namespace TheGame.States
             _items = new List<Item>();
             _checkpoints = new List<CheckPoint>();
             movableItems = new List<MovableItem>();
+            physicalObjects = new List<PhysicalObject>();
             gameUI = new GameUI(content);
             GenerateObjects();
         }
@@ -87,6 +89,7 @@ namespace TheGame.States
             foreach (Rectangle obj in map.movableObjects)
             {
                 movableItems.Add(new MovableItem(content.Load<Texture2D>("Items/chest"), obj));
+                physicalObjects.Add(new MovableItem(content.Load<Texture2D>("Items/chest"), obj));
             }
             foreach (var tmp in map.checkPoints)
             {
@@ -226,7 +229,7 @@ namespace TheGame.States
             if(player.rectangle.Intersects(new Rectangle((int)EndPoint.X, (int)EndPoint.Y, 100, 100)))
             {
                 Thread.Sleep(200);
-                game.ChangeState(new MainMenuState(game, graphics, content, session));
+                game.ChangeState(new Level1(game, graphics, content, session));
             }
         }
     }

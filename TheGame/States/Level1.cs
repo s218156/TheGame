@@ -32,9 +32,11 @@ namespace TheGame.States
         private GameUI gameUI;
         private Vector2 EndPoint;
         private List<MovableItem> movableItems;
+        private List<FallableObject> fallableObjects;
         private int pointAtTheBegining;
         private GameMaster gameMaster;
         private List<string>messageList;
+        private List<PhysicalObject> physicalObjects;
         public Level1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
         {
             Initialize();
@@ -43,20 +45,6 @@ namespace TheGame.States
         public override void Initialize()
         {
             messageList = new List<string>(){
-                "Hi Player! Welcome to the game! to move press 'A' or 'D'!" ,
-                "Great! On Your right, there is a BOX. To jump on it press 'SPACE'",
-                "AWESOME! If you see any spikes remember to ommit them. In this issue try to jump over the gap.",
-                "Remember that You can crouch. When on the ground press 'S'!",
-                "Now let's see if You can pass this!",
-                "WOW! Remember to keep focused...",
-                "OK. Now this is the ladder. When You are on it, you can climp by pressing 'W' or 's'",
-                "Chains works same as ladders, but horizontaly...",
-                "Some of the BOXES are movable. Try to reach upper platform.",
-                "Now time for enemies. These are bugs. You can kill them by jumping on them",
-                "But remember... they can hurt you as well...",
-                "This is CheckPoint. If you die, You will respawn at this point!",
-                "Now follow the arrows and DONT get killed!"
-
             };
             session.SetPlayerPoints(pointAtTheBegining);
             _camera = new Camera();
@@ -66,6 +54,7 @@ namespace TheGame.States
             _checkpoints = new List<CheckPoint>();
             movableItems = new List<MovableItem>();
             gameUI = new GameUI(content);
+            fallableObjects = new List<FallableObject>();
             GenerateObjects();
         }
 
@@ -86,6 +75,10 @@ namespace TheGame.States
             foreach (Rectangle obj in map.movableObjects)
             {
                 movableItems.Add(new MovableItem(content.Load<Texture2D>("Items/chest"), obj));
+            }
+            foreach (Rectangle obj in map.fallableObjects)
+            {
+                fallableObjects.Add(new FallableObject(content.Load<Texture2D>("Items/bridge"), obj));
             }
             foreach (var tmp in map.checkPoints)
             {
@@ -149,6 +142,10 @@ namespace TheGame.States
             {
                 item.Draw(gameTime, spriteBatch);
             }
+            foreach (FallableObject item in fallableObjects)
+            {
+                item.Draw(gameTime, spriteBatch);
+            }
 
             spriteBatch.End();
             
@@ -206,6 +203,10 @@ namespace TheGame.States
                 foreach (MovableItem item in movableItems)
                 {
                     item.Update(gameTime, player, map, movableItems);
+                }
+                foreach (FallableObject item in fallableObjects)
+                {
+                    item.Update(gameTime, player);
                 }
                 foreach (CheckPoint checkPoint in _checkpoints)
                 {

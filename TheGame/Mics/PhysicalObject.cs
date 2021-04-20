@@ -19,6 +19,7 @@ namespace TheGame.Mics
             this.texture = texture;
             this.rectangle = rectangle;
             this.floorColision = false;
+            
         }
         public PhysicalObject(Texture2D texture,Vector2 position)
         {

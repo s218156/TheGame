@@ -28,10 +28,10 @@ namespace TheGame.Mics
         public Vector2 endPosition;
         public List<Rectangle> movableObjects;
         public List<Rectangle> powerups;
-        public List<Rectangle> gameMasterSpawn, checkPoints;
+        public List<Rectangle> gameMasterSpawn, checkPoints,fallableObjects;
      
         private string[] objectLayersToVector = { "Mouse", "Snails", "Worms", "Enemies", "End", "Spawn","Coins" };
-        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints" };
+        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" };
         public TileMap(TiledMap map, GraphicsDevice graphics)
         {
             tMap = map;
@@ -59,7 +59,8 @@ namespace TheGame.Mics
             obstracles = new List<Rectangle>();
             movableObjects = new List<Rectangle>();
             gameMasterSpawn = new List<Rectangle>();
-            checkPoints = new List<Rectangle>();
+            checkPoints= new List<Rectangle>();
+            fallableObjects = new List<Rectangle>();
 
             mouse = new List<Vector2>();
             worms = new List<Vector2>();
@@ -86,6 +87,8 @@ namespace TheGame.Mics
                         gameMasterSpawn.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
                     if (layer == "CheckPoints")
                         checkPoints.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if (layer == "FallableObject")
+                        fallableObjects.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
                 }
             }
                        
