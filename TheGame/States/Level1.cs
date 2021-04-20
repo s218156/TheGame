@@ -7,7 +7,6 @@ using MonoGame.Extended.Tiled;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 using TheGame.Content.Items;
 using TheGame.Inventory;
 using TheGame.Items;
@@ -19,7 +18,7 @@ using TheGame.States.Menu;
 
 namespace TheGame.States
 {
-    class Level0 : State
+    class Level1 : State
     {
         private TileMap map;
         private Player player;
@@ -36,7 +35,7 @@ namespace TheGame.States
         private int pointAtTheBegining;
         private GameMaster gameMaster;
         private List<string>messageList;
-        public Level0(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
+        public Level1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
         {
             Initialize();
         }
@@ -76,7 +75,7 @@ namespace TheGame.States
 
             
 
-            map = new TileMap(content.Load<TiledMap>("TileMaps//level0/Level0-map"), graphics);
+            map = new TileMap(content.Load<TiledMap>("TileMaps//level1/Level1-map"), graphics);
             spawnPoint = map.spawnPosition;
             player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"), spawnPoint, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), session.GetPlayerLives());
             Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/background"), graphics, Vector2.Zero, new Vector2((float)0.5, (float)0.9));
@@ -225,7 +224,6 @@ namespace TheGame.States
         {
             if(player.rectangle.Intersects(new Rectangle((int)EndPoint.X, (int)EndPoint.Y, 100, 100)))
             {
-                Thread.Sleep(200);
                 game.ChangeState(new MainMenuState(game, graphics, content, session));
             }
         }
