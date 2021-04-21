@@ -28,13 +28,9 @@ namespace TheGame.Mics
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (mirroredTexture)
-            {
                 spriteBatch.Draw(texture, rectangle, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0f);
-            }
             else
-            {
                 spriteBatch.Draw(texture, rectangle, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0f);
-            }
         }
     }
 }

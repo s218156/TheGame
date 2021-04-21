@@ -56,27 +56,24 @@ namespace TheGame.States.Menu
         {
             spriteBatch.Begin();
             foreach(var item in _components)
-            {
                 item.Draw(gameTime, spriteBatch);
-            }
+
             spriteBatch.End();
         }
 
         public override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyUp(Keys.Escape))
-            {
                 isExitable = true;
-            }
+
             if ((Keyboard.GetState().IsKeyDown(Keys.Escape))&(isExitable))
             {
                 game.ChangeState(_previousState);
                 Thread.Sleep(200);
             }
             foreach (var item in _components)
-            {
                 item.Update(gameTime);
-            }
+
         }
 
         public void ReturnButtonClicked(object sender, EventArgs e)

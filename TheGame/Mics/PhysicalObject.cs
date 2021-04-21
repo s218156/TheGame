@@ -32,11 +32,8 @@ namespace TheGame.Mics
             int i;
             foreach (MovableItem obj in movableItems)
             {
-                
                 if (!(obj == this))
-                {
                     ColisionChecker(obj.rectangle);
-                }
             }
         }
 
@@ -51,9 +48,8 @@ namespace TheGame.Mics
                 for (i = 0; i <= (int)velocity.X; i++)
                 {
                     if ((new Rectangle(rectangle.X + i, rectangle.Y, rectangle.Width, rectangle.Height).Intersects(obj)))
-                    {
                         velocity.X = i - 1;
-                    }
+                    
                 }
             }
             else
@@ -61,9 +57,7 @@ namespace TheGame.Mics
                 for (i = -1; i >= (int)velocity.X; i--)
                 {
                     if ((new Rectangle(rectangle.X + i, rectangle.Y, rectangle.Width, rectangle.Height).Intersects(obj)))
-                    {
                         velocity.X = i + 1;
-                    }
                 }
             }
 
@@ -86,9 +80,7 @@ namespace TheGame.Mics
                 for (i = -1; i >= (int)velocity.Y; i--)
                 {
                     if ((new Rectangle(rectangle.X, rectangle.Y + i, rectangle.Width, rectangle.Height).Intersects(obj)))
-                    {
-                        velocity.Y = i + 1;
-                    }
+                        velocity.Y = i + 1;  
                 }
             }
         }
@@ -99,9 +91,7 @@ namespace TheGame.Mics
             floorColision = false;
             List<Rectangle> mapObjects = map.GetMapObjectList();
             foreach (Rectangle obj in mapObjects)
-            {
                 ColisionChecker(obj);                
-            }
         }
 
         public void FrictionCount()
@@ -113,5 +103,14 @@ namespace TheGame.Mics
         {
             velocity.Y++;
         }
+            
+
+
+        public void UpdatePosition()
+        {
+            rectangle.X += (int)velocity.X;
+            rectangle.Y += (int)velocity.Y;
+        }
+
     }
 }

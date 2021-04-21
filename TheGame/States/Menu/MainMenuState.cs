@@ -77,9 +77,7 @@ namespace TheGame.States.Menu
         {
             spriteBatch.Begin();
             foreach (var item in _components)
-            {
                 item.Draw(gameTime, spriteBatch);
-            }
             spriteBatch.End();
         }
 

@@ -25,23 +25,16 @@ namespace TheGame.Animations
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
 
             if (!direction)
-            {
                 spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White);
-            }
             else
-            {
-                spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White,0,Vector2.Zero,SpriteEffects.FlipHorizontally,(float)0);
-            }
-            
+                spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White,0,Vector2.Zero,SpriteEffects.FlipHorizontally,(float)0);          
         }
 
         public override void Update(GameTime gameTime,Sprite sprite)
         {
             this.rectangle = sprite.rectangle;
             if (!(sprite.isAlive))
-            {
                 currentFrame = 2;
-            }
             else
             {
                 ObtainDirection(sprite.velocity);
@@ -52,9 +45,7 @@ namespace TheGame.Animations
                     timer = 0;
                     currentFrame++;
                     if (currentFrame == 2)
-                    {
                         currentFrame = 0;
-                    }
                 }
             }  
         }

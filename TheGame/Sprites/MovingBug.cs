@@ -34,17 +34,15 @@ namespace TheGame.Sprites
                 {
                     velocity.X-=movingSpeed;
                     if (rectangle.X < startPosition.X - range)
-                    {
                         direction = false;
-                    }
+                    
                 }
                 else
                 {
                     velocity.X+=movingSpeed;
                     if (rectangle.X > startPosition.X + range)
-                    {
                         direction = true;
-                    }
+                    
                 }
                 CheckColisionWithPlayer(player);
             }
@@ -54,9 +52,8 @@ namespace TheGame.Sprites
         private void CheckColisionWithPlayer(Player player)
         {
             if (rectangle.Intersects(player.rectangle))
-            {
                 player.ColisionWithMovingBug(this, velocity, hitPoints);
-            }
+            
         }
         public void AttackedByPlayer()
         {

@@ -22,27 +22,19 @@ namespace TheGame.Mics
         public void Follow(Sprite target)
         {
             var position = Matrix.CreateTranslation(-target.rectangle.X - (target.rectangle.Width),-target.rectangle.Y - (target.rectangle.Height),0);
-
             var offset = Matrix.CreateTranslation( Game1.screenWidth / 2, Game1.screenHeight / 2 + Game1.screenHeight / 5,1);
 
             if (Math.Abs(target.velocity.X)<Math.Abs(_previousVelocity.X))
             {
                 if (_zoom < (float)0.99)
-                {
                     _zoom += (float)0.005;
-                }
                 else
-                {
                     _zoom = 1;
-                }
             }
             else
             {
                 if (_zoom > (float)0.8)
-                {
                     _zoom -= (float)0.001;
-                }
-                
 
             }
 
@@ -50,7 +42,5 @@ namespace TheGame.Mics
 
             _previousVelocity = target.velocity;
          }
-        
-       
     }
 }

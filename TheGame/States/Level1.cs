@@ -36,15 +36,16 @@ namespace TheGame.States
         private int pointAtTheBegining;
         private GameMaster gameMaster;
         private List<string>messageList;
-        private List<PhysicalObject> physicalObjects;
         public Level1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
         {
+            pointAtTheBegining = session.GetPlayerPoints();
             Initialize();
         }
 
         public override void Initialize()
         {
             messageList = new List<string>(){
+
             };
             session.SetPlayerPoints(pointAtTheBegining);
             _camera = new Camera();
@@ -73,13 +74,11 @@ namespace TheGame.States
             _sprites.Add(player);
             _sprites.Add(ghostSprite);
             foreach (Rectangle obj in map.movableObjects)
-            {
                 movableItems.Add(new MovableItem(content.Load<Texture2D>("Items/chest"), obj));
-            }
+            
             foreach (Rectangle obj in map.fallableObjects)
-            {
                 fallableObjects.Add(new FallableObject(content.Load<Texture2D>("Items/bridge"), obj));
-            }
+            
             foreach (var tmp in map.checkPoints)
             {
                 var newItem = new CheckPoint(tmp, content.Load<Texture2D>("Items/checkpoint"), content.Load<Texture2D>("Items/checkpointanim"));
@@ -88,25 +87,20 @@ namespace TheGame.States
             }
                 
             foreach (var tmp in map.GetCoins())
-            {
                 _items.Add(new Coin(content.Load<Texture2D>("Items/coinAnimation"), new Rectangle((int)tmp.X, (int)tmp.Y, 50, 50), 1, coinSound));
-            }
+            
             foreach (var tmp in map.GetLadders())
-            {
                 _items.Add(new Ladder(tmp));
-            }
+            
             foreach (var tmp in map.snails)
-            {
                 _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/snailAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 100, 1));
-            }
+            
             foreach (var tmp in map.mouse)
-            {
                 _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/mouseAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 300,3));
-            }
+            
             foreach (var tmp in map.worms)
-            {
                 _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/greenWormAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 150,2));
-            }
+            
             EndPoint = map.endPosition;
             foreach (var tmp in map.powerups)
             {
@@ -124,29 +118,22 @@ namespace TheGame.States
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, transformMatrix: _camera.Transform);
             foreach(var paralax in _paralaxes)
-            {
                 paralax.Draw(gameTime, spriteBatch);
-            }
+            
             spriteBatch.End();
             map.Draw(_camera.Transform);
             spriteBatch.Begin(SpriteSortMode.FrontToBack, transformMatrix: _camera.Transform);
             foreach (Sprite sprite in _sprites)
-            {
                 sprite.Draw(gameTime, spriteBatch);
-            }
+            
             foreach(Item item in _items)
-            {
                 item.Draw(gameTime, spriteBatch);
-            }
+            
             foreach (MovableItem item in movableItems)
-            {
                 item.Draw(gameTime, spriteBatch);
-            }
+            
             foreach (FallableObject item in fallableObjects)
-            {
                 item.Draw(gameTime, spriteBatch);
-            }
-
             spriteBatch.End();
             
             spriteBatch.Begin();
@@ -164,9 +151,7 @@ namespace TheGame.States
             {
                 session.SetPlayerLives(player.lifes);
                 if (player.lifes <= 0)
-                {
                     game.ChangeState(new MainMenuState(game, graphics, content, null));
-                }
                 else
                 {
                     _sprites.Remove(player);
@@ -187,33 +172,26 @@ namespace TheGame.States
             if (!gameMaster.isActive)
             {
                 foreach (Sprite sprite in _sprites)
-                {
                     sprite.Update(gameTime, player, map, movableItems);
-                }
+                
                 map.Update(gameTime);
                 _camera.Follow(ghostSprite);
                 foreach (var paralax in _paralaxes)
-                {
                     paralax.Update(ghostSprite, graphics);
-                }
+                
                 foreach (Item item in _items)
-                {
                     item.Update(gameTime, player);
-                }
+                
                 foreach (MovableItem item in movableItems)
-                {
                     item.Update(gameTime, player, map, movableItems);
-                }
+                
                 foreach (FallableObject item in fallableObjects)
-                {
                     item.Update(gameTime, player);
-                }
+                
                 foreach (CheckPoint checkPoint in _checkpoints)
                 {
                     if ((checkPoint.isChecked) & (!checkPoint.wasChecked))
-                    {
                         spawnPoint = new Vector2(checkPoint.rectangle.X, checkPoint.rectangle.Y - 50);
-                    }
                 }
 
 
@@ -224,9 +202,7 @@ namespace TheGame.States
         public void CheckEndLevel()
         {
             if(player.rectangle.Intersects(new Rectangle((int)EndPoint.X, (int)EndPoint.Y, 100, 100)))
-            {
                 game.ChangeState(new MainMenuState(game, graphics, content, session));
-            }
         }
     }
 }

@@ -34,9 +34,7 @@ namespace TheGame.Mics.GUI_components
             spriteBatch.DrawString(font, session.GetPlayerPoints().ToString(), new Vector2(boxRectangle.X + 60, boxRectangle.Y + 25),Color.Goldenrod);
 
             for(int i = 0; i < session.GetPlayerLives(); i++)
-            {
                 spriteBatch.Draw(lifeTexture, new Rectangle(boxRectangle.X + 25 + i * 25, boxRectangle.Y + 50, 25, 25), Color.White);
-            }
             
         }
         public void Update(GameTime gameTime)

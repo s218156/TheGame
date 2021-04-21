@@ -39,9 +39,8 @@ namespace TheGame.Sprites
             if(!(isAlive))
             {
                 if (deathTime < 25)
-                {
                     deathAnimation.Draw(gameTime, spriteBatch);
-                }
+                
             }
             
         }
@@ -52,16 +51,15 @@ namespace TheGame.Sprites
                 FrictionCount();
                 if(!isOnLadder)
                     GravitySimulation();
+
                 IsOnObstracles(map);
                 CheckEnviromentColision(map);
                 CheckColisionWithMovables(movableList,map);
-                rectangle.X += (int)velocity.X;
-                rectangle.Y += (int)velocity.Y;
+                UpdatePosition();
                 
                 if (attacking > 0)
-                {
                     attacking--;
-                }
+                
 
                 if (lifePoints <= 0)
                 {
@@ -83,9 +81,8 @@ namespace TheGame.Sprites
             if (rectangle.Intersects(enemy.rectangle))
             {
                 if (enemy.attacking == 5)
-                {
                     lifePoints -= enemy.hitPoints;
-                }
+                
             }
         }
 
@@ -94,9 +91,8 @@ namespace TheGame.Sprites
             foreach (var tmp in map.GetObstracles())
             {
                 if (rectangle.Intersects(tmp))
-                {
                     lifePoints -= 100;
-                }
+                
             }
         }
                
@@ -106,10 +102,7 @@ namespace TheGame.Sprites
             foreach (MovableItem obj in items)
             {
                 if (new Rectangle(rectangle.X+(int)velocity.X,rectangle.Y,rectangle.Width,rectangle.Height).Intersects(obj.rectangle))
-                {
                     obj.UpdatePosition(this, map,items);
-                    
-                }
 
                 //kolizje po Y
                 
@@ -122,53 +115,40 @@ namespace TheGame.Sprites
                             floorColision = true;
                             jump = false;
                             velocity.Y = i - 1;
-
                         }
-
                     }
                 }
                 else
                 {
-
                     for (i = -1; i >= (int)velocity.Y; i--)
                     {
                         if ((new Rectangle(rectangle.X, rectangle.Y + i, rectangle.Width, rectangle.Height).Intersects(obj.rectangle)))
-                        {
                             velocity.Y = i + 1;
-                        }
+                        
                     }
                 }
 
                 //kolizje po X
 
-                    if (velocity.X >= 0)
+                if (velocity.X >= 0)
+                {
+                    for (i = 0; i <= (int)velocity.X; i++)
                     {
-                        for (i = 0; i <= (int)velocity.X; i++)
-                        {
-                            if ((new Rectangle(rectangle.X + i, rectangle.Y, rectangle.Width, rectangle.Height).Intersects(obj.rectangle)))
-                            {
-                                velocity.X = i - 1;
+                        if ((new Rectangle(rectangle.X + i, rectangle.Y, rectangle.Width, rectangle.Height).Intersects(obj.rectangle)))
+                            velocity.X = i - 1;
 
-                            }
-                        }
                     }
-                    else
+                }
+                else
+                {
+                    for (i = -1; i >= (int)velocity.X; i--)
                     {
-                        for (i = -1; i >= (int)velocity.X; i--)
-                        {
-                            if ((new Rectangle(rectangle.X + i, rectangle.Y, rectangle.Width, rectangle.Height).Intersects(obj.rectangle)))
-                            {
-                                velocity.X = i + 1;
+                        if ((new Rectangle(rectangle.X + i, rectangle.Y, rectangle.Width, rectangle.Height).Intersects(obj.rectangle)))
+                            velocity.X = i + 1;
 
-                            }
-                        }
                     }
-                
-                
-
-               
+                }
             }
-        }
-       
+        } 
     }
 }

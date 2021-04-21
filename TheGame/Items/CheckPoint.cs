@@ -35,6 +35,7 @@ namespace TheGame.Content.Items
             wasChecked = isChecked;
             if (isChecked)
                 animation.Update(gameTime, null);
+
             if (rectangle.Intersects(player.rectangle))
                 isChecked = true;
         }

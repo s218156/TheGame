@@ -31,22 +31,13 @@ namespace TheGame.Items
             if (wasTouched)
             {
                 if (timeAfterTouch < 100)
-                {
                     timeAfterTouch++;
-                }
                 else
-                {
                     GravitySimulation();
-                }
+                
             }
-            rectangle.X += (int)velocity.X;
-            rectangle.Y += (int)velocity.Y;
-
-
-
-
-        }
-        
+            UpdatePosition();
+        }        
     }
     
 }

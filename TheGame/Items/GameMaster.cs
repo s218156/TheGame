@@ -38,8 +38,6 @@ namespace TheGame.Items
             this.animatedTexture = new ItemAnimation(content.Load<Texture2D>("Sprites/GameMaster"), rectangle, 3, 1);
         }
 
-
-
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (isActive)
@@ -63,24 +61,27 @@ namespace TheGame.Items
             else
             {
                 animatedTexture.Update(gameTime, null);
-                List < Rectangle > newTriggers= new List<Rectangle>();
-                foreach(Rectangle tmp in triggers)
-                {
-                    if (tmp.Intersects(player.rectangle))
-                    {
-                        chatBox.UpdateCaption(captions[0]);
-                        captions.RemoveAt(0);
-                        isActive = true;
-                    }
-                    else
-                    {
-                        newTriggers.Add(tmp);
-                    }
-                }
-                triggers = newTriggers;
+                CheckTrigger(player);
+                
             }
         }
 
-        
+        private void CheckTrigger(Player player)
+        {
+            List<Rectangle> newTriggers = new List<Rectangle>();
+            foreach (Rectangle tmp in triggers)
+            {
+                if (tmp.Intersects(player.rectangle))
+                {
+                    chatBox.UpdateCaption(captions[0]);
+                    captions.RemoveAt(0);
+                    isActive = true;
+                }
+                else
+                    newTriggers.Add(tmp);
+                
+            }
+            triggers = newTriggers;
+        }
     }
 }

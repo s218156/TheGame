@@ -22,41 +22,26 @@ namespace TheGame.Animations
             ObtainDirection(sprite.velocity);
             this.rectangle = sprite.rectangle;
             if (sprite.isOnLadder )
-            {
                 currentRow = 3;
-                
-            }
             else
             {
                 if (sprite.velocity.Y < 0)
-                {
                     currentRow = 2;
-                }
                 else
                 {
                     if (sprite.velocity.Y > 0)
-                    {
                         currentRow = 5;
-                    }
                     else
                     {
                         if (sprite.crouch)
-                        {
                             currentRow = 4;
-                        }
                         else
                         {
                             if (Math.Abs(sprite.velocity.X )>1)
-                            {
                                 currentRow = 1;
-                            }
                             else
-                            {
                                 currentRow = 0;
-                            }
                         }
-                        
-
                     }
                 }
             }
@@ -67,13 +52,9 @@ namespace TheGame.Animations
                 timer = 0;
                 currentFrame++;
                 if (currentFrame%4 == 0)
-                {
                     currentFrame -= 4;
-                }
             }
         }
-
-        
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -84,13 +65,9 @@ namespace TheGame.Animations
             Rectangle sourceRectangle = new Rectangle(width * column, height * currentRow, width, height);
 
             if (!direction)
-            {
                 spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White);
-            }
             else
-            {
                 spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, (float)0);
-            }
         }
     }
 }

@@ -49,9 +49,7 @@ namespace TheGame.Animations
                 timer = 0;
                 currentFrame++;
                 if (currentFrame == totalFrames)
-                {
                     currentFrame = 0;
-                }
             }
         }
 
@@ -60,13 +58,10 @@ namespace TheGame.Animations
             if (velocity.X != 0)
             {
                 if (velocity.X > 0)
-                {
                     direction = false;
-                }
                 else
-                {
                     direction = true;
-                }
+
             }
         }
 

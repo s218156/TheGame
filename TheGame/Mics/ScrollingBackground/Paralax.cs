@@ -39,23 +39,18 @@ namespace TheGame.Mics
         private void ToogleBackgrounds(Sprite player, GraphicsDevice graphics)
         {
             if (b[0].rectangle.X > player.rectangle.X + graphics.Viewport.Width * (float)0.7)
-            {
                 b[0].rectangle.X = b[1].rectangle.X - b[0].rectangle.Width;
-            }
+
             if (b[1].rectangle.X > player.rectangle.X + graphics.Viewport.Width * (float)0.5)
-            {
                 b[1].rectangle.X = b[0].rectangle.X - b[1].rectangle.Width;
-            }
 
 
             if (b[0].rectangle.X+b[0].rectangle.Width < player.rectangle.X - graphics.Viewport.Width * (float)0.7)
-            {
                 b[0].rectangle.X = b[1].rectangle.X + b[1].rectangle.Width;
-            }
+
             if (b[1].rectangle.X + b[1].rectangle.Width < player.rectangle.X - graphics.Viewport.Width * (float)0.7)
-            {
                 b[1].rectangle.X = b[0].rectangle.X + b[0].rectangle.Width;
-            }
+            
         }
     }
 }

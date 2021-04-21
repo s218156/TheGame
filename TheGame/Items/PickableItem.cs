@@ -21,9 +21,7 @@ namespace TheGame.Items
         public override void Draw(GameTime gameTIme, SpriteBatch spriteBatch)
         {
             if (isActive)
-            {
                 spriteBatch.Draw(texture, rectangle, Color.White);
-            }
          
         }
         public override void Update(GameTime gameTime, Player player)

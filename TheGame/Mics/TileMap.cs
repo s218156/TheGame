@@ -41,12 +41,9 @@ namespace TheGame.Mics
         public void Update(GameTime time)
         {
             mapRenderer.Update(time);
-
-
         }
         public void Draw(Matrix transform)
         {
-
             mapRenderer.Draw(transform, null, null, 0);
         }
         void getObjectsFromMap()
