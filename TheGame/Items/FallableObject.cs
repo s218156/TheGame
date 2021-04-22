@@ -23,18 +23,25 @@ namespace TheGame.Items
             spriteBatch.Draw(texture, rectangle, Color.White);
         }
 
-        public void Update(GameTime gameTime, Player player)
+        public void Update(GameTime gameTime, Player player, TileMap map)
         {
-            if (rectangle.Intersects(player.rectangle))
+            Rectangle tmp = new Rectangle(rectangle.X,rectangle.Y-5,rectangle.Width,rectangle.Height);
+
+            if (tmp.Intersects(player.rectangle))
                 wasTouched = true;
 
             if (wasTouched)
             {
-                if (timeAfterTouch < 100)
+                if (timeAfterTouch < 25)
                     timeAfterTouch++;
                 else
+                {
                     GravitySimulation();
-                
+                    if (map.mapObjects.Contains(rectangle))
+                        map.mapObjects.Remove(rectangle);
+                }
+                    
+
             }
             UpdatePosition();
         }        

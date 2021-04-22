@@ -77,7 +77,12 @@ namespace TheGame.States
                 movableItems.Add(new MovableItem(content.Load<Texture2D>("Items/chest"), obj));
             
             foreach (Rectangle obj in map.fallableObjects)
-                fallableObjects.Add(new FallableObject(content.Load<Texture2D>("Items/bridge"), obj));
+            {
+                FallableObject temp = new FallableObject(content.Load<Texture2D>("Items/bridge"), obj);
+                fallableObjects.Add(temp);
+                map.mapObjects.Add(temp.rectangle);
+            }
+                
             
             foreach (var tmp in map.checkPoints)
             {
@@ -186,7 +191,7 @@ namespace TheGame.States
                     item.Update(gameTime, player, map, movableItems);
                 
                 foreach (FallableObject item in fallableObjects)
-                    item.Update(gameTime, player);
+                    item.Update(gameTime, player,map);
                 
                 foreach (CheckPoint checkPoint in _checkpoints)
                 {
