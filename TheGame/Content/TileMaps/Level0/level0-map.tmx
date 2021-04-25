@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="500" height="100" tilewidth="64" tileheight="64" infinite="0" nextlayerid="19" nextobjectid="312">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="500" height="100" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="313">
  <tileset firstgid="1" name="..grass-tiles" tilewidth="64" tileheight="64" tilecount="32" columns="4">
   <image source="../textures/mapTextures/grass-tiles.png" width="256" height="512"/>
  </tileset>
@@ -132,6 +132,7 @@
   <object id="305" x="16512" y="448" width="64" height="64"/>
   <object id="306" x="17920" y="448" width="64" height="64"/>
  </objectgroup>
+ <objectgroup id="19" name="Springs"/>
  <objectgroup id="15" name="PowerUps"/>
  <layer id="12" name="Warstwa Kafelków 2" width="500" height="100">
   <data encoding="csv">

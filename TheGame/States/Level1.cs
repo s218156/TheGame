@@ -36,10 +36,22 @@ namespace TheGame.States
         private int pointAtTheBegining;
         private GameMaster gameMaster;
         private List<string>messageList;
+        private List<Spring> springs;
         public Level1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
         {
             pointAtTheBegining = session.GetPlayerPoints();
             Initialize();
+        }
+
+        public void GeneratePlayerAndBackground()
+        {
+            _paralaxes = new List<Paralax>();
+            player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"), spawnPoint, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), session.GetPlayerLives());
+            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/background"), graphics, Vector2.Zero, new Vector2((float)0.5, (float)0.9));
+            _paralaxes.Add(p1);
+            ghostSprite = new GhostSprite(player);
+            _sprites.Insert(0, player);
+            _sprites.Add(ghostSprite);
         }
 
         public override void Initialize()
@@ -56,6 +68,7 @@ namespace TheGame.States
             movableItems = new List<MovableItem>();
             gameUI = new GameUI(content);
             fallableObjects = new List<FallableObject>();
+            springs = new List<Spring>();
             GenerateObjects();
         }
 
@@ -67,12 +80,9 @@ namespace TheGame.States
 
             map = new TileMap(content.Load<TiledMap>("TileMaps//level1/Level1-map"), graphics);
             spawnPoint = map.spawnPosition;
-            player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"), spawnPoint, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), session.GetPlayerLives());
-            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/background"), graphics, Vector2.Zero, new Vector2((float)0.5, (float)0.9));
-            _paralaxes.Add(p1);
-            ghostSprite = new GhostSprite(player);
-            _sprites.Add(player);
-            _sprites.Add(ghostSprite);
+
+            GeneratePlayerAndBackground();
+            
             foreach (Rectangle obj in map.movableObjects)
                 movableItems.Add(new MovableItem(content.Load<Texture2D>("Items/chest"), obj));
             
@@ -82,8 +92,10 @@ namespace TheGame.States
                 fallableObjects.Add(temp);
                 map.mapObjects.Add(temp.rectangle);
             }
-                
-            
+
+            foreach (Rectangle tmp in map.springs)
+                springs.Add(new Spring(content.Load<Texture2D>("Items/spring"), tmp));
+
             foreach (var tmp in map.checkPoints)
             {
                 var newItem = new CheckPoint(tmp, content.Load<Texture2D>("Items/checkpoint"), content.Load<Texture2D>("Items/checkpointanim"));
@@ -133,6 +145,9 @@ namespace TheGame.States
             
             foreach(Item item in _items)
                 item.Draw(gameTime, spriteBatch);
+
+            foreach (Spring tmp in springs)
+                tmp.Draw(gameTime, spriteBatch);
             
             foreach (MovableItem item in movableItems)
                 item.Draw(gameTime, spriteBatch);
@@ -161,10 +176,7 @@ namespace TheGame.States
                 {
                     _sprites.Remove(player);
                     _sprites.Remove(ghostSprite);
-                    player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"),spawnPoint, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), session.GetPlayerLives());
-                    ghostSprite = new GhostSprite(player);
-                    _sprites.Insert(0,player);
-                    _sprites.Add(ghostSprite);
+                    GeneratePlayerAndBackground();
                 }
             }
         }
@@ -198,6 +210,8 @@ namespace TheGame.States
                     if ((checkPoint.isChecked) & (!checkPoint.wasChecked))
                         spawnPoint = new Vector2(checkPoint.rectangle.X, checkPoint.rectangle.Y - 50);
                 }
+                foreach (Spring tmp in springs)
+                    tmp.Update(gameTime, player, map);
 
 
                 gameUI.Update(gameTime);

@@ -20,6 +20,9 @@ namespace TheGame.Sprites
         public bool crouch;
         public int hitPoints , deathTime;
         private ItemAnimation deathAnimation;
+
+
+
         public Sprite(Vector2 position,Texture2D deathTexture):base(null,position)
         {
             rectangle = new Rectangle((int)position.X, (int)position.Y, 100, 100);

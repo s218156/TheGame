@@ -63,7 +63,7 @@ namespace TheGame.States
             session.SetPlayerPoints(pointAtTheBegining);
             _camera = new Camera();
             _sprites = new List<Sprite>();
-            _paralaxes = new List<Paralax>();
+            
             _items = new List<Item>();
             _checkpoints = new List<CheckPoint>();
             movableItems = new List<MovableItem>();
@@ -72,6 +72,17 @@ namespace TheGame.States
             GenerateObjects();
         }
 
+
+        public void GeneratePlayerAndBackground()
+        {
+            _paralaxes = new List<Paralax>();
+            player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"), spawnPoint, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), session.GetPlayerLives());
+            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/background"), graphics, Vector2.Zero, new Vector2((float)0.5, (float)0.9));
+            _paralaxes.Add(p1);
+            ghostSprite = new GhostSprite(player);
+            _sprites.Insert(0, player);
+            _sprites.Add(ghostSprite);
+        }
         private void GenerateObjects()
         {
             CoinSoundController coinSound = new CoinSoundController(content.Load<Song>("Audio/handleCoins"));
@@ -80,12 +91,9 @@ namespace TheGame.States
 
             map = new TileMap(content.Load<TiledMap>("TileMaps//level0/Level0-map"), graphics);
             spawnPoint = map.spawnPosition;
-            player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"), spawnPoint, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), session.GetPlayerLives());
-            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/background"), graphics, Vector2.Zero, new Vector2((float)0.5, (float)0.9));
-            _paralaxes.Add(p1);
-            ghostSprite = new GhostSprite(player);
-            _sprites.Add(player);
-            _sprites.Add(ghostSprite);
+
+            GeneratePlayerAndBackground();
+
             foreach (Rectangle obj in map.movableObjects)
             {
                 movableItems.Add(new MovableItem(content.Load<Texture2D>("Items/chest"), obj));
@@ -167,10 +175,7 @@ namespace TheGame.States
                 {
                     _sprites.Remove(player);
                     _sprites.Remove(ghostSprite);
-                    player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"),spawnPoint, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), session.GetPlayerLives());
-                    ghostSprite = new GhostSprite(player);
-                    _sprites.Insert(0,player);
-                    _sprites.Add(ghostSprite);
+                    GeneratePlayerAndBackground();
                 }
             }
         }

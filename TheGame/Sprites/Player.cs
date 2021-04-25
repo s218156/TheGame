@@ -122,6 +122,7 @@ namespace TheGame.Sprites
         private void GetMovementFormKeyboard(TileMap map)
         {
             var keyState = Keyboard.GetState();
+            
             if (keyState.IsKeyDown(Keys.LeftControl))
                 attacking = 10;
 
