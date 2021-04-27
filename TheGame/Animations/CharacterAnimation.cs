@@ -63,11 +63,12 @@ namespace TheGame.Animations
             int column = currentFrame % columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * currentRow, width, height);
+            Rectangle drawRectangle = new Rectangle(rectangle.X-(int)(0.2*rectangle.Width), rectangle.Y - (int)(0.136 * rectangle.Height),(int)(1.4 * rectangle.Width),(int)(1.158 * rectangle.Height));
 
             if (!direction)
-                spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White);
+                spriteBatch.Draw(texture, drawRectangle, sourceRectangle, Color.White);
             else
-                spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, (float)0);
+                spriteBatch.Draw(texture, drawRectangle, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, (float)0);
         }
     }
 }

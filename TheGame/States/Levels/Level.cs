@@ -18,37 +18,35 @@ using TheGame.States.Menu;
 
 namespace TheGame.States
 {
-    class Level1 : State
+    abstract class Level : State
     {
-        private TileMap map;
-        private Player player;
-        private List<Sprite> _sprites;
-        private Camera _camera;
-        private List<CheckPoint> _checkpoints;
-        private GhostSprite ghostSprite;
-        private List<Paralax> _paralaxes;
-        private List<Item> _items;
-        private Vector2 spawnPoint;
-        private GameUI gameUI;
-        private Vector2 EndPoint;
-        private List<MovableItem> movableItems;
-        private List<FallableObject> fallableObjects;
-        private int pointAtTheBegining;
-        private GameMaster gameMaster;
-        private List<string>messageList;
-        private List<Spring> springs;
-        public Level1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
+        protected TileMap map;
+        protected Player player;
+        protected List<Sprite> _sprites;
+        protected Camera _camera;
+        protected List<CheckPoint> _checkpoints;
+        protected GhostSprite ghostSprite;
+        protected List<Paralax> _paralaxes;
+        protected List<Item> _items;
+        protected Vector2 spawnPoint;
+        protected GameUI gameUI;
+        protected Vector2 EndPoint;
+        protected List<MovableItem> movableItems;
+        protected List<FallableObject> fallableObjects;
+        protected int pointAtTheBegining;
+        protected GameMaster gameMaster;
+        protected List<string>messageList;
+        protected List<Spring> springs;
+        public Level(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
         {
             pointAtTheBegining = session.GetPlayerPoints();
-            Initialize();
+            _paralaxes = new List<Paralax>();
         }
 
         public void GeneratePlayerAndBackground()
         {
-            _paralaxes = new List<Paralax>();
             player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"), spawnPoint, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), session.GetPlayerLives());
-            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/background"), graphics, Vector2.Zero, new Vector2((float)0.5, (float)0.9));
-            _paralaxes.Add(p1);
+            
             ghostSprite = new GhostSprite(player);
             _sprites.Insert(0, player);
             _sprites.Add(ghostSprite);
@@ -56,13 +54,9 @@ namespace TheGame.States
 
         public override void Initialize()
         {
-            messageList = new List<string>(){
-
-            };
             session.SetPlayerPoints(pointAtTheBegining);
             _camera = new Camera();
             _sprites = new List<Sprite>();
-            _paralaxes = new List<Paralax>();
             _items = new List<Item>();
             _checkpoints = new List<CheckPoint>();
             movableItems = new List<MovableItem>();
@@ -72,13 +66,11 @@ namespace TheGame.States
             GenerateObjects();
         }
 
+        protected abstract void LoadMap();
+
         private void GenerateObjects()
         {
             CoinSoundController coinSound = new CoinSoundController(content.Load<Song>("Audio/handleCoins"));
-
-            
-
-            map = new TileMap(content.Load<TiledMap>("TileMaps//level1/Level1-map"), graphics);
             spawnPoint = map.spawnPosition;
 
             GeneratePlayerAndBackground();
