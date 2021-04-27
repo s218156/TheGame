@@ -125,7 +125,7 @@ namespace TheGame.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, transformMatrix: _camera.Transform);
+            spriteBatch.Begin();
             foreach(var paralax in _paralaxes)
                 paralax.Draw(gameTime, spriteBatch);
             
