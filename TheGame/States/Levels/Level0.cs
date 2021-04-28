@@ -21,7 +21,7 @@ namespace TheGame.States
 {
     class Level0 : Level
     {
-        public Level0(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
+        public Level0(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session, new Level1(game,graphics,content,session))
         {
             LoadMap();
             messageList = new List<string>(){
@@ -47,12 +47,14 @@ namespace TheGame.States
         {
             map = new TileMap(content.Load<TiledMap>("TileMaps//level0/Level0-map"), graphics);
 
-            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p2"), graphics, Vector2.Zero, new Vector2((float)0.5, (float)0.9));
+            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p2"), graphics, Vector2.Zero, new Vector2((float)0.2, 0));
             Paralax p2 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p1"), graphics, new Vector2(-1,0), new Vector2((float)0.5, (float)0.9));
-            Paralax p3 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p0"), graphics, Vector2.Zero, new Vector2((float)0.5, (float)0.9));
+            Paralax p3 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p0"), graphics, Vector2.Zero, new Vector2((float)0.4, (float)0.1));
+            Paralax p4= new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p3"), graphics, Vector2.Zero, new Vector2((float)0.3, (float)0));
             _paralaxes.Add(p1);
-            _paralaxes.Add(p2);
+            _paralaxes.Add(p4);
             _paralaxes.Add(p3);
+            _paralaxes.Add(p2);
         }
     }
 }

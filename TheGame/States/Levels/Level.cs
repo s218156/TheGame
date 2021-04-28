@@ -26,7 +26,7 @@ namespace TheGame.States
         protected Camera _camera;
         protected List<CheckPoint> _checkpoints;
         protected GhostSprite ghostSprite;
-        protected List<Paralax> _paralaxes;
+        protected List<Paralax> _paralaxes, _startParalaxes;
         protected List<Item> _items;
         protected Vector2 spawnPoint;
         protected GameUI gameUI;
@@ -37,16 +37,21 @@ namespace TheGame.States
         protected GameMaster gameMaster;
         protected List<string>messageList;
         protected List<Spring> springs;
-        public Level(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session)
+        private State nextGameState;
+        public Level(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session,State nextGameState):base(game,graphics,content, session)
         {
             pointAtTheBegining = session.GetPlayerPoints();
             _paralaxes = new List<Paralax>();
+            this.nextGameState = nextGameState;
         }
 
         public void GeneratePlayerAndBackground()
         {
             player = new Player(content.Load<Texture2D>("Sprites/playerAnimation"), spawnPoint, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), session.GetPlayerLives());
-            
+
+            foreach (Paralax tmp in _paralaxes)
+                tmp.Initialize();
+
             ghostSprite = new GhostSprite(player);
             _sprites.Insert(0, player);
             _sprites.Add(ghostSprite);
@@ -55,6 +60,7 @@ namespace TheGame.States
         public override void Initialize()
         {
             session.SetPlayerPoints(pointAtTheBegining);
+            _startParalaxes = new List<Paralax>(_paralaxes);
             _camera = new Camera();
             _sprites = new List<Sprite>();
             _items = new List<Item>();
@@ -213,7 +219,12 @@ namespace TheGame.States
         public void CheckEndLevel()
         {
             if(player.rectangle.Intersects(new Rectangle((int)EndPoint.X, (int)EndPoint.Y, 100, 100)))
-                game.ChangeState(new MainMenuState(game, graphics, content, session));
+            {
+                nextGameState.UpdateSessionData(session);
+                game.ChangeState(nextGameState);
+            }
+                
         }
+
     }
 }
