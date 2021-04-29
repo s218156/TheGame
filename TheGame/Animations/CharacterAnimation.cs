@@ -22,41 +22,26 @@ namespace TheGame.Animations
             ObtainDirection(sprite.velocity);
             this.rectangle = sprite.rectangle;
             if (sprite.isOnLadder )
-            {
                 currentRow = 3;
-                
-            }
             else
             {
                 if (sprite.velocity.Y < 0)
-                {
                     currentRow = 2;
-                }
                 else
                 {
                     if (sprite.velocity.Y > 0)
-                    {
                         currentRow = 5;
-                    }
                     else
                     {
                         if (sprite.crouch)
-                        {
                             currentRow = 4;
-                        }
                         else
                         {
                             if (Math.Abs(sprite.velocity.X )>1)
-                            {
                                 currentRow = 1;
-                            }
                             else
-                            {
                                 currentRow = 0;
-                            }
                         }
-                        
-
                     }
                 }
             }
@@ -67,13 +52,9 @@ namespace TheGame.Animations
                 timer = 0;
                 currentFrame++;
                 if (currentFrame%4 == 0)
-                {
                     currentFrame -= 4;
-                }
             }
         }
-
-        
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -82,15 +63,12 @@ namespace TheGame.Animations
             int column = currentFrame % columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * currentRow, width, height);
+            Rectangle drawRectangle = new Rectangle(rectangle.X-(int)(0.2*rectangle.Width), rectangle.Y - (int)(0.136 * rectangle.Height),(int)(1.4 * rectangle.Width),(int)(1.158 * rectangle.Height));
 
             if (!direction)
-            {
-                spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White);
-            }
+                spriteBatch.Draw(texture, drawRectangle, sourceRectangle, Color.White);
             else
-            {
-                spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, (float)0);
-            }
+                spriteBatch.Draw(texture, drawRectangle, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, (float)0);
         }
     }
 }

@@ -4,22 +4,23 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using TheGame.Items;
 using TheGame.Mics;
 
 namespace TheGame.Sprites
 {
-    /*class Enemy:Sprite
+    class Enemy:Sprite
     {
-        public Enemy(Texture2D texture, Vector2 position,Texture2D deathTexture) : base(texture, position,deathTexture)
+        public Enemy(Texture2D texture, Vector2 position,Texture2D deathTexture) : base(position,deathTexture)
         {
             hitPoints = 10;
         }
 
-        public override void Update(GameTime gameTime, Sprite player, TileMap map)
+        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem> movableList)
         {
             MoveTowardsPlayer(player);
             CheckFightCondition(player);
-            base.Update(gameTime, player, map);
+            base.Update(gameTime, player, map,movableList);
         }
         private void MoveTowardsPlayer(Sprite player)
         {
@@ -55,5 +56,4 @@ namespace TheGame.Sprites
             }
         }
     }
-    */
 }

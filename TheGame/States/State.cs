@@ -27,6 +27,10 @@ namespace TheGame.States
             this.content = content;
             this.session = session;
         }
+        public void UpdateSessionData(SessionData session)
+        {
+            this.session = session;
+        }
 
 
     }

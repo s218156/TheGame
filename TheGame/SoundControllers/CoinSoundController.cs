@@ -16,6 +16,7 @@ namespace TheGame.SoundControllers
         }
         public void PlaySound()
         {
+            MediaPlayer.Volume =2;
             MediaPlayer.Play(sound);
         }
     }

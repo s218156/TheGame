@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TheGame.Mics;
 using TheGame.Sprites;
 
 namespace TheGame.Items
@@ -19,7 +20,7 @@ namespace TheGame.Items
             
         }
 
-        public override void Update(GameTime gameTime, Player player)
+        public override void Update(GameTime gameTime, Player player, TileMap map)
         {
             
         }

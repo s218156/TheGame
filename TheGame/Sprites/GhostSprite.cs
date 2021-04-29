@@ -22,9 +22,7 @@ namespace TheGame.Sprites
             moveToRight = false;
             moveToLeft = false;
             if (type == 1)
-            {
                 moveToRight = true;
-            }
         }
         public GhostSprite(Sprite player):base(new Vector2(player.rectangle.X,player.rectangle.Y),null)
         {

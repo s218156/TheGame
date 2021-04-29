@@ -41,23 +41,18 @@ namespace TheGame.Sprites
             else
             {
                 if (deathTime >= 80)
-                {
                     lifes--;
-                }
             }
             base.Update(gameTime, player, map,movableList);
             foreach (InventoryItem item in inventory)
-            {
                 item.Update(gameTime, this);
-            }
+            
         }
 
         private void CrouchingInfluence()
         {
             if (crouch&floorColision)
-            {
                 velocity.X = velocity.X - (int)velocity.X / 4;                
-            }
         }
 
         private void IsOnLadder(TileMap map)
@@ -66,9 +61,7 @@ namespace TheGame.Sprites
             foreach(Rectangle tmp in map.GetLadders())
             {
                 if (rectangle.Intersects(tmp))
-                {
                     isOnLadder = true;
-                }
             }
         }
 
@@ -77,9 +70,7 @@ namespace TheGame.Sprites
             if (isAlive)
             {
                 if (velocity.Y > 0)
-                {
                     bug.AttackedByPlayer();
-                }
                 else
                 {
                     lifePoints -= bugHitPoints;
@@ -131,22 +122,19 @@ namespace TheGame.Sprites
         private void GetMovementFormKeyboard(TileMap map)
         {
             var keyState = Keyboard.GetState();
+            
             if (keyState.IsKeyDown(Keys.LeftControl))
-            {
                 attacking = 10;
-            }
+
             if ((keyState.IsKeyDown(Keys.W)) & isOnLadder)
-            {
                 velocity.Y--;
-            }
+
             if (keyState.IsKeyDown(Keys.D))
-            {
                 velocity.X++;
-            }
+            
             if (keyState.IsKeyDown(Keys.A))
-            {
                 velocity.X--;
-            }
+            
             if ((keyState.IsKeyDown(Keys.Space)) & (floorColision))
             {
                 velocity.Y = -1*jumpHeight;
@@ -161,9 +149,8 @@ namespace TheGame.Sprites
                     rectangle.Height = rectangle.Height - 35;
                 }
                 else
-                {
                     velocity.Y++;
-                }
+                
             }
             if (keyState.IsKeyUp(Keys.S)&crouch)
             {

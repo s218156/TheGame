@@ -16,6 +16,7 @@ namespace TheGame.Mics
         TiledMapRenderer mapRenderer;
         TiledMapLayer layer1;
         public List<Rectangle> mapObjects;
+        public List<Rectangle> gameMaster;
         public List<Vector2> coins;
         public List<Rectangle> ladders;
         public List<Rectangle> obstracles;
@@ -27,7 +28,12 @@ namespace TheGame.Mics
         public Vector2 endPosition;
         public List<Rectangle> movableObjects;
         public List<Rectangle> powerups;
-        private string[] objectLayers = { "Mouse", "Snails", "Worms", "Enemies", "End", "Spawn" };
+        public List<Rectangle> gameMasterSpawn, checkPoints,fallableObjects,springs;
+        public List<LeverInstanceForMap> levers;
+        public List<PlatformInstanceForMap> platforms;
+     
+        private string[] objectLayersToVector = { "Mouse", "Snails", "Worms", "Enemies", "End", "Spawn","Coins" };
+        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" ,"Springs", "Levers","Platforms"};
         public TileMap(TiledMap map, GraphicsDevice graphics)
         {
             tMap = map;
@@ -37,66 +43,64 @@ namespace TheGame.Mics
         public void Update(GameTime time)
         {
             mapRenderer.Update(time);
-
-
         }
         public void Draw(Matrix transform)
         {
-
             mapRenderer.Draw(transform, null, null, 0);
         }
         void getObjectsFromMap()
         {
+            TiledMapObject[] objTmp;
 
-            TiledMapObject[] objTmp = tMap.GetLayer<TiledMapObjectLayer>("WorldColision").Objects;
             mapObjects = new List<Rectangle>();
-            foreach (var tmp in objTmp)
-            {
-                mapObjects.Add(new Rectangle((int)tmp.Position.X, (int) tmp.Position.Y, (int) tmp.Size.Width, (int) tmp.Size.Height));
-            }
-
-            objTmp = tMap.GetLayer<TiledMapObjectLayer>("Coins").Objects;
-            coins = new List<Vector2>();
-            foreach (var tmp in objTmp)
-            {
-                coins.Add(new Vector2((int)tmp.Position.X, (int)tmp.Position.Y));
-            }
-            objTmp = tMap.GetLayer<TiledMapObjectLayer>("Ladder").Objects;
             ladders = new List<Rectangle>();
-            foreach (var tmp in objTmp)
-            {
-                ladders.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
-            }
-
-            objTmp = tMap.GetLayer<TiledMapObjectLayer>("PowerUps").Objects;
             powerups = new List<Rectangle>();
-            foreach (var tmp in objTmp)
-            {
-                powerups.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
-            }
-
-
-            spawnPosition = new Vector2(tMap.GetLayer<TiledMapObjectLayer>("Spawn").Objects[0].Position.X, tMap.GetLayer<TiledMapObjectLayer>("Spawn").Objects[0].Position.Y);
-           
-            objTmp = tMap.GetLayer<TiledMapObjectLayer>("Obstracles").Objects;
             obstracles = new List<Rectangle>();
-            foreach (var tmp in objTmp)
-            {
-                obstracles.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
-            }
-
-            objTmp = tMap.GetLayer<TiledMapObjectLayer>("Movable Boxes").Objects;
             movableObjects = new List<Rectangle>();
-            foreach (var tmp in objTmp)
-            {
-                movableObjects.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
-            }
+            gameMasterSpawn = new List<Rectangle>();
+            checkPoints= new List<Rectangle>();
+            fallableObjects = new List<Rectangle>();
+            springs = new List<Rectangle>();
+            levers = new List<LeverInstanceForMap>();
+            platforms = new List<PlatformInstanceForMap>();
 
             mouse = new List<Vector2>();
             worms = new List<Vector2>();
             snails = new List<Vector2>();
             enemies = new List<Vector2>();
-            foreach(string layer in objectLayers)
+            coins = new List<Vector2>();
+
+            foreach (string layer in objectLayersToRectangle)
+            {
+                objTmp = tMap.GetLayer<TiledMapObjectLayer>(layer).Objects;
+                foreach (var tmp in objTmp)
+                {
+                    if(layer=="WorldColision")
+                        mapObjects.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if (layer == "Ladder")
+                        ladders.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if(layer=="PowerUps")
+                        powerups.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if(layer=="Obstracles")
+                        obstracles.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if(layer=="Movable Boxes")
+                        movableObjects.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if (layer == "GameMaster")
+                        gameMasterSpawn.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if (layer == "CheckPoints")
+                        checkPoints.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if (layer == "FallableObject")
+                        fallableObjects.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if(layer=="Springs")
+                        springs.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if(layer=="Levers")
+                        levers.Add(new LeverInstanceForMap(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height),int.Parse(tmp.Type)));
+                    if (layer == "Platforms")
+                        platforms.Add(new PlatformInstanceForMap(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height), int.Parse(tmp.Type)));
+                }
+            }
+                       
+            foreach (string layer in objectLayersToVector)
             {
                 objTmp = tMap.GetLayer<TiledMapObjectLayer>(layer).Objects;
                 foreach (var tmp in objTmp)
@@ -113,6 +117,8 @@ namespace TheGame.Mics
                         endPosition=new Vector2((int)tmp.Position.X,(int)tmp.Position.Y);
                     if(layer=="Spawn")
                         spawnPosition = new Vector2((int)tmp.Position.X, (int)tmp.Position.Y);
+                    if (layer == "Coins")
+                        coins.Add(new Vector2((int)tmp.Position.X, (int)tmp.Position.Y));
 
                 }
             }

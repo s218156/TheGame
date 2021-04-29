@@ -42,9 +42,7 @@ namespace TheGame
         protected override void LoadContent()
         {
             if (screen.ConfigFileExist())
-            {
                 screen=screen.Load();
-            }
             else
             {
                 screen.height = 900;

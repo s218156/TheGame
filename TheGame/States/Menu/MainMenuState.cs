@@ -77,9 +77,7 @@ namespace TheGame.States.Menu
         {
             spriteBatch.Begin();
             foreach (var item in _components)
-            {
                 item.Draw(gameTime, spriteBatch);
-            }
             spriteBatch.End();
         }
 
@@ -101,7 +99,7 @@ namespace TheGame.States.Menu
         private void NewGameButtonClick(object sender, EventArgs e)
         {
             SessionData session = new SessionData();
-            game.ChangeState(new Level0(game, graphics, content,session));
+            game.ChangeState(new Level2(game, graphics, content,session));
         }
 
         
