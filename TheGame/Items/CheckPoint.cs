@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using TheGame.Animations;
 using TheGame.Items;
+using TheGame.Mics;
 using TheGame.Sprites;
 
 namespace TheGame.Content.Items
@@ -30,7 +31,7 @@ namespace TheGame.Content.Items
             else
                 spriteBatch.Draw(texture, rectangle, Color.White);
         }
-        public override void Update(GameTime gameTime, Player player)
+        public override void Update(GameTime gameTime, Player player, TileMap map)
         {
             wasChecked = isChecked;
             if (isChecked)

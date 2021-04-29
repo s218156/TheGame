@@ -226,6 +226,30 @@
 /processorParam:TextureFormat=Color
 /build:Items/ladder.png
 
+#begin Items/Lever.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Items/Lever.png
+
+#begin Items/platform.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Items/platform.png
+
 #begin Items/spring.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -368,6 +392,11 @@
 /processor:TiledMapProcessor
 /build:TileMaps/Level1/level1-map.tmx
 
+#begin TileMaps/Level2/level2-map.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:TileMaps/Level2/level2-map.tmx
+
 #begin TileMaps/textures/mapTextures.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -391,6 +420,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TileMaps/textures/mapTextures/grass-tiles.png
+
+#begin TileMaps/textures/mapTextures/sand.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TileMaps/textures/mapTextures/sand.png
 
 #begin TileMaps/textures/xtraTextures.png
 /importer:TextureImporter

@@ -69,6 +69,7 @@ namespace TheGame.States
             gameUI = new GameUI(content);
             fallableObjects = new List<FallableObject>();
             springs = new List<Spring>();
+
             GenerateObjects();
         }
 
@@ -100,6 +101,21 @@ namespace TheGame.States
                 _checkpoints.Add(newItem);
                 _items.Add(newItem);
             }
+
+            foreach (var tmp in map.levers)
+            {
+                List<Platform> platforms = new List<Platform>();
+                foreach(PlatformInstanceForMap platform in map.platforms)
+                {
+                    if (platform.leverNumber == tmp.leverNumber)
+                    {
+                        platforms.Add(new Platform(content.Load<Texture2D>("items/platform"),platform.rectangle));
+                    }
+                }
+
+                _items.Add(new Lever(content.Load<Texture2D>("items/lever"), tmp.rectangle, map,platforms));
+            }
+                
                 
             foreach (var tmp in map.GetCoins())
                 _items.Add(new Coin(content.Load<Texture2D>("Items/coinAnimation"), new Rectangle((int)tmp.X, (int)tmp.Y, 50, 50), 1, coinSound));
@@ -182,7 +198,7 @@ namespace TheGame.States
 
         public override void Update(GameTime gameTime)
         {
-            gameMaster.Update(gameTime,player);
+            gameMaster.Update(gameTime,player, map);
             UpdateSessionData();
             if (!gameMaster.isActive)
             {
@@ -195,7 +211,7 @@ namespace TheGame.States
                     paralax.Update(ghostSprite, graphics);
                 
                 foreach (Item item in _items)
-                    item.Update(gameTime, player);
+                    item.Update(gameTime, player, map);
                 
                 foreach (MovableItem item in movableItems)
                     item.Update(gameTime, player, map, movableItems);

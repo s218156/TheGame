@@ -29,9 +29,11 @@ namespace TheGame.Mics
         public List<Rectangle> movableObjects;
         public List<Rectangle> powerups;
         public List<Rectangle> gameMasterSpawn, checkPoints,fallableObjects,springs;
+        public List<LeverInstanceForMap> levers;
+        public List<PlatformInstanceForMap> platforms;
      
         private string[] objectLayersToVector = { "Mouse", "Snails", "Worms", "Enemies", "End", "Spawn","Coins" };
-        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" ,"Springs"};
+        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" ,"Springs", "Levers","Platforms"};
         public TileMap(TiledMap map, GraphicsDevice graphics)
         {
             tMap = map;
@@ -59,6 +61,8 @@ namespace TheGame.Mics
             checkPoints= new List<Rectangle>();
             fallableObjects = new List<Rectangle>();
             springs = new List<Rectangle>();
+            levers = new List<LeverInstanceForMap>();
+            platforms = new List<PlatformInstanceForMap>();
 
             mouse = new List<Vector2>();
             worms = new List<Vector2>();
@@ -89,6 +93,10 @@ namespace TheGame.Mics
                         fallableObjects.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
                     if(layer=="Springs")
                         springs.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if(layer=="Levers")
+                        levers.Add(new LeverInstanceForMap(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height),int.Parse(tmp.Type)));
+                    if (layer == "Platforms")
+                        platforms.Add(new PlatformInstanceForMap(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height), int.Parse(tmp.Type)));
                 }
             }
                        

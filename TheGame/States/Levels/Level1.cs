@@ -21,7 +21,7 @@ namespace TheGame.States
     class Level1 : Level
     {
 
-        public Level1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session) : base(game, graphics, content, session,new MainMenuState(game,graphics,content, session))
+        public Level1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session) : base(game, graphics, content, session,new Level2(game,graphics,content, session))
         {
             pointAtTheBegining = session.GetPlayerPoints();
             LoadMap();

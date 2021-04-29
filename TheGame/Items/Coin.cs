@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TheGame.Animations;
+using TheGame.Mics;
 using TheGame.SoundControllers;
 using TheGame.Sprites;
 
@@ -30,7 +31,7 @@ namespace TheGame.Items
             
         }
 
-        public override void Update(GameTime gameTime, Player player)
+        public override void Update(GameTime gameTime, Player player, TileMap map)
         {
             animation.Update(gameTime,null);
             if ((rectangle.Intersects(player.rectangle))&(isActive))

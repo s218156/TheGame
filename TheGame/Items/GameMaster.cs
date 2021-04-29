@@ -48,7 +48,7 @@ namespace TheGame.Items
             }
         }
 
-        public override void Update(GameTime gameTime, Player player)
+        public override void Update(GameTime gameTime, Player player, TileMap map)
         {
             
             if (wasAccepted & Keyboard.GetState().IsKeyUp(Keys.Space))

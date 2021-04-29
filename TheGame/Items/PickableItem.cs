@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TheGame.Inventory;
+using TheGame.Mics;
 using TheGame.Sprites;
 
 namespace TheGame.Items
@@ -24,7 +25,7 @@ namespace TheGame.Items
                 spriteBatch.Draw(texture, rectangle, Color.White);
          
         }
-        public override void Update(GameTime gameTime, Player player)
+        public override void Update(GameTime gameTime, Player player, TileMap map)
         {
             if ((rectangle.Intersects(player.rectangle))&isActive)
             {
