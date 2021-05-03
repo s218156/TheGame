@@ -316,12 +316,6 @@
 /processorParam:TextureFormat=Color
 /build:Shaders/lightmask.png
 
-#begin Shaders/Normal.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:Shaders/Normal.fx
-
 #begin Sprites/GameMaster.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -370,18 +364,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/pinkWormAnimation.png
 
-#begin Sprites/player.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/player.png
-
 #begin Sprites/playerAnimation.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -405,18 +387,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/snailAnimation.png
-
-#begin Sprites/test-character.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/test-character.png
 
 #begin textureEffects/whiteFogAnimation.png
 /importer:TextureImporter
