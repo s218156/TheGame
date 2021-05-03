@@ -28,7 +28,8 @@ namespace TheGame.Items
             else
             {
                 isAcitve = false;
-                map.mapObjects.Remove(rectangle);
+                while(map.mapObjects.Contains(rectangle))
+                    map.mapObjects.Remove(rectangle);
             }
         }
 

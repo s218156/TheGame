@@ -99,7 +99,7 @@ namespace TheGame.States.Menu
         private void NewGameButtonClick(object sender, EventArgs e)
         {
             SessionData session = new SessionData();
-            game.ChangeState(new Level2(game, graphics, content,session));
+            game.ChangeState(new Level3(game, graphics, content,session));
         }
 
         

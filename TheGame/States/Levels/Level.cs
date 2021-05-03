@@ -30,7 +30,7 @@ namespace TheGame.States
         protected List<Item> _items;
         protected Vector2 spawnPoint;
         protected GameUI gameUI;
-        protected Vector2 EndPoint;
+        protected Rectangle EndPoint;
         protected List<MovableItem> movableItems;
         protected List<FallableObject> fallableObjects;
         protected int pointAtTheBegining;
@@ -38,8 +38,15 @@ namespace TheGame.States
         protected List<string>messageList;
         protected List<Spring> springs;
         private State nextGameState;
+
+        private Texture2D mask;
+        protected Effect effect;
+        RenderTarget2D lightMask;
+        RenderTarget2D gameFrame;
+        protected bool isLightShader;
         public Level(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session,State nextGameState):base(game,graphics,content, session)
         {
+            isLightShader = false;
             pointAtTheBegining = session.GetPlayerPoints();
             _paralaxes = new List<Paralax>();
             this.nextGameState = nextGameState;
@@ -59,6 +66,14 @@ namespace TheGame.States
 
         public override void Initialize()
         {
+            gameFrame = new RenderTarget2D(graphics, graphics.Viewport.Width, graphics.Viewport.Height);
+            if (isLightShader)
+            {
+                lightMask = new RenderTarget2D(graphics, graphics.Viewport.Width, graphics.Viewport.Height);
+                mask = content.Load<Texture2D>("shaders/lightmask");
+            }
+                
+
             session.SetPlayerPoints(pointAtTheBegining);
             _startParalaxes = new List<Paralax>(_paralaxes);
             _camera = new Camera();
@@ -147,6 +162,11 @@ namespace TheGame.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            if(isLightShader)
+                UpdateLightMask(spriteBatch);
+
+
+            graphics.SetRenderTarget(gameFrame);
             spriteBatch.Begin();
             foreach(var paralax in _paralaxes)
                 paralax.Draw(gameTime, spriteBatch);
@@ -174,6 +194,20 @@ namespace TheGame.States
             gameUI.Draw(gameTime, spriteBatch, session);
             gameMaster.Draw(gameTime, spriteBatch);
             spriteBatch.End();
+
+            graphics.SetRenderTarget(null);
+            
+            
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            if (isLightShader)
+            {
+                graphics.Clear(Color.Black);
+                effect.Parameters["lightMask"].SetValue(lightMask);
+                effect.CurrentTechnique.Passes[0].Apply();
+            }
+            spriteBatch.Draw(gameFrame, Vector2.Zero, Color.White);
+            spriteBatch.End();
+
         }
 
         public void UpdateSessionData()
@@ -234,12 +268,27 @@ namespace TheGame.States
         }
         public void CheckEndLevel()
         {
-            if(player.rectangle.Intersects(new Rectangle((int)EndPoint.X, (int)EndPoint.Y, 100, 100)))
+            if(player.rectangle.Intersects(EndPoint))
             {
                 nextGameState.UpdateSessionData(session);
                 game.ChangeState(nextGameState);
             }
                 
+        }
+
+        private void UpdateLightMask(SpriteBatch spriteBatch)
+        {
+
+            graphics.SetRenderTarget(lightMask);
+            graphics.Clear(Color.DarkGray);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+            spriteBatch.Draw(mask, new Rectangle(graphics.Viewport.Width / 2 - (250), (3 * graphics.Viewport.Height / 4 - (250)), 500, 500), Color.White);
+            foreach (Item item in _items)
+            {
+                if (item.isActive)
+                    spriteBatch.Draw(mask, new Vector2(item.rectangle.X - ghostSprite.rectangle.X + graphics.Viewport.Width / 2 - (mask.Width / 2), item.rectangle.Y - ghostSprite.rectangle.Y + 3 * graphics.Viewport.Height / 4 - (mask.Height / 2)), Color.White);
+            }
+            spriteBatch.End();
         }
 
     }

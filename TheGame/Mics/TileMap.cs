@@ -25,15 +25,15 @@ namespace TheGame.Mics
         public List<Vector2> mouse;
         public List<Vector2> enemies;
         public Vector2 spawnPosition;
-        public Vector2 endPosition;
+        public Rectangle endPosition;
         public List<Rectangle> movableObjects;
         public List<Rectangle> powerups;
         public List<Rectangle> gameMasterSpawn, checkPoints,fallableObjects,springs;
         public List<LeverInstanceForMap> levers;
         public List<PlatformInstanceForMap> platforms;
      
-        private string[] objectLayersToVector = { "Mouse", "Snails", "Worms", "Enemies", "End", "Spawn","Coins" };
-        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" ,"Springs", "Levers","Platforms"};
+        private string[] objectLayersToVector = { "Mouse", "Snails", "Worms", "Enemies", "Spawn","Coins" };
+        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" ,"Springs", "Levers","Platforms", "End" };
         public TileMap(TiledMap map, GraphicsDevice graphics)
         {
             tMap = map;
@@ -97,6 +97,8 @@ namespace TheGame.Mics
                         levers.Add(new LeverInstanceForMap(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height),int.Parse(tmp.Type)));
                     if (layer == "Platforms")
                         platforms.Add(new PlatformInstanceForMap(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height), int.Parse(tmp.Type)));
+                    if (layer == "End")
+                        endPosition = new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height);
                 }
             }
                        
@@ -113,8 +115,6 @@ namespace TheGame.Mics
                         snails.Add(new Vector2((int)tmp.Position.X, (int)tmp.Position.Y));
                     if(layer=="Enemies")
                         enemies.Add(new Vector2((int)tmp.Position.X, (int)tmp.Position.Y));
-                    if(layer=="End")
-                        endPosition=new Vector2((int)tmp.Position.X,(int)tmp.Position.Y);
                     if(layer=="Spawn")
                         spawnPosition = new Vector2((int)tmp.Position.X, (int)tmp.Position.Y);
                     if (layer == "Coins")

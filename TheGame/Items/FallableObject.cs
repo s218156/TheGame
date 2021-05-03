@@ -36,9 +36,13 @@ namespace TheGame.Items
                     timeAfterTouch++;
                 else
                 {
-                    GravitySimulation();
-                    if (map.mapObjects.Contains(rectangle))
-                        map.mapObjects.Remove(rectangle);
+                    if (rectangle.X < 500 * 64)
+                    {
+                        GravitySimulation();
+                        if (map.mapObjects.Contains(rectangle))
+                            map.mapObjects.Remove(rectangle);
+                    }
+                    
                 }
                     
 
