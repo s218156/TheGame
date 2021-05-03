@@ -13,7 +13,6 @@ namespace TheGame.Items
     public class Coin:Item
     {
         int value;
-        bool isActive;
         private ItemAnimation animation;
         CoinSoundController sound;
         public Coin(Texture2D texture, Rectangle rectangle, int value,CoinSoundController sound) : base(texture, rectangle)

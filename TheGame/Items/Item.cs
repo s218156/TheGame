@@ -12,6 +12,7 @@ namespace TheGame.Items
     {
         public Rectangle rectangle;
         public Texture2D texture;
+        public bool isActive;
 
         public Item(Texture2D texture, Rectangle rectangle)
         {

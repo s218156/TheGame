@@ -68,7 +68,7 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/Level0/l0p3.png
 
-#begin Backgrounds/Level1/mountain.jpg
+#begin Backgrounds/Level2/l2p1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -78,7 +78,31 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Backgrounds/Level1/mountain.jpg
+/build:Backgrounds/Level2/l2p1.png
+
+#begin Backgrounds/Level2/l2p2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Level2/l2p2.png
+
+#begin Backgrounds/Level2/l2p3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Level2/l2p3.png
 
 #begin Fonts/Basic.spritefont
 /importer:FontDescriptionImporter
@@ -274,6 +298,24 @@
 /processorParam:TextureFormat=Color
 /build:jetpack.png
 
+#begin Shaders/lightEffect.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/lightEffect.fx
+
+#begin Shaders/lightmask.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Shaders/lightmask.png
+
 #begin Sprites/GameMaster.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -322,18 +364,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/pinkWormAnimation.png
 
-#begin Sprites/player.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/player.png
-
 #begin Sprites/playerAnimation.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -357,18 +387,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/snailAnimation.png
-
-#begin Sprites/test-character.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/test-character.png
 
 #begin textureEffects/whiteFogAnimation.png
 /importer:TextureImporter
@@ -396,6 +414,11 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:TileMaps/Level2/level2-map.tmx
+
+#begin TileMaps/Level3/level3-map.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:TileMaps/Level3/level3-map.tmx
 
 #begin TileMaps/textures/mapTextures.png
 /importer:TextureImporter
