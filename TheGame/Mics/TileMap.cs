@@ -28,12 +28,12 @@ namespace TheGame.Mics
         public Rectangle endPosition;
         public List<Rectangle> movableObjects;
         public List<Rectangle> powerups;
-        public List<Rectangle> gameMasterSpawn, checkPoints,fallableObjects,springs;
+        public List<Rectangle> gameMasterSpawn, checkPoints,fallableObjects,springs, tourches;
         public List<LeverInstanceForMap> levers;
         public List<PlatformInstanceForMap> platforms;
      
         private string[] objectLayersToVector = { "Mouse", "Snails", "Worms", "Enemies", "Spawn","Coins" };
-        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" ,"Springs", "Levers","Platforms", "End" };
+        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" ,"Springs", "Levers","Platforms", "End", "Tourches" };
         public TileMap(TiledMap map, GraphicsDevice graphics)
         {
             tMap = map;
@@ -61,6 +61,7 @@ namespace TheGame.Mics
             checkPoints= new List<Rectangle>();
             fallableObjects = new List<Rectangle>();
             springs = new List<Rectangle>();
+            tourches = new List<Rectangle>();
             levers = new List<LeverInstanceForMap>();
             platforms = new List<PlatformInstanceForMap>();
 
@@ -99,6 +100,8 @@ namespace TheGame.Mics
                         platforms.Add(new PlatformInstanceForMap(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height), int.Parse(tmp.Type)));
                     if (layer == "End")
                         endPosition = new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height);
+                    if (layer == "Tourches")
+                        tourches.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
                 }
             }
                        

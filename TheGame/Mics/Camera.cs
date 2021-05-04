@@ -19,24 +19,36 @@ namespace TheGame.Mics
             _previousVelocity = Vector2.Zero;
         }
 
-        public void Follow(Sprite target)
+        public float GetZoom()
+        {
+            return _zoom;
+        }
+
+        public void Follow(Sprite target,bool isZoomOn)
         {
             var position = Matrix.CreateTranslation(-target.rectangle.X - (target.rectangle.Width),-target.rectangle.Y - (target.rectangle.Height),0);
             var offset = Matrix.CreateTranslation( Game1.screenWidth / 2, Game1.screenHeight / 2 + Game1.screenHeight / 5,1);
-
-            if (Math.Abs(target.velocity.X)<Math.Abs(_previousVelocity.X))
+            if (isZoomOn)
             {
-                if (_zoom < (float)0.99)
-                    _zoom += (float)0.005;
+                if (Math.Abs(target.velocity.X) < Math.Abs(_previousVelocity.X))
+                {
+                    if (_zoom < (float)0.99)
+                        _zoom += (float)0.005;
+                    else
+                        _zoom = 1;
+                }
                 else
-                    _zoom = 1;
+                {
+                    if (Math.Abs(target.velocity.X) > 0.5)
+                        if (_zoom > (float)0.8)
+                            _zoom -= (float)0.001;
+                }
             }
             else
             {
-                if (_zoom > (float)0.8)
-                    _zoom -= (float)0.001;
-
+                _zoom = 1;
             }
+            
 
             Transform = position * Matrix.CreateScale(_zoom) * offset ;
 

@@ -38,6 +38,7 @@ namespace TheGame.States
         protected List<string>messageList;
         protected List<Spring> springs;
         private State nextGameState;
+        Random random;
 
         private Texture2D mask;
         protected Effect effect;
@@ -46,6 +47,7 @@ namespace TheGame.States
         protected bool isLightShader;
         public Level(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session,State nextGameState):base(game,graphics,content, session)
         {
+            random = new Random();
             isLightShader = false;
             pointAtTheBegining = session.GetPlayerPoints();
             _paralaxes = new List<Paralax>();
@@ -137,7 +139,10 @@ namespace TheGame.States
             
             foreach (var tmp in map.GetLadders())
                 _items.Add(new Ladder(tmp));
-            
+
+            foreach (var tmp in map.tourches)
+                _items.Add(new Tourch(content.Load<Texture2D>("items/tourch"),tmp));
+
             foreach (var tmp in map.snails)
                 _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/snailAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 100, 1));
             
@@ -240,7 +245,7 @@ namespace TheGame.States
                     sprite.Update(gameTime, player, map, movableItems);
                 
                 map.Update(gameTime);
-                _camera.Follow(ghostSprite);
+                _camera.Follow(ghostSprite,!isLightShader);
                 foreach (var paralax in _paralaxes)
                     paralax.Update(ghostSprite, graphics);
                 
@@ -280,13 +285,17 @@ namespace TheGame.States
         {
 
             graphics.SetRenderTarget(lightMask);
-            graphics.Clear(Color.DarkGray);
+            graphics.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
-            spriteBatch.Draw(mask, new Rectangle(graphics.Viewport.Width / 2 - (250), (3 * graphics.Viewport.Height / 4 - (250)), 500, 500), Color.White);
             foreach (Item item in _items)
             {
-                if (item.isActive)
-                    spriteBatch.Draw(mask, new Vector2(item.rectangle.X - ghostSprite.rectangle.X + graphics.Viewport.Width / 2 - (mask.Width / 2), item.rectangle.Y - ghostSprite.rectangle.Y + 3 * graphics.Viewport.Height / 4 - (mask.Height / 2)), Color.White);
+                if(item is Tourch)
+                {
+                    Tourch tmp = (Tourch)item;
+                        int radious = random.Next(475, 500);
+                        spriteBatch.Draw(mask, new Rectangle((int)(tmp.lightSource.X - (ghostSprite.rectangle.X + ghostSprite.rectangle.Width) + (graphics.Viewport.Width / 2) - radious / 2), (int)(tmp.lightSource.Y - (ghostSprite.rectangle.Y + ghostSprite.rectangle.Height) + (graphics.Viewport.Height / 2 + graphics.Viewport.Height / 5) - radious / 2), radious, radious), Color.White);
+
+                }
             }
             spriteBatch.End();
         }
