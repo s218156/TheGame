@@ -151,7 +151,10 @@ namespace TheGame.States
             
             foreach (var tmp in map.worms)
                 _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/greenWormAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 150,2));
-            
+
+            foreach (var tmp in map.flyingBugs)
+                _sprites.Add(new Fly(content.Load<Texture2D>("Sprites/flyAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 400, 2));
+
             EndPoint = map.endPosition;
             foreach (var tmp in map.powerups)
             {

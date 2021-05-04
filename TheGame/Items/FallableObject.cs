@@ -39,7 +39,7 @@ namespace TheGame.Items
                     if (rectangle.X < 500 * 64)
                     {
                         GravitySimulation();
-                        if (map.mapObjects.Contains(rectangle))
+                        while (map.mapObjects.Contains(rectangle))
                             map.mapObjects.Remove(rectangle);
                     }
                     

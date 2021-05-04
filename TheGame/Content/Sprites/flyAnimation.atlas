@@ -1,0 +1,27 @@
+
+flyAnimation.png
+size: 384,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+fly
+  rotate: false
+  xy: 0, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+fly_dead
+  rotate: false
+  xy: 128, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+fly_move
+  rotate: false
+  xy: 256, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1

@@ -22,7 +22,7 @@ namespace TheGame.Mics
         public List<Rectangle> obstracles;
         public List<Vector2> snails;
         public List<Vector2> worms;
-        public List<Vector2> mouse;
+        public List<Vector2> mouse, flyingBugs;
         public List<Vector2> enemies;
         public Vector2 spawnPosition;
         public Rectangle endPosition;
@@ -32,7 +32,7 @@ namespace TheGame.Mics
         public List<LeverInstanceForMap> levers;
         public List<PlatformInstanceForMap> platforms;
      
-        private string[] objectLayersToVector = { "Mouse", "Snails", "Worms", "Enemies", "Spawn","Coins" };
+        private string[] objectLayersToVector = { "Mouse", "Snails", "Worms", "Enemies", "Spawn","Coins", "FlyingBug" };
         private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" ,"Springs", "Levers","Platforms", "End", "Tourches" };
         public TileMap(TiledMap map, GraphicsDevice graphics)
         {
@@ -70,6 +70,7 @@ namespace TheGame.Mics
             snails = new List<Vector2>();
             enemies = new List<Vector2>();
             coins = new List<Vector2>();
+            flyingBugs = new List<Vector2>();
 
             foreach (string layer in objectLayersToRectangle)
             {
@@ -122,7 +123,8 @@ namespace TheGame.Mics
                         spawnPosition = new Vector2((int)tmp.Position.X, (int)tmp.Position.Y);
                     if (layer == "Coins")
                         coins.Add(new Vector2((int)tmp.Position.X, (int)tmp.Position.Y));
-
+                    if (layer == "FlyingBug")
+                        flyingBugs.Add(new Vector2((int)tmp.Position.X, (int)tmp.Position.Y));
                 }
             }
         }
