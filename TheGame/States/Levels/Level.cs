@@ -198,10 +198,7 @@ namespace TheGame.States
                 item.Draw(gameTime, spriteBatch);
             spriteBatch.End();
             
-            spriteBatch.Begin();
-            gameUI.Draw(gameTime, spriteBatch, session);
-            gameMaster.Draw(gameTime, spriteBatch);
-            spriteBatch.End();
+            
 
             graphics.SetRenderTarget(null);
             
@@ -216,6 +213,10 @@ namespace TheGame.States
             spriteBatch.Draw(gameFrame, Vector2.Zero, Color.White);
             spriteBatch.End();
 
+            spriteBatch.Begin();
+            gameUI.Draw(gameTime, spriteBatch, session);
+            gameMaster.Draw(gameTime, spriteBatch);
+            spriteBatch.End();
         }
 
         public void UpdateSessionData()
@@ -257,9 +258,17 @@ namespace TheGame.States
                 
                 foreach (MovableItem item in movableItems)
                     item.Update(gameTime, player, map, movableItems);
-                
+
+
+                List<FallableObject> newFallableList = new List<FallableObject>();
                 foreach (FallableObject item in fallableObjects)
-                    item.Update(gameTime, player,map);
+                {
+                    item.Update(gameTime, player, map);
+                    if (!item.isOnGround)
+                        newFallableList.Add(item);
+                }
+                fallableObjects = newFallableList;
+                    
                 
                 foreach (CheckPoint checkPoint in _checkpoints)
                 {

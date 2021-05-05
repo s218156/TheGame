@@ -9,32 +9,17 @@ using TheGame.Sprites;
 
 namespace TheGame.States.Menu
 {
-    class MainMenuState : State
+    class MainMenuState : MenuState
     {
 
 
-        private List<Component> _components;
+        
 
         public MainMenuState(Game1 game, GraphicsDevice graphics, ContentManager content,SessionData session) : base(game, graphics, content,session)
         {
             Initialize();
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            foreach (Button item in _components){
-                item.Update(gameTime);
-
-                //na tem moment na sztywno
-                if(item.caption=="Load Game")
-                {
-                    item.isAbleToClick = false;
-                }
-
-
-                
-            }
-        }
 
         public override void Initialize()
         {
@@ -69,16 +54,17 @@ namespace TheGame.States.Menu
                 settingsButton,
                 aboutButton,
                 exitButton
-
             };
-        }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin();
-            foreach (var item in _components)
-                item.Draw(gameTime, spriteBatch);
-            spriteBatch.End();
+            _buttons = new List<Button>()
+            {
+                newGameButton,
+                loadGameButton,
+                settingsButton,
+                aboutButton,
+                exitButton
+            };
+            base.Initialize();
+            
         }
 
         private void AboutButtonClick(object sender, EventArgs e)
@@ -101,7 +87,5 @@ namespace TheGame.States.Menu
             SessionData session = new SessionData();
             game.ChangeState(new Level3(game, graphics, content,session));
         }
-
-        
     }
 }

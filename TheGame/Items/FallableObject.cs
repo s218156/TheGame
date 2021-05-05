@@ -10,12 +10,14 @@ namespace TheGame.Items
 {
     public class FallableObject : PhysicalObject
     {
+        public bool isOnGround;
         int timeAfterTouch;
         bool wasTouched;
         public FallableObject(Texture2D texture, Rectangle rectangle):base(texture,rectangle)
         {
             timeAfterTouch = 0;
             wasTouched = false;
+            isOnGround = false;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -36,16 +38,19 @@ namespace TheGame.Items
                     timeAfterTouch++;
                 else
                 {
-                    if (rectangle.X < 500 * 64)
+                    while (map.mapObjects.Contains(rectangle))
+                        map.mapObjects.Remove(rectangle);
+                    if (!isOnGround)
                     {
                         GravitySimulation();
-                        while (map.mapObjects.Contains(rectangle))
-                            map.mapObjects.Remove(rectangle);
+                        CheckEnviromentColision(map);
                     }
                     
+                    if (velocity.Y < 1)
+                    {
+                        isOnGround = true;
+                    }
                 }
-                    
-
             }
             UpdatePosition();
         }        

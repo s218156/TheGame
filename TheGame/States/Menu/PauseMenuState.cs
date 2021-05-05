@@ -10,10 +10,9 @@ using TheGame.Mics;
 
 namespace TheGame.States.Menu
 {
-    class PauseMenuState : State
+    class PauseMenuState : MenuState
     {
         private State _previousState;
-        private List<Component> _components;
         private bool isExitable;
         public PauseMenuState(Game1 game, GraphicsDevice graphics, ContentManager content,State previousState,SessionData session):base(game,graphics,content,session)
         {
@@ -25,41 +24,43 @@ namespace TheGame.States.Menu
         public override void Initialize()
         {
             Texture2D buttonTexture = content.Load<Texture2D>("gameUI/button");
-            _components = new List<Component>();
             int y;
             y = (graphics.Viewport.Height / 10) * 3;
 
             Button ReturnButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Return"));
             ReturnButton.Click += ReturnButtonClicked;
             _components.Add(ReturnButton);
+            _buttons.Add(ReturnButton);
             y += graphics.Viewport.Height / 30 + graphics.Viewport.Height / 10;
 
             Button ResetButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Restart Level"));
             ResetButton.Click += ResetButtonClicked;
             _components.Add(ResetButton);
+            _buttons.Add(ResetButton);
+
             y += graphics.Viewport.Height / 30 + graphics.Viewport.Height / 10;
 
             Button SaveButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Save game"));
             _components.Add(SaveButton);
+            _buttons.Add(SaveButton);
+
             y += graphics.Viewport.Height / 30 + graphics.Viewport.Height / 10;
 
             Button MainMenuButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Main Menu"));
             MainMenuButton.Click += MainMenuButtonClicked;
             _components.Add(MainMenuButton);
+            _buttons.Add(MainMenuButton);
+
             y += graphics.Viewport.Height / 30 + graphics.Viewport.Height / 10;
 
             Button ExitButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Quit Game"));
             ExitButton.Click += ExitButtonClicked;
             _components.Add(ExitButton);
-        }
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin();
-            foreach(var item in _components)
-                item.Draw(gameTime, spriteBatch);
+            _buttons.Add(ExitButton);
+            base.Initialize();
 
-            spriteBatch.End();
         }
+
 
         public override void Update(GameTime gameTime)
         {
@@ -71,9 +72,8 @@ namespace TheGame.States.Menu
                 game.ChangeState(_previousState);
                 Thread.Sleep(200);
             }
-            foreach (var item in _components)
-                item.Update(gameTime);
 
+            base.Update(gameTime);
         }
 
         public void ReturnButtonClicked(object sender, EventArgs e)
