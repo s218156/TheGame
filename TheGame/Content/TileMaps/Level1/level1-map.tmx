@@ -470,7 +470,7 @@
   <object id="548" x="16832" y="832" width="64" height="448"/>
   <object id="561" x="16832" y="0" width="64" height="832"/>
   <object id="562" x="10557.3" y="1970.67" width="16" height="18.6667"/>
-  <object id="563" x="9705.33" y="1973.33" width="21.3333" height="18.6667"/>
+  <object id="563" x="9705.33" y="1969.33" width="21.3333" height="18.6667"/>
  </objectgroup>
  <objectgroup id="22" name="Tourches"/>
  <objectgroup id="20" name="Levers"/>

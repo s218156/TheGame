@@ -104,6 +104,30 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/Level2/l2p3.png
 
+#begin Backgrounds/Level3/l3p1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Level3/l3p1.png
+
+#begin Backgrounds/Level3/l3p2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Level3/l3p2.png
+
 #begin Fonts/Basic.spritefont
 /importer:FontDescriptionImporter
 /processor:LocalizedFontProcessor

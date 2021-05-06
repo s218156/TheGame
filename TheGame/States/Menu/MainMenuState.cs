@@ -85,7 +85,7 @@ namespace TheGame.States.Menu
         private void NewGameButtonClick(object sender, EventArgs e)
         {
             SessionData session = new SessionData();
-            game.ChangeState(new Level3(game, graphics, content,session));
+            game.ChangeState(new Level0(game, graphics, content,session));
         }
     }
 }
