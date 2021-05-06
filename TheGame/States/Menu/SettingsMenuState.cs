@@ -10,9 +10,8 @@ using TheGame.Sprites;
 namespace TheGame.States.Menu
 {
     
-    class SettingsMenuState : State
+    class SettingsMenuState : MenuState
     {
-        private List<Component> _components;
         private Button resolutionButton, toogleFullScreenButton;
         private int height, width;
         private int[,] resolutionTable;
@@ -21,31 +20,15 @@ namespace TheGame.States.Menu
         public SettingsMenuState(Game1 game, GraphicsDevice graphics, ContentManager content,SessionData session) : base(game, graphics, content,session)
         {
             resolutionTable = new int[,] { { 640, 360 }, { 800, 450 }, { 1280, 720 }, { 1600, 900 }, { 1920, 1080 } };
-            _components = new List<Component>();
+            
 
             height = graphics.Viewport.Height;
             width = graphics.Viewport.Width;
             isFullScreen = graphics.PresentationParameters.IsFullScreen;
             Initialize();
+            
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin();
-            foreach(var item in _components)
-            {
-                item.Draw(gameTime, spriteBatch);
-            }
-            spriteBatch.End();
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            foreach (var item in _components)
-            {
-                item.Update(gameTime);
-            }
-        }
 
         private void ResolutionButtonClick(object sender, EventArgs e)
         {
@@ -126,10 +109,12 @@ namespace TheGame.States.Menu
             _components.Add(applyButton);
             _components.Add(backButton);
 
+            _buttons.Add(resolutionButton);
+            _buttons.Add(toogleFullScreenButton);
+            _buttons.Add(applyButton);
+            _buttons.Add(backButton);
 
-
-
-
+            base.Initialize();
         }
     }
 }

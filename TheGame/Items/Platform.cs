@@ -23,6 +23,7 @@ namespace TheGame.Items
             if (lever.isRight)
             {
                 isAcitve = true;
+                if(!map.mapObjects.Contains(rectangle))
                 map.mapObjects.Add(rectangle);
             }
             else

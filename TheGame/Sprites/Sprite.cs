@@ -20,6 +20,7 @@ namespace TheGame.Sprites
         public bool crouch;
         public int hitPoints , deathTime;
         private ItemAnimation deathAnimation;
+        protected bool canFly;
 
 
 
@@ -33,6 +34,7 @@ namespace TheGame.Sprites
             attacking = 0;
             deathTime = 0;
             deathAnimation = new ItemAnimation(deathTexture, rectangle, 4, 2);
+            canFly = false;
             
         }
 
@@ -52,9 +54,8 @@ namespace TheGame.Sprites
             if ((isAlive)&(deathTime<=80))
             {
                 FrictionCount();
-                if(!isOnLadder)
+                if (!canFly & isAlive & !isOnLadder)
                     GravitySimulation();
-
                 IsOnObstracles(map);
                 CheckEnviromentColision(map);
                 CheckColisionWithMovables(movableList,map);
@@ -73,6 +74,11 @@ namespace TheGame.Sprites
             }
             else
             {
+
+                GravitySimulation();
+                CheckEnviromentColision(map);
+                UpdatePosition();
+
                 deathTime++;
                 deathAnimation.Update(gameTime,null);
             }

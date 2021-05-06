@@ -85,6 +85,10 @@ namespace TheGame.Mics
                     Click?.Invoke(this, new EventArgs());
             }
         }
+        public void ButtonSelected()
+        {
+            Click?.Invoke(this, new EventArgs());
+        }
 
     }
 }
