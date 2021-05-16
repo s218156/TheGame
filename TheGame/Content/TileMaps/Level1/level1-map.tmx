@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="500" height="100" tilewidth="64" tileheight="64" infinite="0" nextlayerid="24" nextobjectid="564">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="500" height="100" tilewidth="64" tileheight="64" infinite="0" nextlayerid="24" nextobjectid="569">
  <tileset firstgid="1" name="grass-tiles" tilewidth="64" tileheight="64" tilecount="32" columns="4">
   <image source="../textures/mapTextures/grass-tiles.png" width="256" height="512"/>
  </tileset>
@@ -116,7 +116,13 @@
  <objectgroup id="14" name="Movable Boxes">
   <object id="425" x="9777.33" y="1857.33" width="64" height="64"/>
  </objectgroup>
- <objectgroup id="16" name="GameMaster"/>
+ <objectgroup id="16" name="GameMaster">
+  <object id="564" x="512" y="256" width="64" height="64"/>
+  <object id="565" x="768" y="256" width="64" height="64"/>
+  <object id="566" x="426.667" y="-101.333"/>
+  <object id="567" x="960" y="1664" width="64" height="64"/>
+  <object id="568" x="3328" y="1408" width="64" height="64"/>
+ </objectgroup>
  <objectgroup id="15" name="PowerUps"/>
  <layer id="12" name="Warstwa Kafelków 2" width="500" height="100">
   <data encoding="csv">

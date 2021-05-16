@@ -25,6 +25,11 @@ namespace TheGame.States
         {
             pointAtTheBegining = session.GetPlayerPoints();
             LoadMap();
+            messageList = new List<string>(){
+                "Can you see the lever up there? Try to reach it." ,
+                "When over the lever, hold 'S' and try to move. It will switch the lever and some additional platforms will appear!"
+                
+            };
             Initialize();
 
         }

@@ -8,7 +8,7 @@ namespace TheGame.Mics
 {
     public class ScreenSettings
     {
-        public string path = "C:/TheGame/config/screenConfig.xml";
+        public string path = "screenConfig.xml";
         public int height { get; set; }
         public int width { get; set; }
         public bool isFullScreen { get; set; }

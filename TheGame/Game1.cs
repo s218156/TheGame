@@ -66,7 +66,7 @@ namespace TheGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
 
-            if ((Keyboard.GetState().IsKeyDown(Keys.Escape))&(!(_currentState is MainMenuState))&(!(_currentState is SettingsMenuState)) & (!(_currentState is PauseMenuState)))
+            if ((Keyboard.GetState().IsKeyDown(Keys.Escape))&(!(_currentState is MenuState)))
             {
                 Thread.Sleep(200);
                 _gameState = _currentState;

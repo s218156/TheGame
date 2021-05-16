@@ -25,6 +25,13 @@ namespace TheGame.States
         {
             pointAtTheBegining = session.GetPlayerPoints();
             LoadMap();
+            messageList = new List<string>(){
+                "It's dark down here. As you can see the light is emited by touches",
+                "Great job! you made it!",
+                "That's all for now, I hope you enjoyed The Game",
+                "Follow the GitHub repository for updates",
+                "If developer will have enough coffee to evolve this project xD"
+            };
             Initialize();
 
         }

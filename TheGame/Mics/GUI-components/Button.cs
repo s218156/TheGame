@@ -89,6 +89,10 @@ namespace TheGame.Mics
         {
             Click?.Invoke(this, new EventArgs());
         }
+        public void unHoverButton()
+        {
+            _isHovering = false;
+        }
 
     }
 }

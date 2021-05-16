@@ -25,13 +25,10 @@ namespace TheGame.States.Menu
         {
             Texture2D buttonTexture = content.Load<Texture2D>("gameUI/button");
             int y;
-            y = (graphics.Viewport.Height / 10) * 2;
+            y = (graphics.Viewport.Height / 10) * 3;
 
 
             Button newGameButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("New Game"));
-            y += graphics.Viewport.Height / 30 + graphics.Viewport.Height / 10;
-
-            Button loadGameButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Load Game"));
             y += graphics.Viewport.Height / 30 + graphics.Viewport.Height / 10;
 
             Button settingsButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Settings"));
@@ -50,7 +47,6 @@ namespace TheGame.States.Menu
             _components = new List<Component>()
             {
                 newGameButton,
-                loadGameButton,
                 settingsButton,
                 aboutButton,
                 exitButton
@@ -58,7 +54,6 @@ namespace TheGame.States.Menu
             _buttons = new List<Button>()
             {
                 newGameButton,
-                loadGameButton,
                 settingsButton,
                 aboutButton,
                 exitButton
