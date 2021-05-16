@@ -25,6 +25,12 @@ namespace TheGame.States
         {
             pointAtTheBegining = session.GetPlayerPoints();
             LoadMap();
+            messageList = new List<string>(){
+                "Welcome to the next Level!" ,
+                "This wooden bridge is not looking solid...",
+                "Now you know that stepping on it will cause the bridge to colapse",
+                "When you will jump on the spring, it fill throw you to the sky. Try it!"
+            };
             Initialize();
 
         }
