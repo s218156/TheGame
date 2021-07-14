@@ -10,7 +10,7 @@ using TheGame.Sprites;
 
 namespace TheGame.Content.Items
 {
-    class CheckPoint:Item
+    public class CheckPoint:Item
     {
         public bool isChecked;
         public bool wasChecked;

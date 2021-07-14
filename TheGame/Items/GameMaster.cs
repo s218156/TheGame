@@ -11,7 +11,7 @@ using TheGame.Sprites;
 
 namespace TheGame.Items
 {
-    class GameMaster:Item
+    public class GameMaster:Item
     {
         ItemAnimation animatedTexture;
         ChatBox chatBox;

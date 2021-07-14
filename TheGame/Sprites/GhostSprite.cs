@@ -8,7 +8,7 @@ using TheGame.Mics;
 
 namespace TheGame.Sprites
 {
-    class GhostSprite : Sprite
+    public class GhostSprite : Sprite
     {
         private int type;
         private GraphicsDevice graphics;

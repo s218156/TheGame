@@ -7,7 +7,7 @@ using TheGame.Sprites;
 
 namespace TheGame.Mics
 {
-    class Paralax
+    public class Paralax
     {
         private int height, width;
         private Texture2D texture;

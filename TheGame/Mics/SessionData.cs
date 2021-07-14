@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TheGame.SaveAndLoadControllers;
+using TheGame.States;
 
 namespace TheGame.Mics
 {
@@ -8,11 +10,13 @@ namespace TheGame.Mics
     {
         private int playerLives;
         private int playerPoints;
+        private SaveGameController saveGameController;
 
         public SessionData()
         {
             this.playerLives = 5;
             this.playerPoints = 0;
+            this.saveGameController = new SaveGameController();
         }
         public void UpdatePlayerPoints(int value)
         {
@@ -27,6 +31,10 @@ namespace TheGame.Mics
         {
             return playerPoints;
         }
+        public void UpdateSaveGameController(Level level)
+        {
+            saveGameController.UpdateSaveGameData(level);
+        }
 
         public int GetPlayerLives()
         {
@@ -35,6 +43,10 @@ namespace TheGame.Mics
         public void SetPlayerLives(int quantity)
         {
             this.playerLives = quantity;
+        }
+        public void SaveData()
+        {
+            saveGameController.SaveGame();
         }
     }
 }

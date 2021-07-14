@@ -9,7 +9,7 @@ using TheGame.Sprites;
 
 namespace TheGame.Items
 {
-    class Spring : Item
+    public class Spring : Item
     {
         public bool isPlayerOn;
         int timer;
@@ -26,7 +26,7 @@ namespace TheGame.Items
         {
             animation.Draw(gameTime, spriteBatch);
         }
-        public void Update(GameTime gameTime, Player player, TileMap map)
+        public override void Update(GameTime gameTime, Player player, TileMap map)
         {
             if (!map.mapObjects.Contains(colisionRectangle))
                 map.mapObjects.Add(colisionRectangle);

@@ -8,7 +8,7 @@ using TheGame.Sprites;
 
 namespace TheGame.Mics
 {
-    class Camera
+    public class Camera
     {
         private float _zoom { get; set; }
         public Matrix Transform { get; private set; }

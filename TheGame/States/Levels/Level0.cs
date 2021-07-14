@@ -21,7 +21,7 @@ namespace TheGame.States
 {
     class Level0 : Level
     {
-        public Level0(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session, new Level1(game,graphics,content,session))
+        public Level0(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session,1)
         {
             LoadMap();
             messageList = new List<string>(){

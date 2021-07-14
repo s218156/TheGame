@@ -14,14 +14,16 @@ using TheGame.Mics;
 using TheGame.Mics.GUI_components;
 using TheGame.SoundControllers;
 using TheGame.Sprites;
+using TheGame.States.Levels;
 using TheGame.States.Menu;
 
 namespace TheGame.States
 {
-    abstract class Level : State
+    public abstract class Level : State
     {
+        protected int nextLevelId;
         protected TileMap map;
-        protected Player player;
+        public Player player;
         protected List<Sprite> _sprites;
         protected Camera _camera;
         protected List<CheckPoint> _checkpoints;
@@ -45,13 +47,13 @@ namespace TheGame.States
         RenderTarget2D lightMask;
         RenderTarget2D gameFrame;
         protected bool isLightShader;
-        public Level(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session,State nextGameState):base(game,graphics,content, session)
+        public Level(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session, int nextLevelId):base(game,graphics,content, session)
         {
+            this.nextLevelId = nextLevelId;
             random = new Random();
             isLightShader = false;
             pointAtTheBegining = session.GetPlayerPoints();
             _paralaxes = new List<Paralax>();
-            this.nextGameState = nextGameState;
         }
 
         public void GeneratePlayerAndBackground()
@@ -287,10 +289,15 @@ namespace TheGame.States
         {
             if(player.rectangle.Intersects(EndPoint))
             {
-                nextGameState.UpdateSessionData(session);
-                game.ChangeState(nextGameState);
+                LevelFactory lv = new LevelFactory();
+                game.ChangeState(lv.PickLevelById(nextLevelId, game,graphics,content,session));
             }
                 
+        }
+
+        public override void SaveDataToSession()
+        {
+            session.UpdateSaveGameController(this);
         }
 
         private void UpdateLightMask(SpriteBatch spriteBatch)
