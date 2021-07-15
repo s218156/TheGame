@@ -21,15 +21,16 @@ namespace TheGame.States
 {
     public abstract class Level : State
     {
+        public int levelId;
         protected int nextLevelId;
         protected TileMap map;
         public Player player;
-        protected List<Sprite> _sprites;
+        public List<Sprite> sprites;
         protected Camera _camera;
         protected List<CheckPoint> _checkpoints;
         protected GhostSprite ghostSprite;
         protected List<Paralax> _paralaxes, _startParalaxes;
-        protected List<Item> _items;
+        public List<Item> items;
         protected Vector2 spawnPoint;
         protected GameUI gameUI;
         protected Rectangle EndPoint;
@@ -47,8 +48,9 @@ namespace TheGame.States
         RenderTarget2D lightMask;
         RenderTarget2D gameFrame;
         protected bool isLightShader;
-        public Level(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session, int nextLevelId):base(game,graphics,content, session)
+        public Level(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session,int levelId, int nextLevelId):base(game,graphics,content, session)
         {
+            this.levelId = levelId;
             this.nextLevelId = nextLevelId;
             random = new Random();
             isLightShader = false;
@@ -64,8 +66,8 @@ namespace TheGame.States
                 tmp.Initialize();
 
             ghostSprite = new GhostSprite(player);
-            _sprites.Insert(0, player);
-            _sprites.Add(ghostSprite);
+            sprites.Insert(0, player);
+            sprites.Add(ghostSprite);
         }
 
         public override void Initialize()
@@ -81,8 +83,8 @@ namespace TheGame.States
             session.SetPlayerPoints(pointAtTheBegining);
             _startParalaxes = new List<Paralax>(_paralaxes);
             _camera = new Camera();
-            _sprites = new List<Sprite>();
-            _items = new List<Item>();
+            sprites = new List<Sprite>();
+            items = new List<Item>();
             _checkpoints = new List<CheckPoint>();
             movableItems = new List<MovableItem>();
             gameUI = new GameUI(content);
@@ -118,7 +120,7 @@ namespace TheGame.States
             {
                 var newItem = new CheckPoint(tmp, content.Load<Texture2D>("Items/checkpoint"), content.Load<Texture2D>("Items/checkpointanim"));
                 _checkpoints.Add(newItem);
-                _items.Add(newItem);
+                items.Add(newItem);
             }
 
             foreach (var tmp in map.levers)
@@ -132,30 +134,30 @@ namespace TheGame.States
                     }
                 }
 
-                _items.Add(new Lever(content.Load<Texture2D>("items/lever"), tmp.rectangle, map,platforms));
+                items.Add(new Lever(content.Load<Texture2D>("items/lever"), tmp.rectangle, map,platforms));
             }
                 
                 
             foreach (var tmp in map.GetCoins())
-                _items.Add(new Coin(content.Load<Texture2D>("Items/coinAnimation"), new Rectangle((int)tmp.X, (int)tmp.Y, 50, 50), 1, coinSound));
+                items.Add(new Coin(content.Load<Texture2D>("Items/coinAnimation"), new Rectangle((int)tmp.X, (int)tmp.Y, 50, 50), 1, coinSound));
             
             foreach (var tmp in map.GetLadders())
-                _items.Add(new Ladder(tmp));
+                items.Add(new Ladder(tmp));
 
             foreach (var tmp in map.tourches)
-                _items.Add(new Tourch(content.Load<Texture2D>("items/tourch"),tmp));
+                items.Add(new Tourch(content.Load<Texture2D>("items/tourch"),tmp));
 
             foreach (var tmp in map.snails)
-                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/snailAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 100, 1));
+                sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/snailAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 100, 1));
             
             foreach (var tmp in map.mouse)
-                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/mouseAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 300,3));
+                sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/mouseAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 300,3));
             
             foreach (var tmp in map.worms)
-                _sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/greenWormAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 150,2));
+                sprites.Add(new MovingBug(content.Load<Texture2D>("Sprites/greenWormAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 150,2));
 
             foreach (var tmp in map.flyingBugs)
-                _sprites.Add(new Fly(content.Load<Texture2D>("Sprites/flyAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 400, 2));
+                sprites.Add(new Fly(content.Load<Texture2D>("Sprites/flyAnimation"), tmp, content.Load<Texture2D>("textureEffects/whiteFogAnimation"), 400, 2));
 
             EndPoint = map.endPosition;
             foreach (var tmp in map.powerups)
@@ -163,7 +165,7 @@ namespace TheGame.States
                 if (tmp.Height == 1)
                 {
                     InventoryItem tmpItem = new InventoryItem(tmp.Height, 20, content.Load<Texture2D>("jetpack"), false);
-                    _items.Add(new PickableItem(content.Load<Texture2D>("jetpack"), new Rectangle(tmp.X, tmp.Y, tmp.Width, tmp.Width), tmpItem));
+                    items.Add(new PickableItem(content.Load<Texture2D>("jetpack"), new Rectangle(tmp.X, tmp.Y, tmp.Width, tmp.Width), tmpItem));
                 }
             }
             gameMaster = new GameMaster(content, new Vector2(graphics.Viewport.Width,graphics.Viewport.Height), map.gameMasterSpawn,messageList);
@@ -184,10 +186,10 @@ namespace TheGame.States
             spriteBatch.End();
             map.Draw(_camera.Transform);
             spriteBatch.Begin(SpriteSortMode.FrontToBack, transformMatrix: _camera.Transform);
-            foreach (Sprite sprite in _sprites)
+            foreach (Sprite sprite in sprites)
                 sprite.Draw(gameTime, spriteBatch);
             
-            foreach(Item item in _items)
+            foreach(Item item in items)
                 item.Draw(gameTime, spriteBatch);
 
             foreach (Spring tmp in springs)
@@ -233,8 +235,8 @@ namespace TheGame.States
                     game.ChangeState(new MainMenuState(game, graphics, content, null));
                 else
                 {
-                    _sprites.Remove(player);
-                    _sprites.Remove(ghostSprite);
+                    sprites.Remove(player);
+                    sprites.Remove(ghostSprite);
                     GeneratePlayerAndBackground();
                 }
             }
@@ -247,7 +249,7 @@ namespace TheGame.States
             UpdateSessionData();
             if (!gameMaster.isActive)
             {
-                foreach (Sprite sprite in _sprites)
+                foreach (Sprite sprite in sprites)
                     sprite.Update(gameTime, player, map, movableItems);
                 
                 map.Update(gameTime);
@@ -255,7 +257,7 @@ namespace TheGame.States
                 foreach (var paralax in _paralaxes)
                     paralax.Update(ghostSprite, graphics);
                 
-                foreach (Item item in _items)
+                foreach (Item item in items)
                     item.Update(gameTime, player, map);
                 
                 foreach (MovableItem item in movableItems)
@@ -306,7 +308,7 @@ namespace TheGame.States
             graphics.SetRenderTarget(lightMask);
             graphics.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
-            foreach (Item item in _items)
+            foreach (Item item in items)
             {
                 if(item is Tourch)
                 {

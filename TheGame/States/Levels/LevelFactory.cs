@@ -18,6 +18,9 @@ namespace TheGame.States.Levels
         {
             switch (id)
             {
+                case 0:
+                    return new Level0(game, graphics, content, session);
+                    break;
                 case 1:
                     return new Level1(game, graphics, content, session);
                     break;
