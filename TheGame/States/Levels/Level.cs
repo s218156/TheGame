@@ -31,13 +31,13 @@ namespace TheGame.States
         protected GhostSprite ghostSprite;
         protected List<Paralax> _paralaxes, _startParalaxes;
         public List<Item> items;
-        protected Vector2 spawnPoint;
+        public Vector2 spawnPoint;
         protected GameUI gameUI;
         protected Rectangle EndPoint;
-        protected List<MovableItem> movableItems;
+        public List<MovableItem> movableItems;
         protected List<FallableObject> fallableObjects;
         protected int pointAtTheBegining;
-        protected GameMaster gameMaster;
+        public GameMaster gameMaster;
         protected List<string>messageList;
         protected List<Spring> springs;
         private State nextGameState;

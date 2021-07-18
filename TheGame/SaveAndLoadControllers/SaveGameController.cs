@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -17,14 +18,21 @@ namespace TheGame.SaveAndLoadControllers
         public List<ItemData> itemsData { get; set; }
         public int playerLives { get; set; }
         public int PlayerPoints { get; set; }
+        public Vector2 spawnPoint { get; set; } 
+        public List<MovableData> movablesData { get; set; }
+        public GameMasterData gameMasterData { get; set; }
         public SaveGameController()
         {
             this.playerData = new PlayerData();
             this.spritesData = new List<SpriteData>();
             this.itemsData = new List<ItemData>();
+            this.movablesData = new List<MovableData>();
+            this.spawnPoint = Vector2.Zero;
+            this.gameMasterData = new GameMasterData();
         }
         public void UpdateSaveGameData(Level level)
         {
+            this.gameMasterData.UpdateGameMasterData(level.gameMaster);
             this.LevelId = level.levelId;
             this.playerData.UpdatePlayerData(level.player);
             foreach(Sprite sprite in level.sprites)
@@ -39,8 +47,15 @@ namespace TheGame.SaveAndLoadControllers
                 tmp.UpdateItemData(item);
                 itemsData.Add(tmp);
             }
+            foreach(MovableItem item in level.movableItems)
+            {
+                MovableData tmp = new MovableData();
+                tmp.UpdateMovableData(item);
+                movablesData.Add(tmp);
+            }
             this.playerLives = level.session.GetPlayerLives();
             this.PlayerPoints = level.session.GetPlayerPoints();
+            this.spawnPoint = level.spawnPoint;
         }
 
         public SaveGameController LoadGame()
