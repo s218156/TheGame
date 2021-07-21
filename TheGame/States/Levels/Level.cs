@@ -42,6 +42,7 @@ namespace TheGame.States
         protected List<Spring> springs;
         private State nextGameState;
         Random random;
+        private List<WaterArea> waterAreas;
 
         private Texture2D mask;
         protected Effect effect;
@@ -90,6 +91,7 @@ namespace TheGame.States
             gameUI = new GameUI(content);
             fallableObjects = new List<FallableObject>();
             springs = new List<Spring>();
+            waterAreas = new List<WaterArea>();
 
             GenerateObjects();
         }
@@ -115,6 +117,9 @@ namespace TheGame.States
 
             foreach (Rectangle tmp in map.springs)
                 springs.Add(new Spring(content.Load<Texture2D>("Items/spring"), tmp));
+
+            foreach (Rectangle tmp in map.waterArea)
+                waterAreas.Add(new WaterArea(content.Load<Texture2D>("TileMaps/textures/water_texture"), tmp));
 
             foreach (var tmp in map.checkPoints)
             {
@@ -200,9 +205,11 @@ namespace TheGame.States
             
             foreach (FallableObject item in fallableObjects)
                 item.Draw(gameTime, spriteBatch);
+
+            foreach (WaterArea item in waterAreas)
+                item.Draw(gameTime, spriteBatch);
             spriteBatch.End();
-            
-            
+
 
             graphics.SetRenderTarget(null);
             
@@ -272,7 +279,9 @@ namespace TheGame.States
                         newFallableList.Add(item);
                 }
                 fallableObjects = newFallableList;
-                    
+
+                foreach (WaterArea tmp in waterAreas)
+                    tmp.Update(gameTime);
                 
                 foreach (CheckPoint checkPoint in _checkpoints)
                 {

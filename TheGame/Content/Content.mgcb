@@ -10,7 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference:C:\Users\Studio\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Content.Pipeline.dll
+/reference:..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -492,6 +492,11 @@
 /processor:TiledMapProcessor
 /build:TileMaps/Level3/level3-map.tmx
 
+#begin TileMaps/Level4/level4-map.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:TileMaps/Level4/level4-map.tmx
+
 #begin TileMaps/textures/mapTextures.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -527,6 +532,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TileMaps/textures/mapTextures/sand.png
+
+#begin TileMaps/textures/Water_texture.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TileMaps/textures/Water_texture.png
 
 #begin TileMaps/textures/xtraTextures.png
 /importer:TextureImporter

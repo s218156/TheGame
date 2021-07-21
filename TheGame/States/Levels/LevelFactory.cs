@@ -30,6 +30,8 @@ namespace TheGame.States.Levels
                 case 3:
                     return new Level3(game, graphics, content, session);
                     break;
+                case 4:
+                    return new Level4(game, graphics, content, session);
                 default:
                     return null;
                     break;
