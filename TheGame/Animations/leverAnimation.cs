@@ -15,7 +15,7 @@ namespace TheGame.Animations
         }
         public void Update(GameTime gameTime, Lever lever)
         {
-            if (lever.isRight)
+            if (lever.isActive)
                 currentFrame = 1;
             else
                 currentFrame = 0;

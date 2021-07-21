@@ -36,7 +36,7 @@ namespace TheGame.Sprites
             }
         }
 
-        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem>movableList)
+        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem>movableList, List<WaterArea> waterAreas)
         {
             if (type == 0)
             {

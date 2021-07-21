@@ -56,7 +56,7 @@ namespace TheGame.States.Menu
         private void NewGameButtonClick(object sender, EventArgs e)
         {
             SessionData session = new SessionData();
-            game.ChangeState(new Level4(game, graphics, content, session));
+            game.ChangeState(new Level2(game, graphics, content, session));
         }
 
         private void backButtonClick(object sender, EventArgs e)

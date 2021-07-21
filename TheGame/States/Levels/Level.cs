@@ -257,7 +257,7 @@ namespace TheGame.States
             if (!gameMaster.isActive)
             {
                 foreach (Sprite sprite in sprites)
-                    sprite.Update(gameTime, player, map, movableItems);
+                    sprite.Update(gameTime, player, map, movableItems,waterAreas);
                 
                 map.Update(gameTime);
                 _camera.Follow(ghostSprite,!isLightShader);
@@ -281,7 +281,7 @@ namespace TheGame.States
                 fallableObjects = newFallableList;
 
                 foreach (WaterArea tmp in waterAreas)
-                    tmp.Update(gameTime);
+                    tmp.Update(gameTime, sprites);
                 
                 foreach (CheckPoint checkPoint in _checkpoints)
                 {

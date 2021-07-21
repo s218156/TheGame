@@ -53,6 +53,7 @@ namespace TheGame.SaveAndLoadControllers
                 tmp.UpdateMovableData(item);
                 movablesData.Add(tmp);
             }
+
             this.playerLives = level.session.GetPlayerLives();
             this.PlayerPoints = level.session.GetPlayerPoints();
             this.spawnPoint = level.spawnPoint;

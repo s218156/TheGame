@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Text;
 using TheGame.Animations;
 using TheGame.Items;
+using TheGame.Sprites;
 
 namespace TheGame.Mics
 {
-    class WaterArea
+    public class WaterArea
     {
-        Rectangle rectangle;
+        public Rectangle rectangle;
         WaterAnimation animation;
         public WaterArea(Texture2D texture, Rectangle rectangle)
         {
@@ -21,7 +22,7 @@ namespace TheGame.Mics
         {
             animation.Draw(gameTime, spriteBatch);
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, List<Sprite> sprites)
         {
             animation.Update(gameTime, null);
         }

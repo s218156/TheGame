@@ -9,15 +9,14 @@ using TheGame.Sprites;
 
 namespace TheGame.Items
 {
-    class Lever : Item
+    public class Lever : Item
     {
-        public bool isRight;
         private Rectangle colisionRectangle;
         private LeverAnimation animation;
         private List<Platform> platforms;
         public Lever(Texture2D texture,Rectangle rectangle, TileMap map,List<Platform> platforms) : base(null, rectangle)
         {
-            isRight = false;
+            isActive = false;
             colisionRectangle = new Rectangle(rectangle.X + (rectangle.Width / 10), rectangle.Y + 3 * (rectangle.Height / 4), 8 * (rectangle.Width / 10), rectangle.Height / 4);
             animation = new LeverAnimation(texture, rectangle);
             map.mapObjects.Add(colisionRectangle);
@@ -36,9 +35,9 @@ namespace TheGame.Items
                 if (player.velocity.X != 0)
                 {
                     if (player.velocity.X > 0)
-                        isRight = true;
+                        isActive = true;
                     else
-                        isRight = false;
+                        isActive = false;
                 }  
             }
 

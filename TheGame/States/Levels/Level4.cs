@@ -26,11 +26,7 @@ namespace TheGame.States
             pointAtTheBegining = session.GetPlayerPoints();
             LoadMap();
             messageList = new List<string>(){
-                "It's dark down here. As you can see the light is emited by touches",
-                "Great job! you made it!",
-                "That's all for now, I hope you enjoyed The Game",
-                "Follow the GitHub repository for updates",
-                "If developer will have enough coffee to evolve this project xD"
+                
             };
             Initialize();
 
@@ -41,12 +37,15 @@ namespace TheGame.States
             map = new TileMap(content.Load<TiledMap>("TileMaps/level4/Level4-map"), graphics);
 
 
-            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level3/l3p1"), graphics, Vector2.Zero, new Vector2((float)0.5,0));
-            Paralax p3 = new Paralax(content.Load<Texture2D>("Backgrounds/Level3/l3p2"), graphics, Vector2.Zero, new Vector2((float)0.2, (float)0));
-
-            _paralaxes.Add(p3);
+            Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p2"), graphics, Vector2.Zero, new Vector2((float)0.2, 0));
+            Paralax p2 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p1"), graphics, new Vector2(-1, 0), new Vector2((float)0.5, (float)0.9));
+            Paralax p3 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p0"), graphics, Vector2.Zero, new Vector2((float)0.4, (float)0.1));
+            Paralax p4 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p3"), graphics, Vector2.Zero, new Vector2((float)0.3, (float)0));
             _paralaxes.Add(p1);
-            
+            _paralaxes.Add(p4);
+            _paralaxes.Add(p3);
+            _paralaxes.Add(p2);
+
         }
     }
 }
