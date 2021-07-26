@@ -296,7 +296,7 @@ namespace TheGame.States
                 CheckEndLevel();
             }
         }
-        public void CheckEndLevel()
+        public virtual void CheckEndLevel()
         {
             if(player.rectangle.Intersects(EndPoint))
             {
