@@ -15,6 +15,7 @@ namespace TheGame.Mics
         TiledMap tMap;
         TiledMapRenderer mapRenderer;
         TiledMapLayer layer1;
+        public List<subLevelInstanceForMap> sublevels;
         public List<Rectangle> mapObjects;
         public List<Rectangle> gameMaster;
         public List<Vector2> coins;
@@ -34,7 +35,7 @@ namespace TheGame.Mics
         public List<Rectangle> waterArea;
      
         private string[] objectLayersToVector = { "Mouse", "Snails", "Worms", "Enemies", "Spawn","Coins", "FlyingBug" };
-        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" ,"Springs", "Levers","Platforms", "End", "Tourches", "Water" };
+        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" ,"Springs", "Levers","Platforms", "End", "Tourches", "Water", "SubLevelTrigger" };
         public TileMap(TiledMap map, GraphicsDevice graphics)
         {
             tMap = map;
@@ -66,6 +67,7 @@ namespace TheGame.Mics
             waterArea = new List<Rectangle>();
             levers = new List<LeverInstanceForMap>();
             platforms = new List<PlatformInstanceForMap>();
+            sublevels = new List<subLevelInstanceForMap>();
 
             mouse = new List<Vector2>();
             worms = new List<Vector2>();
@@ -107,6 +109,8 @@ namespace TheGame.Mics
                         tourches.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
                     if (layer == "Water")
                         waterArea.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if (layer == "SubLevelTrigger")
+                        sublevels.Add(new subLevelInstanceForMap(int.Parse(tmp.Type), new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height)));
                 }
             }
                        

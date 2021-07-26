@@ -12,6 +12,7 @@ namespace TheGame.SaveAndLoadControllers
 {
     public class SaveGameController
     {
+        public bool isSubLevel { set; get; }
         public int LevelId { set; get; }
         public PlayerData playerData { get; set; }
         public List<SpriteData> spritesData {get; set; }
@@ -21,6 +22,7 @@ namespace TheGame.SaveAndLoadControllers
         public Vector2 spawnPoint { get; set; } 
         public List<MovableData> movablesData { get; set; }
         public GameMasterData gameMasterData { get; set; }
+        public SaveGameController baseLevelData { get; set; }
         public SaveGameController()
         {
             this.playerData = new PlayerData();
@@ -29,9 +31,18 @@ namespace TheGame.SaveAndLoadControllers
             this.movablesData = new List<MovableData>();
             this.spawnPoint = Vector2.Zero;
             this.gameMasterData = new GameMasterData();
+            //this.baseLevelData = new SaveGameController();
         }
         public void UpdateSaveGameData(Level level)
         {
+            if (level.nextLevelId == -1)
+            {
+                this.isSubLevel = true;
+                this.baseLevelData.UpdateSaveGameData(level.baseLevel);
+            } 
+            else
+                this.isSubLevel = false;
+
             this.gameMasterData.UpdateGameMasterData(level.gameMaster);
             this.LevelId = level.levelId;
             this.playerData.UpdatePlayerData(level.player);

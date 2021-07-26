@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Tiled;
 using System;
@@ -15,14 +16,17 @@ using TheGame.Mics.GUI_components;
 using TheGame.SoundControllers;
 using TheGame.Sprites;
 using TheGame.States.Levels;
+using TheGame.States.Levels.Sublevels;
 using TheGame.States.Menu;
 
 namespace TheGame.States
 {
     public abstract class Level : State
     {
+        private List<SubLevelTrigger> sublevelTriggers;
+        public Level baseLevel;
         public int levelId;
-        protected int nextLevelId;
+        public int nextLevelId;
         protected TileMap map;
         public Player player;
         public List<Sprite> sprites;
@@ -51,6 +55,7 @@ namespace TheGame.States
         protected bool isLightShader;
         public Level(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session,int levelId, int nextLevelId):base(game,graphics,content, session)
         {
+            this.baseLevel = null;
             this.levelId = levelId;
             this.nextLevelId = nextLevelId;
             random = new Random();
@@ -92,6 +97,7 @@ namespace TheGame.States
             fallableObjects = new List<FallableObject>();
             springs = new List<Spring>();
             waterAreas = new List<WaterArea>();
+            sublevelTriggers = new List<SubLevelTrigger>();
 
             GenerateObjects();
         }
@@ -141,8 +147,9 @@ namespace TheGame.States
 
                 items.Add(new Lever(content.Load<Texture2D>("items/lever"), tmp.rectangle, map,platforms));
             }
-                
-                
+            foreach (var tmp in map.sublevels)
+                sublevelTriggers.Add(new SubLevelTrigger(tmp.sublevelId, tmp.rectangle));
+
             foreach (var tmp in map.GetCoins())
                 items.Add(new Coin(content.Load<Texture2D>("Items/coinAnimation"), new Rectangle((int)tmp.X, (int)tmp.Y, 50, 50), 1, coinSound));
             
@@ -294,6 +301,21 @@ namespace TheGame.States
 
                 gameUI.Update(gameTime);
                 CheckEndLevel();
+                CheckSubLevel();
+            }
+        }
+
+        private void CheckSubLevel()
+        {
+            foreach(var trigger in sublevelTriggers)
+            {
+                if ((trigger.rectangle.Intersects(player.rectangle))&&(Keyboard.GetState().IsKeyDown(Keys.F)))
+                {
+                    if (trigger.wasWisited)
+                        game.ChangeState(trigger.sublevel);
+                    Sublevel tmp = new SubLevel1(game,graphics,content,session,this);
+                    game.ChangeState(tmp);
+                }
             }
         }
         public virtual void CheckEndLevel()

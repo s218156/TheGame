@@ -7,9 +7,8 @@ using TheGame.Mics;
 
 namespace TheGame.States.Levels.Sublevels
 {
-    public class Sublevel: Level
+    public abstract class Sublevel: Level
     {
-        Level baseLevel;
         public Sublevel(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session, int levelId, Level baseLevel) : base(game, graphics, content, session, levelId, -1)
         {
             this.baseLevel = baseLevel;
@@ -18,10 +17,7 @@ namespace TheGame.States.Levels.Sublevels
         
 
 
-        protected override void LoadMap()
-        {
-            
-        }
+        
         public override void CheckEndLevel()
         {
             if (player.rectangle.Intersects(EndPoint))

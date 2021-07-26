@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TheGame.Mics;
+using TheGame.States.Levels.Sublevels;
 
 namespace TheGame.States.Levels
 {
@@ -32,6 +33,18 @@ namespace TheGame.States.Levels
                     break;
                 case 4:
                     return new Level4(game, graphics, content, session);
+                default:
+                    return null;
+                    break;
+            }
+        }
+        public Sublevel PickSubLevelById(int id, Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session,Level baseLevel)
+        {
+            switch (id)
+            {
+                case 1001:
+                    return new SubLevel1(game, graphics, content, session, baseLevel);
+                    break;
                 default:
                     return null;
                     break;

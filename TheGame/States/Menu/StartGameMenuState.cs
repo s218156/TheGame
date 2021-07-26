@@ -56,7 +56,7 @@ namespace TheGame.States.Menu
         private void NewGameButtonClick(object sender, EventArgs e)
         {
             SessionData session = new SessionData();
-            game.ChangeState(new Level4(game, graphics, content, session));
+            game.ChangeState(new Level0(game, graphics, content, session));
         }
 
         private void backButtonClick(object sender, EventArgs e)
@@ -65,16 +65,22 @@ namespace TheGame.States.Menu
         }
         private void LoadGameButtonClick(object sender, EventArgs e)
         {
+
+            //regular level
             SaveGameController sg = new SaveGameController();
             sg = sg.LoadGame();
             LevelFactory lv = new LevelFactory();
             SessionData session = new SessionData();
             session.SetPlayerLives(sg.playerLives);
             session.SetPlayerPoints(sg.PlayerPoints);
-            Level level=lv.PickLevelById(sg.LevelId,game,graphics,content,session);
+            Level level;
+            if (!sg.isSubLevel)
+                level = lv.PickLevelById(sg.LevelId, game, graphics, content, session);
+            else
+                level = lv.PickSubLevelById(sg.LevelId, game, graphics, content, session, null);
             level.player.rectangle = sg.playerData.possition;
             level.player.velocity = sg.playerData.velocity;
-            for(int i = 0; i < level.sprites.Count; i++)
+            for (int i = 0; i < level.sprites.Count; i++)
             {
                 level.sprites[i].isAlive = sg.spritesData[i].isAlive;
             }
@@ -83,14 +89,37 @@ namespace TheGame.States.Menu
                 level.items[i].rectangle = sg.itemsData[i].rectangle;
                 level.items[i].isActive = sg.itemsData[i].isActive;
             }
-            for(int i = 0; i < level.movableItems.Count; i++)
+            for (int i = 0; i < level.movableItems.Count; i++)
             {
                 level.movableItems[i].rectangle = sg.movablesData[i].rectangle;
             }
             level.spawnPoint = sg.spawnPoint;
             level.gameMaster.captions = sg.gameMasterData.captions;
             level.gameMaster.triggers = sg.gameMasterData.triggers;
+            if (sg.isSubLevel)
+            {
+                level.baseLevel = lv.PickLevelById(sg.baseLevelData.LevelId, game, graphics, content, session);
+                level.baseLevel.player.rectangle = sg.baseLevelData.playerData.possition;
+                level.baseLevel.player.velocity = sg.baseLevelData.playerData.velocity;
+                for (int i = 0; i < level.baseLevel.sprites.Count; i++)
+                {
+                    level.baseLevel.sprites[i].isAlive = sg.baseLevelData.spritesData[i].isAlive;
+                }
+                for (int i = 0; i < level.items.Count; i++)
+                {
+                    level.baseLevel.items[i].rectangle = sg.baseLevelData.itemsData[i].rectangle;
+                    level.baseLevel.items[i].isActive = sg.baseLevelData.itemsData[i].isActive;
+                }
+                for (int i = 0; i < level.baseLevel.movableItems.Count; i++)
+                {
+                    level.baseLevel.movableItems[i].rectangle = sg.baseLevelData.movablesData[i].rectangle;
+                }
+                level.baseLevel.spawnPoint = sg.baseLevelData.spawnPoint;
+                level.baseLevel.gameMaster.captions = sg.baseLevelData.gameMasterData.captions;
+                level.baseLevel.gameMaster.triggers = sg.baseLevelData.gameMasterData.triggers;
+            }
             game.ChangeState(level);
+
         }
     }
 }
