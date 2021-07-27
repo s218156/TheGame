@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 using TheGame.Items;
+using TheGame.Mics;
 using TheGame.Sprites;
 using TheGame.States;
 
@@ -23,6 +24,7 @@ namespace TheGame.SaveAndLoadControllers
         public List<MovableData> movablesData { get; set; }
         public GameMasterData gameMasterData { get; set; }
         public SaveGameController baseLevelData { get; set; }
+        public List<SubLevelData> sublevelsData { get; set; }
         public SaveGameController()
         {
             this.playerData = new PlayerData();
@@ -31,7 +33,8 @@ namespace TheGame.SaveAndLoadControllers
             this.movablesData = new List<MovableData>();
             this.spawnPoint = Vector2.Zero;
             this.gameMasterData = new GameMasterData();
-            //this.baseLevelData = new SaveGameController();
+            this.baseLevelData = null;
+            //this.sublevelsData = new List<SubLevelData>();
         }
         public void UpdateSaveGameData(Level level)
         {
@@ -64,6 +67,13 @@ namespace TheGame.SaveAndLoadControllers
                 tmp.UpdateMovableData(item);
                 movablesData.Add(tmp);
             }
+            /*foreach(SubLevelTrigger trigger in level.sublevelTriggers)
+            {
+                SubLevelData tmp = new SubLevelData();
+                tmp.UpdateSubLevelData(trigger);
+                sublevelsData.Add(tmp);
+            }
+            */
 
             this.playerLives = level.session.GetPlayerLives();
             this.PlayerPoints = level.session.GetPlayerPoints();

@@ -8,14 +8,11 @@ using TheGame.States.Levels.Sublevels;
 
 namespace TheGame.States.Levels
 {
-    public class LevelFactory
+    public static class LevelFactory
     {
-        public LevelFactory()
-        {
+       
 
-        }
-
-        public Level PickLevelById(int id, Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session)
+        public static Level PickLevelById(int id, Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session)
         {
             switch (id)
             {
@@ -38,7 +35,7 @@ namespace TheGame.States.Levels
                     break;
             }
         }
-        public Sublevel PickSubLevelById(int id, Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session,Level baseLevel)
+        public static Sublevel PickSubLevelById(int id, Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session,Level baseLevel)
         {
             switch (id)
             {

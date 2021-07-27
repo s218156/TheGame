@@ -6,7 +6,7 @@ using TheGame.States.Levels.Sublevels;
 
 namespace TheGame.Mics
 {
-    class SubLevelTrigger
+    public class SubLevelTrigger
     {
         public Rectangle rectangle;
         public int sublevelId;

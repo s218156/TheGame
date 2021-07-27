@@ -23,7 +23,7 @@ namespace TheGame.States
 {
     public abstract class Level : State
     {
-        private List<SubLevelTrigger> sublevelTriggers;
+        public List<SubLevelTrigger> sublevelTriggers;
         public Level baseLevel;
         public int levelId;
         public int nextLevelId;
@@ -312,7 +312,11 @@ namespace TheGame.States
                 if ((trigger.rectangle.Intersects(player.rectangle))&&(Keyboard.GetState().IsKeyDown(Keys.F)))
                 {
                     if (trigger.wasWisited)
+                    {
+                        trigger.sublevel.baseLevel = this;
                         game.ChangeState(trigger.sublevel);
+                    }
+                        
                     Sublevel tmp = new SubLevel1(game,graphics,content,session,this);
                     game.ChangeState(tmp);
                 }
@@ -322,8 +326,8 @@ namespace TheGame.States
         {
             if(player.rectangle.Intersects(EndPoint))
             {
-                LevelFactory lv = new LevelFactory();
-                game.ChangeState(lv.PickLevelById(nextLevelId, game,graphics,content,session));
+                
+                game.ChangeState(LevelFactory.PickLevelById(nextLevelId, game,graphics,content,session));
             }
                 
         }
