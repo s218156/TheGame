@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,9 @@ namespace TheGame.States.Levels.Sublevels
         {
             if (player.rectangle.Intersects(EndPoint))
             {
+                player.rectangle.X -= 50;
+                player.velocity = Vector2.Zero;
+
                 baseLevel.session = this.session;
                 game.ChangeState(baseLevel);
             }

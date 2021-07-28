@@ -33,18 +33,30 @@ namespace TheGame.SaveAndLoadControllers
             this.movablesData = new List<MovableData>();
             this.spawnPoint = Vector2.Zero;
             this.gameMasterData = new GameMasterData();
-            this.baseLevelData = null;
-            //this.sublevelsData = new List<SubLevelData>();
+            this.sublevelsData = new List<SubLevelData>();
         }
         public void UpdateSaveGameData(Level level)
         {
             if (level.nextLevelId == -1)
             {
+                this.baseLevelData = new SaveGameController();
                 this.isSubLevel = true;
                 this.baseLevelData.UpdateSaveGameData(level.baseLevel);
-            } 
+            }
             else
+            {
                 this.isSubLevel = false;
+                foreach (SubLevelTrigger trigger in level.sublevelTriggers)
+                {
+                    if (trigger.wasWisited)
+                    {
+                        SubLevelData tmp = new SubLevelData();
+                        tmp.UpdateSubLevelData(trigger);
+                        sublevelsData.Add(tmp);
+                    }
+                }
+            }
+               
 
             this.gameMasterData.UpdateGameMasterData(level.gameMaster);
             this.LevelId = level.levelId;
@@ -67,13 +79,8 @@ namespace TheGame.SaveAndLoadControllers
                 tmp.UpdateMovableData(item);
                 movablesData.Add(tmp);
             }
-            /*foreach(SubLevelTrigger trigger in level.sublevelTriggers)
-            {
-                SubLevelData tmp = new SubLevelData();
-                tmp.UpdateSubLevelData(trigger);
-                sublevelsData.Add(tmp);
-            }
-            */
+           
+            
 
             this.playerLives = level.session.GetPlayerLives();
             this.PlayerPoints = level.session.GetPlayerPoints();

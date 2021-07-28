@@ -93,6 +93,32 @@ namespace TheGame.States.Menu
             level.gameMaster.triggers = savedGame.gameMasterData.triggers;
             return level;
         }
+        private Level LoadDataFromSaveGameController(SubLevelLevelData savedGame)
+        {
+            SessionData session = new SessionData();
+            session.SetPlayerLives(savedGame.playerLives);
+            session.SetPlayerPoints(savedGame.PlayerPoints);
+            Level level;
+            level = LevelFactory.PickSubLevelById(savedGame.LevelId, game, graphics, content, session, null);
+            level.player.rectangle = savedGame.playerData.possition;
+            for (int i = 0; i < level.sprites.Count; i++)
+            {
+                level.sprites[i].isAlive = savedGame.spritesData[i].isAlive;
+            }
+            for (int i = 0; i < level.items.Count; i++)
+            {
+                level.items[i].rectangle = savedGame.itemsData[i].rectangle;
+                level.items[i].isActive = savedGame.itemsData[i].isActive;
+            }
+            for (int i = 0; i < level.movableItems.Count; i++)
+            {
+                level.movableItems[i].rectangle = savedGame.movablesData[i].rectangle;
+            }
+            level.spawnPoint = savedGame.spawnPoint;
+            level.gameMaster.captions = savedGame.gameMasterData.captions;
+            level.gameMaster.triggers = savedGame.gameMasterData.triggers;
+            return level;
+        }
         private void LoadGameButtonClick(object sender, EventArgs e)
         {
 
@@ -110,7 +136,20 @@ namespace TheGame.States.Menu
             }
             else
             {
-                
+                int j = 0;
+                for(int i = 0; i < level.sublevelTriggers.Count; i++)
+                {
+                    if(j <= sg.sublevelsData.Count - 1)
+                    {
+                        if (level.sublevelTriggers[i].rectangle == sg.sublevelsData[j].rectangle)
+                        {
+                            level.sublevelTriggers[i].sublevel = LoadDataFromSaveGameController(sg.sublevelsData[j].sublevel);
+                            level.sublevelTriggers[i].sublevel.baseLevel = level;
+                            level.sublevelTriggers[i].wasWisited = true;
+                            j++;
+                        }
+                    } 
+                }
             }
             game.ChangeState(level);
 

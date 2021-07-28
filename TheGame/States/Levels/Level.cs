@@ -316,9 +316,12 @@ namespace TheGame.States
                         trigger.sublevel.baseLevel = this;
                         game.ChangeState(trigger.sublevel);
                     }
-                        
-                    Sublevel tmp = new SubLevel1(game,graphics,content,session,this);
-                    game.ChangeState(tmp);
+                    else
+                    {
+                        trigger.sublevel = new SubLevel1(game, graphics, content, session, this);
+                        trigger.wasWisited = true;
+                        game.ChangeState(trigger.sublevel);
+                    }
                 }
             }
         }
