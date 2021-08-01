@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,7 +32,7 @@ namespace TheGame.Items
 
         public override void Update(GameTime gameTime, Player player, TileMap map)
         {
-            if ((rectangle.Intersects(player.rectangle))&(player.crouch)){
+            if ((rectangle.Intersects(player.rectangle))&(Keyboard.GetState().IsKeyDown(Keys.F))){
                 if (player.velocity.X != 0)
                 {
                     if (player.velocity.X > 0)
