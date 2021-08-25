@@ -70,7 +70,10 @@ namespace TheGame.Sprites
             if (isAlive)
             {
                 if (velocity.Y > 0)
+                {
                     bug.AttackedByPlayer();
+                    velocity.Y = -20;
+                } 
                 else
                 {
                     lifePoints -= bugHitPoints;

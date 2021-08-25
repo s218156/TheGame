@@ -59,7 +59,7 @@ namespace TheGame.Mics
             }
             else
             {
-                for (i = -1; i >= (int)velocity.X; i--)
+                for (i = 0; i >= (int)velocity.X; i--)
                 {
                     if ((new Rectangle(rectangle.X + i, rectangle.Y, rectangle.Width, rectangle.Height).Intersects(obj)))
                         velocity.X = i + 1;
@@ -82,7 +82,7 @@ namespace TheGame.Mics
             else
             {
 
-                for (i = -1; i >= (int)velocity.Y; i--)
+                for (i = 0; i >= (int)velocity.Y; i--)
                 {
                     if ((new Rectangle(rectangle.X, rectangle.Y + i, rectangle.Width, rectangle.Height).Intersects(obj)))
                         velocity.Y = i + 1;  

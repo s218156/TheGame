@@ -56,7 +56,7 @@ namespace TheGame.States.Menu
         private void NewGameButtonClick(object sender, EventArgs e)
         {
             SessionData session = new SessionData();
-            game.ChangeState(new Level0(game, graphics, content, session));
+            game.ChangeState(new Level4(game, graphics, content, session));
         }
 
         private void backButtonClick(object sender, EventArgs e)
@@ -122,7 +122,6 @@ namespace TheGame.States.Menu
         private void LoadGameButtonClick(object sender, EventArgs e)
         {
 
-            //regular level
             SaveGameController sg = new SaveGameController();
             sg = sg.LoadGame();
             SessionData session = new SessionData();
