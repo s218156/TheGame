@@ -196,7 +196,7 @@ namespace TheGame.States
                 paralax.Draw(gameTime, spriteBatch);
             
             spriteBatch.End();
-            map.Draw(_camera.Transform);
+            map.DrawAll(_camera.Transform);
             spriteBatch.Begin(SpriteSortMode.FrontToBack, transformMatrix: _camera.Transform);
             foreach (Sprite sprite in sprites)
                 sprite.Draw(gameTime, spriteBatch);
@@ -216,6 +216,7 @@ namespace TheGame.States
             foreach (WaterArea item in waterAreas)
                 item.Draw(gameTime, spriteBatch);
             spriteBatch.End();
+            map.DrawFront(_camera.Transform);
 
 
             graphics.SetRenderTarget(null);

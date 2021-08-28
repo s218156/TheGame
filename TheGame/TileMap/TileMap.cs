@@ -46,10 +46,16 @@ namespace TheGame.Mics
         {
             mapRenderer.Update(time);
         }
-        public void Draw(Matrix transform)
+        public void DrawAll(Matrix transform)
         {
             mapRenderer.Draw(transform, null, null, 0);
         }
+        public void DrawFront(Matrix transform)
+        {
+
+            mapRenderer.Draw(tMap.GetLayer("Front"), transform, null, null, 0);
+        }
+
         void getObjectsFromMap()
         {
             TiledMapObject[] objTmp;
