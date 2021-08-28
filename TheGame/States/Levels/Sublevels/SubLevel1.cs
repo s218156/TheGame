@@ -1,27 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Tiled;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
-using TheGame.Content.Items;
-using TheGame.Inventory;
-using TheGame.Items;
 using TheGame.Mics;
-using TheGame.Mics.GUI_components;
-using TheGame.SoundControllers;
-using TheGame.Sprites;
-using TheGame.States.Menu;
 
-namespace TheGame.States
+namespace TheGame.States.Levels.Sublevels
 {
-    class Level0 : Level
+    class SubLevel1:Sublevel
     {
-        public Level0(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session,0,1)
+        public SubLevel1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session, Level baseLevel) : base(game, graphics, content, session, 1001, baseLevel)
         {
             LoadMap();
             messageList = new List<string>(){
@@ -39,22 +29,22 @@ namespace TheGame.States
                 "This is CheckPoint. If you die, You will respawn at this point!",
                 "Now follow the arrows and DONT get killed!"
             };
-            
+
             Initialize();
         }
-
         protected override void LoadMap()
         {
-            map = new TileMap(content.Load<TiledMap>("TileMaps//level0/Level0-map"), graphics);
+            map = new TileMap(content.Load<TiledMap>("TileMaps//Sublevel1001/Level0-map"), graphics);
 
             Paralax p1 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p2"), graphics, Vector2.Zero, new Vector2((float)0.2, 0));
-            Paralax p2 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p1"), graphics, new Vector2(-1,0), new Vector2((float)0.5, (float)0.9));
+            Paralax p2 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p1"), graphics, new Vector2(-1, 0), new Vector2((float)0.5, (float)0.9));
             Paralax p3 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p0"), graphics, Vector2.Zero, new Vector2((float)0.4, (float)0.1));
-            Paralax p4= new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p3"), graphics, Vector2.Zero, new Vector2((float)0.3, (float)0));
+            Paralax p4 = new Paralax(content.Load<Texture2D>("Backgrounds/Level0/l0p3"), graphics, Vector2.Zero, new Vector2((float)0.3, (float)0));
             _paralaxes.Add(p1);
             _paralaxes.Add(p4);
             _paralaxes.Add(p3);
             _paralaxes.Add(p2);
         }
     }
+    
 }

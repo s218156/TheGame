@@ -11,14 +11,14 @@ using TheGame.Sprites;
 
 namespace TheGame.Items
 {
-    class GameMaster:Item
+    public class GameMaster:Item
     {
         ItemAnimation animatedTexture;
         ChatBox chatBox;
         public bool isActive;
         private bool wasAccepted;
-        List<Rectangle> triggers;
-        List<string> captions;
+        public List<Rectangle> triggers;
+        public List<string> captions;
         Vector2 screenData;
         public GameMaster(ContentManager content, Vector2 screenData,List<Rectangle> triggers, List<string> captions) : base(null, new Rectangle((int)(4 * (screenData.X / 5)), (int)(3 * (screenData.Y / 5)), (int)screenData.X,(int)screenData.Y))
         {

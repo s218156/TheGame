@@ -15,10 +15,10 @@ namespace TheGame.Sprites
             canFly = true;
         }
 
-        public override void Update(GameTime gameTime, Player player, TileMap map, List<MovableItem> movableList)
+        public override void Update(GameTime gameTime, Player player, TileMap map, List<MovableItem> movableList, List<WaterArea> waterAreas)
         {
             canFly = true;
-            base.Update(gameTime, player, map, movableList);
+            base.Update(gameTime, player, map, movableList,waterAreas);
         }
     }
 }

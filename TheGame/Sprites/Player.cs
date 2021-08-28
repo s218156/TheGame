@@ -30,7 +30,7 @@ namespace TheGame.Sprites
             jumpHeight = 30;
         }
 
-        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem>movableList)
+        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem>movableList, List<WaterArea> waterAreas)
         {
             if (isAlive)
             {
@@ -43,7 +43,7 @@ namespace TheGame.Sprites
                 if (deathTime >= 80)
                     lifes--;
             }
-            base.Update(gameTime, player, map,movableList);
+            base.Update(gameTime, player, map,movableList, waterAreas);
             foreach (InventoryItem item in inventory)
                 item.Update(gameTime, this);
             
@@ -70,7 +70,10 @@ namespace TheGame.Sprites
             if (isAlive)
             {
                 if (velocity.Y > 0)
+                {
                     bug.AttackedByPlayer();
+                    velocity.Y = -20;
+                } 
                 else
                 {
                     lifePoints -= bugHitPoints;
@@ -126,8 +129,14 @@ namespace TheGame.Sprites
             if (keyState.IsKeyDown(Keys.LeftControl))
                 attacking = 10;
 
-            if ((keyState.IsKeyDown(Keys.W)) & isOnLadder)
-                velocity.Y--;
+            if ((keyState.IsKeyDown(Keys.W)))
+            {
+                if(isOnLadder)
+                    velocity.Y--;
+                if (isUnderWater)
+                    velocity.Y -= 2;
+            }
+                
 
             if (keyState.IsKeyDown(Keys.D))
                 velocity.X++;

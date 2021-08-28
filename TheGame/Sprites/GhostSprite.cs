@@ -8,7 +8,7 @@ using TheGame.Mics;
 
 namespace TheGame.Sprites
 {
-    class GhostSprite : Sprite
+    public class GhostSprite : Sprite
     {
         private int type;
         private GraphicsDevice graphics;
@@ -36,7 +36,7 @@ namespace TheGame.Sprites
             }
         }
 
-        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem>movableList)
+        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem>movableList, List<WaterArea> waterAreas)
         {
             if (type == 0)
             {

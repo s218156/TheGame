@@ -63,6 +63,7 @@ namespace TheGame.States.Menu
                 tmp.Update(new Player(null,Vector2.Zero,null,1),graphics);
             }
         }
+
     }
     class Selection
     {

@@ -9,6 +9,8 @@ namespace TheGame.Mics
 {
     public class PhysicalObject
     {
+        public float friction;
+        private float baseFriction=(float)0.1;
         public Rectangle rectangle;
         public Vector2 velocity;
         protected Texture2D texture;
@@ -19,12 +21,15 @@ namespace TheGame.Mics
             this.texture = texture;
             this.rectangle = rectangle;
             this.floorColision = false;
+            friction = this.baseFriction;
             
         }
         public PhysicalObject(Texture2D texture,Vector2 position)
         {
             this.texture = texture;
             this.rectangle= new Rectangle((int)position.X, (int)position.Y, 100, 100);
+            this.floorColision = false;
+            friction = this.baseFriction;
         }
 
         protected void CheckColisionWithOtherObjects(List<MovableItem> movableItems)
@@ -54,7 +59,7 @@ namespace TheGame.Mics
             }
             else
             {
-                for (i = -1; i >= (int)velocity.X; i--)
+                for (i = 0; i >= (int)velocity.X; i--)
                 {
                     if ((new Rectangle(rectangle.X + i, rectangle.Y, rectangle.Width, rectangle.Height).Intersects(obj)))
                         velocity.X = i + 1;
@@ -77,7 +82,7 @@ namespace TheGame.Mics
             else
             {
 
-                for (i = -1; i >= (int)velocity.Y; i--)
+                for (i = 0; i >= (int)velocity.Y; i--)
                 {
                     if ((new Rectangle(rectangle.X, rectangle.Y + i, rectangle.Width, rectangle.Height).Intersects(obj)))
                         velocity.Y = i + 1;  
@@ -96,8 +101,8 @@ namespace TheGame.Mics
 
         public void FrictionCount()
         {
-            velocity.X = velocity.X - velocity.X * (float)0.1;
-            velocity.Y = velocity.Y - velocity.Y * (float)0.08;
+            velocity.X = velocity.X - (velocity.X * friction);
+            velocity.Y = velocity.Y - (velocity.Y * friction);
         }
         public void GravitySimulation()
         {
@@ -112,5 +117,11 @@ namespace TheGame.Mics
             rectangle.Y += (int)velocity.Y;
         }
 
+        public void SetDefaultFriction()
+        {
+            friction = baseFriction;
+        }
+
+       
     }
 }

@@ -21,7 +21,7 @@ namespace TheGame.States
     class Level1 : Level
     {
 
-        public Level1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session) : base(game, graphics, content, session,new Level2(game,graphics,content, session))
+        public Level1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session) : base(game, graphics, content, session,1,2)
         {
             pointAtTheBegining = session.GetPlayerPoints();
             LoadMap();
@@ -29,7 +29,7 @@ namespace TheGame.States
                 "Welcome to the next Level!" ,
                 "This wooden bridge is not looking solid...",
                 "Now you know that stepping on it will cause the bridge to colapse",
-                "When you will jump on the spring, it fill throw you to the sky. Try it!"
+                "When you will jump on the spring, it will throw you to the sky. Try it!"
             };
             Initialize();
 

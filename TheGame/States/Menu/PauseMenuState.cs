@@ -7,12 +7,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using TheGame.Mics;
+using TheGame.SaveAndLoadControllers;
 
 namespace TheGame.States.Menu
 {
     class PauseMenuState : MenuState
     {
         private State _previousState;
+        private Level gameLevel;
         private bool isExitable;
         public PauseMenuState(Game1 game, GraphicsDevice graphics, ContentManager content,State previousState,SessionData session):base(game,graphics,content,session)
         {
@@ -41,6 +43,7 @@ namespace TheGame.States.Menu
             y += graphics.Viewport.Height / 30 + graphics.Viewport.Height / 10;
 
             Button SaveButton = new Button(buttonTexture, content.Load<SpriteFont>("Fonts/Basic"), new Rectangle(graphics.Viewport.Width / 3, y, (graphics.Viewport.Width / 3), (graphics.Viewport.Height / 10)), new string("Save game"));
+            SaveButton.Click += SaveGameButtonClicked;
             _components.Add(SaveButton);
             _buttons.Add(SaveButton);
 
@@ -95,6 +98,11 @@ namespace TheGame.States.Menu
         public void MainMenuButtonClicked(object sender, EventArgs e)
         {
             game.ChangeState(new MainMenuState(game, graphics, content,null));
+        }
+
+        public void SaveGameButtonClicked(object sender, EventArgs e)
+        {
+            _previousState.session.SaveData();
         }
 
        

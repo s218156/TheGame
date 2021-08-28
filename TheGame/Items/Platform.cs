@@ -7,7 +7,7 @@ using TheGame.Mics;
 
 namespace TheGame.Items
 {
-    class Platform
+    public class Platform
     {
         private Texture2D texture;
         private Rectangle rectangle;
@@ -20,7 +20,7 @@ namespace TheGame.Items
 
         public void Update(Lever lever, TileMap map)
         {
-            if (lever.isRight)
+            if (lever.isActive)
             {
                 isAcitve = true;
                 if(!map.mapObjects.Contains(rectangle))

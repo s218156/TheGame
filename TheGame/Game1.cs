@@ -69,6 +69,7 @@ namespace TheGame
             if ((Keyboard.GetState().IsKeyDown(Keys.Escape))&(!(_currentState is MenuState)))
             {
                 Thread.Sleep(200);
+                _currentState.SaveDataToSession();
                 _gameState = _currentState;
                 _currentState = new PauseMenuState(this,GraphicsDevice,Content,_gameState,null);
             }

@@ -26,7 +26,7 @@ namespace TheGame.Sprites
             this.range = range;
             this.movingSpeed = movingSpeed;
         }
-        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem>movableList)
+        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem>movableList, List<WaterArea> waterAreas)
         {
             if (isAlive)
             {
@@ -46,7 +46,7 @@ namespace TheGame.Sprites
                 }
                 CheckColisionWithPlayer(player);
             }
-            base.Update(gameTime, player, map,movableList);
+            base.Update(gameTime, player, map,movableList, waterAreas);
 
         }
         private void CheckColisionWithPlayer(Player player)

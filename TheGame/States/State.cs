@@ -32,6 +32,9 @@ namespace TheGame.States
             this.session = session;
         }
 
+        public virtual void SaveDataToSession()
+        {
 
+        }
     }
 }

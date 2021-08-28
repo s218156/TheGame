@@ -10,7 +10,7 @@ using TheGame.Sprites;
 
 namespace TheGame.Content.Items
 {
-    class CheckPoint:Item
+    public class CheckPoint:Item
     {
         public bool isChecked;
         public bool wasChecked;
@@ -22,6 +22,7 @@ namespace TheGame.Content.Items
             this.texture = texture;
             isChecked = false;
             wasChecked = false;
+            isActive = false;
 
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -33,12 +34,17 @@ namespace TheGame.Content.Items
         }
         public override void Update(GameTime gameTime, Player player, TileMap map)
         {
-            wasChecked = isChecked;
+            if (isActive)
+                isChecked = wasChecked = true;
             if (isChecked)
                 animation.Update(gameTime, null);
 
             if (rectangle.Intersects(player.rectangle))
+            {
                 isChecked = true;
+                isActive = true;
+            }
+                
         }
     }
 }

@@ -15,6 +15,7 @@ namespace TheGame.Mics
         TiledMap tMap;
         TiledMapRenderer mapRenderer;
         TiledMapLayer layer1;
+        public List<subLevelInstanceForMap> sublevels;
         public List<Rectangle> mapObjects;
         public List<Rectangle> gameMaster;
         public List<Vector2> coins;
@@ -31,9 +32,10 @@ namespace TheGame.Mics
         public List<Rectangle> gameMasterSpawn, checkPoints,fallableObjects,springs, tourches;
         public List<LeverInstanceForMap> levers;
         public List<PlatformInstanceForMap> platforms;
+        public List<Rectangle> waterArea;
      
         private string[] objectLayersToVector = { "Mouse", "Snails", "Worms", "Enemies", "Spawn","Coins", "FlyingBug" };
-        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" ,"Springs", "Levers","Platforms", "End", "Tourches" };
+        private string[] objectLayersToRectangle = { "WorldColision", "Ladder", "PowerUps", "Obstracles", "Movable Boxes", "GameMaster","CheckPoints", "FallableObject" ,"Springs", "Levers","Platforms", "End", "Tourches", "Water", "SubLevelTrigger" };
         public TileMap(TiledMap map, GraphicsDevice graphics)
         {
             tMap = map;
@@ -44,10 +46,16 @@ namespace TheGame.Mics
         {
             mapRenderer.Update(time);
         }
-        public void Draw(Matrix transform)
+        public void DrawAll(Matrix transform)
         {
             mapRenderer.Draw(transform, null, null, 0);
         }
+        public void DrawFront(Matrix transform)
+        {
+
+            mapRenderer.Draw(tMap.GetLayer("Front"), transform, null, null, 0);
+        }
+
         void getObjectsFromMap()
         {
             TiledMapObject[] objTmp;
@@ -62,8 +70,10 @@ namespace TheGame.Mics
             fallableObjects = new List<Rectangle>();
             springs = new List<Rectangle>();
             tourches = new List<Rectangle>();
+            waterArea = new List<Rectangle>();
             levers = new List<LeverInstanceForMap>();
             platforms = new List<PlatformInstanceForMap>();
+            sublevels = new List<subLevelInstanceForMap>();
 
             mouse = new List<Vector2>();
             worms = new List<Vector2>();
@@ -103,6 +113,10 @@ namespace TheGame.Mics
                         endPosition = new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height);
                     if (layer == "Tourches")
                         tourches.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if (layer == "Water")
+                        waterArea.Add(new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height));
+                    if (layer == "SubLevelTrigger")
+                        sublevels.Add(new subLevelInstanceForMap(int.Parse(tmp.Type), new Rectangle((int)tmp.Position.X, (int)tmp.Position.Y, (int)tmp.Size.Width, (int)tmp.Size.Height)));
                 }
             }
                        

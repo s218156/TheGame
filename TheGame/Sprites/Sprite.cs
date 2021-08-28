@@ -21,6 +21,7 @@ namespace TheGame.Sprites
         public int hitPoints , deathTime;
         private ItemAnimation deathAnimation;
         protected bool canFly;
+        public bool isUnderWater;
 
 
 
@@ -35,6 +36,7 @@ namespace TheGame.Sprites
             deathTime = 0;
             deathAnimation = new ItemAnimation(deathTexture, rectangle, 4, 2);
             canFly = false;
+            isUnderWater = false;
             
         }
 
@@ -49,7 +51,7 @@ namespace TheGame.Sprites
             }
             
         }
-        public virtual void Update(GameTime gameTime,Player player, TileMap map,List<MovableItem> movableList)
+        public virtual void Update(GameTime gameTime,Player player, TileMap map,List<MovableItem> movableList,List<WaterArea> waterAreas)
         {
             if ((isAlive)&(deathTime<=80))
             {
@@ -83,6 +85,7 @@ namespace TheGame.Sprites
                 deathAnimation.Update(gameTime,null);
             }
             animatedTexture.Update(gameTime,this);
+            CheckIfIsUnderWater(waterAreas);
         }
 
         public void IsUnderAttack(Sprite enemy)
@@ -104,7 +107,29 @@ namespace TheGame.Sprites
                 
             }
         }
-               
+
+        public void CheckIfIsUnderWater(List<WaterArea> waterAreas)
+        {
+            int tmp = 0;
+            foreach (WaterArea waterArea in waterAreas)
+            {
+                if (rectangle.Intersects(waterArea.rectangle))
+                {
+                    tmp++;
+                }
+            }
+            if (tmp > 0)
+            {
+                friction = (float)0.15;
+                isUnderWater = true;
+            }
+            else
+            {
+                SetDefaultFriction();
+                isUnderWater = false;
+            }
+        }
+
         public void CheckColisionWithMovables(List<MovableItem> items,TileMap map)
         {
             int i;

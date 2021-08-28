@@ -16,11 +16,11 @@ namespace TheGame.Sprites
             hitPoints = 10;
         }
 
-        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem> movableList)
+        public override void Update(GameTime gameTime, Player player, TileMap map,List<MovableItem> movableList, List<WaterArea> waterAreas)
         {
             MoveTowardsPlayer(player);
             CheckFightCondition(player);
-            base.Update(gameTime, player, map,movableList);
+            base.Update(gameTime, player, map,movableList,waterAreas);
         }
         private void MoveTowardsPlayer(Sprite player)
         {

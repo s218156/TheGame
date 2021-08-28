@@ -9,7 +9,7 @@ using TheGame.Sprites;
 
 namespace TheGame.Mics.GUI_components
 {
-    class GameUI
+    public class GameUI
     {
         private Rectangle boxRectangle;
         private Texture2D boxTexture;
