@@ -23,6 +23,11 @@ namespace TheGame.States
     {
         public Level0(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session):base(game,graphics,content, session,0,1)
         {
+            
+        }
+
+        public override void prepareLevel()
+        {
             LoadMap();
             messageList = new List<string>(){
                 "Hi Player! Welcome to the game! to move press 'A' or 'D'!" ,
@@ -39,7 +44,7 @@ namespace TheGame.States
                 "This is CheckPoint. If you die, You will respawn at this point!",
                 "Now follow the arrows and DONT get killed!"
             };
-            
+
             Initialize();
         }
 

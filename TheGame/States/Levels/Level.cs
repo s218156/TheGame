@@ -75,7 +75,7 @@ namespace TheGame.States
             sprites.Insert(0, player);
             sprites.Add(ghostSprite);
         }
-
+        public abstract void prepareLevel();
         public override void Initialize()
         {
             gameFrame = new RenderTarget2D(graphics, graphics.Viewport.Width, graphics.Viewport.Height);
@@ -331,7 +331,7 @@ namespace TheGame.States
             if(player.rectangle.Intersects(EndPoint))
             {
                 
-                game.ChangeState(LevelFactory.PickLevelById(nextLevelId, game,graphics,content,session));
+                game.ChangeState(new LoadingScreen(game,graphics,content,session,nextLevelId,false));
             }
                 
         }

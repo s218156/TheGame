@@ -23,13 +23,17 @@ namespace TheGame.States
 
         public Level4(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session) : base(game, graphics, content, session,4,0)
         {
+            
+        }
+        public override void prepareLevel()
+        {
             pointAtTheBegining = session.GetPlayerPoints();
             LoadMap();
-            messageList = new List<string>(){
-                
+            messageList = new List<string>()
+            {
+
             };
             Initialize();
-
         }
 
         protected override void LoadMap()

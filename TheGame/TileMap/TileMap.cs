@@ -52,7 +52,6 @@ namespace TheGame.Mics
         }
         public void DrawFront(Matrix transform)
         {
-
             mapRenderer.Draw(tMap.GetLayer("Front"), transform, null, null, 0);
         }
 

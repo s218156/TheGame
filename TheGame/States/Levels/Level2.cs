@@ -23,15 +23,18 @@ namespace TheGame.States
 
         public Level2(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session) : base(game, graphics, content, session,2,3)
         {
+
+        }
+        public override void prepareLevel()
+        {
             pointAtTheBegining = session.GetPlayerPoints();
             LoadMap();
             messageList = new List<string>(){
                 "Can you see the lever up there? Try to reach it." ,
                 "When over the lever, hold 'S' and try to move. It will switch the lever and some additional platforms will appear!"
-                
+
             };
             Initialize();
-
         }
 
         protected override void LoadMap()

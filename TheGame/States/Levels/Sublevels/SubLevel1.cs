@@ -13,6 +13,11 @@ namespace TheGame.States.Levels.Sublevels
     {
         public SubLevel1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session, Level baseLevel) : base(game, graphics, content, session, 1001, baseLevel)
         {
+           
+        }
+
+        public override void prepareLevel()
+        {
             LoadMap();
             messageList = new List<string>(){
                 "Hi Player! Welcome to the game! to move press 'A' or 'D'!" ,

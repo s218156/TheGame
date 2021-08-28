@@ -23,6 +23,10 @@ namespace TheGame.States
 
         public Level1(Game1 game, GraphicsDevice graphics, ContentManager content, SessionData session) : base(game, graphics, content, session,1,2)
         {
+
+        }
+        public override void prepareLevel()
+        {
             pointAtTheBegining = session.GetPlayerPoints();
             LoadMap();
             messageList = new List<string>(){
@@ -32,7 +36,6 @@ namespace TheGame.States
                 "When you will jump on the spring, it will throw you to the sky. Try it!"
             };
             Initialize();
-
         }
 
         protected override void LoadMap()
